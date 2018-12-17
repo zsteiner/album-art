@@ -15,6 +15,12 @@
   border: 0;
 }
 
+.active {
+  & + .copy {
+    display: none;
+  }
+}
+
 .artwork {
   position: relative;
 
@@ -26,6 +32,10 @@
   &:hover {
     .copy {
       display: block;
+    }
+
+    .active + .copy {
+      display: none;
     }
   }
 }

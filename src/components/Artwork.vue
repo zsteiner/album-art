@@ -4,8 +4,8 @@
       <div :ref="album.id" contenteditable>
         <img :src="album.coverMedRes" :alt="album.title">
       </div>
-      <button class="copy" @click="copyLink">Copy Image</button>
-      <p v-if="showSuccess" class="success">image copied</p>
+      <p v-if="showSuccess" v-bind:class="{ active: showSuccess}" class="success">✅ image copied</p>
+      <button class="copy" @click="copyLink">copy image</button>
     </figure>
     <h3 class="album-title">{{ album.title }}</h3>
     <p class="artist">{{ album.artist }}</p>
@@ -32,7 +32,12 @@ export default {
       try {
         const successful = document.execCommand('copy');
         this.showSuccess = successful ? true : false;
+
         window.getSelection().removeAllRanges();
+
+        setTimeout(() => {
+          this.showSuccess = false;
+        }, 4000);
       } catch (err) {
         console.log('Oops, unable to copy');
       }
