@@ -1,0 +1,47 @@
+.success,
+.copy {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+  background: transparentize(white, 0.25);
+  font-size: 1.5rem;
+}
+
+.copy {
+  display: none;
+  border: 0;
+}
+
+.artwork {
+  position: relative;
+
+  img {
+    height: auto;
+    width: 100%;
+  }
+
+  &:hover {
+    .copy {
+      display: block;
+    }
+  }
+}
+
+.album-title {
+  margin: 0.5rem 0 0;
+  font-size: 1.25rem;
+}
+
+.artist {
+  margin: 0.5rem 0;
+}
+
+.success {
+  display: flex;
+  font-weight: 900;
+  justify-content: center;
+  align-items: center;
+}

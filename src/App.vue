@@ -11,6 +11,16 @@
 <style lang="scss">
 @import "./styles/variables";
 
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  box-sizing: border-box;
+}
+
 #app {
   width: 100%;
   padding: 1rem;
@@ -35,5 +45,14 @@
       color: $green;
     }
   }
+}
+
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 0;
 }
 </style>
