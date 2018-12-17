@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import home from "./views/home.vue";
 import itunes from "./views/itunes.vue";
 import spotify from "./views/spotify.vue";
 
@@ -9,6 +10,11 @@ export default new Router({
   routes: [
     {
       path: "/",
+      name: "home",
+      component: home
+    },
+    {
+      path: "/itunes",
       name: "itunes",
       component: itunes
     },
