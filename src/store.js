@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 
+import router from './router';
+
 import encodeQuery from './utils/encodeQuery';
 
 Vue.use(Vuex);
@@ -50,10 +52,12 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    getAppleAlbums({ commit, state }) {
+    getAppleAlbums({ dispatch, commit, state }) {
       const { country, media, entity } = state;
       const encodedQuery = encodeQuery(state.searchTerm);
       const api = `https://itunes.apple.com/search?term=${encodedQuery}&country=${country}&media=${media}&entity=${entity}`;
+
+      dispatch('updateRoutes');
 
       axios
         .get(api)
@@ -68,6 +72,10 @@ export default new Vuex.Store({
       commit('updateMedia', value);
       dispatch('getAppleAlbums');
     },
-    // updateSearch({commit}, query )
+    updateRoutes({ state }) {
+      const { searchTerm, media } = state;
+      const query = encodeQuery(searchTerm);
+      router.push({ query: { q: query, media } });
+    },
   },
 });

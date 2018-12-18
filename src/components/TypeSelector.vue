@@ -26,8 +26,6 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 
-import encodeQuery from '@/utils/encodeQuery';
-
 export default {
   name: 'TypeSelector',
   data() {
@@ -55,9 +53,6 @@ export default {
         return this.$store.state.media;
       },
       set(value) {
-        const query = encodeQuery(this.searchTerm);
-        console.log('query Type', query); // eslint-disable-line
-        this.$router.push({ query: { q: query, media: value } });
         this.setMedia(value);
       },
     },

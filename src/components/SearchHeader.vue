@@ -3,7 +3,7 @@
     <h1 class="heading">{{ title }}</h1>
     <input
       :value="searchTerm"
-      @input="updateSearch"
+      @input="this.updateSearch"
       v-on:keyup.enter="submitSearch"
       type="text"
       class="input"
@@ -16,9 +16,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-
-import encodeQuery from '@/utils/encodeQuery';
-
 import TypeSelector from '@/components/TypeSelector.vue';
 
 export default {
@@ -32,11 +29,7 @@ export default {
   methods: {
     ...mapActions(['getAppleAlbums']),
     submitSearch() {
-      const query = encodeQuery(this.searchTerm);
-
       this.getAppleAlbums();
-      console.log('query Header', query); // eslint-disable-line
-      this.$router.push({ query: { q: query, media: this.media } });
     },
     updateSearch(event) {
       this.$store.commit('search', event.target.value);
