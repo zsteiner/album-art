@@ -2,7 +2,7 @@
   <div>
     <figure class="artwork">
       <img :src="album.coverMedRes" :alt="album.title" :ref="album.id">
-      <p v-if="showSuccess" v-bind:class="{ active: showSuccess}" class="success">✅ image copied</p>
+      <p v-if="showSuccess" v-bind:class="{ active: showSuccess }" class="success">✅ image copied</p>
       <button class="copy" @click="copyImage">✂️ copy image</button>
     </figure>
     <h3 class="album-title">{{ album.title }}</h3>
@@ -14,22 +14,22 @@
 export default {
   name: 'Artwork',
   props: {
-    album: Object
+    album: Object,
   },
   data() {
     return { showSuccess: false };
   },
   methods: {
     copyImage() {
-      const id = this.album.id;
-      const copy_text = this.$refs[id];
+      const { id } = this.album;
+      const copyTarget = this.$refs[id];
       const range = document.createRange();
-      range.selectNode(copy_text);
+      range.selectNode(copyTarget);
       window.getSelection().addRange(range);
 
       try {
         const successful = document.execCommand('copy');
-        this.showSuccess = successful ? true : false;
+        this.showSuccess = !!successful;
 
         window.getSelection().removeAllRanges();
 
@@ -37,13 +37,13 @@ export default {
           this.showSuccess = false;
         }, 4000);
       } catch (err) {
-        console.log('Oops, unable to copy');
+        console.log("Can't copy");
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-@import "./Artwork";
+@import './Artwork';
 </style>

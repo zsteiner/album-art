@@ -1,7 +1,12 @@
 {
   "root": true,
-  "extends": ["plugin:vue/essential", "@vue/airbnb"],
+  "extends": [
+    "plugin:prettier/recommended",
+    "plugin:vue/essential",
+    "@vue/airbnb"
+  ],
   "rules": {
-    "quotes": [2, "single"]
+    "prettier/prettier": "error",
+    "arrow-parens": 0
   }
 }

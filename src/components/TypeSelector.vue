@@ -9,17 +9,17 @@ export default {
   name: 'TypeSelector',
   computed: {
     ...mapState({
-      searchTerm: state => state.type
-    })
+      searchTerm: state => state.type,
+    }),
   },
   methods: {
     updateType(event) {
       this.$store.commit('type', event.target.value);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-@import "./TypeSelector";
+@import './TypeSelector';
 </style>

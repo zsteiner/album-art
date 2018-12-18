@@ -23,8 +23,8 @@ export default {
   name: 'SearchHeader',
   computed: {
     ...mapState({
-      searchTerm: state => state.searchTerm
-    })
+      searchTerm: state => state.searchTerm,
+    }),
   },
   methods: {
     ...mapActions(['getAppleAlbums']),
@@ -33,20 +33,18 @@ export default {
     },
     updateSearch(event) {
       this.$store.commit('search', event.target.value);
-    }
+    },
   },
   props: {
     title: String,
-    searchType: String
+    searchType: String,
   },
   components: {
-    TypeSelector
-  }
+    TypeSelector,
+  },
 };
 </script>
 
 <style scoped lang="scss">
-@import "./SearchHeader";
-</style>
-
+@import './SearchHeader';
 </style>

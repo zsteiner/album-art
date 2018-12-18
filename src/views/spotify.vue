@@ -1,7 +1,5 @@
 <template>
-  <article>
-    <Search v-bind:title="title"></Search>
-  </article>
+  <article><Search v-bind:title="title"></Search></article>
 </template>
 
 <script>
