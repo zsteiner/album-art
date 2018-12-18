@@ -10,12 +10,14 @@
       placeholder="Search for album"
     >
     <button @click="submitSearch" class="button">search</button>
-    <TypeSelector></TypeSelector>
+    <TypeSelector :onChange="submitSearch"></TypeSelector>
   </header>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
+
+import encodeQuery from '@/utils/encodeQuery';
 
 import TypeSelector from '@/components/TypeSelector.vue';
 
@@ -24,12 +26,17 @@ export default {
   computed: {
     ...mapState({
       searchTerm: state => state.searchTerm,
+      media: state => state.media,
     }),
   },
   methods: {
     ...mapActions(['getAppleAlbums']),
     submitSearch() {
+      const query = encodeQuery(this.searchTerm);
+
       this.getAppleAlbums();
+      console.log('query Header', query); // eslint-disable-line
+      this.$router.push({ query: { q: query, media: this.media } });
     },
     updateSearch(event) {
       this.$store.commit('search', event.target.value);
