@@ -1,11 +1,9 @@
 <template>
   <div>
     <figure class="artwork">
-      <div :ref="album.id" contenteditable>
-        <img :src="album.coverMedRes" :alt="album.title">
-      </div>
+      <img :src="album.coverMedRes" :alt="album.title" :ref="album.id">
       <p v-if="showSuccess" v-bind:class="{ active: showSuccess}" class="success">✅ image copied</p>
-      <button class="copy" @click="copyLink">copy image</button>
+      <button class="copy" @click="copyImage">✂️ copy image</button>
     </figure>
     <h3 class="album-title">{{ album.title }}</h3>
     <p class="artist">{{ album.artist }}</p>
@@ -22,7 +20,7 @@ export default {
     return { showSuccess: false };
   },
   methods: {
-    copyLink() {
+    copyImage() {
       const id = this.album.id;
       const copy_text = this.$refs[id];
       const range = document.createRange();

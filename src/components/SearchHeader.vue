@@ -10,11 +10,14 @@
       placeholder="Search for album"
     >
     <button @click="submitSearch" class="button">search</button>
+    <TypeSelector></TypeSelector>
   </header>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
+
+import TypeSelector from '@/components/TypeSelector';
 
 export default {
   name: 'SearchHeader',
@@ -26,7 +29,7 @@ export default {
   methods: {
     ...mapActions(['getAppleAlbums']),
     submitSearch(event) {
-      this.getAppleAlbums({ type: 'album' });
+      this.getAppleAlbums();
     },
     updateSearch(event) {
       this.$store.commit('search', event.target.value);
@@ -35,6 +38,9 @@ export default {
   props: {
     title: String,
     searchType: String
+  },
+  components: {
+    TypeSelector
   }
 };
 </script>
