@@ -7,16 +7,16 @@
 </template>
 
 <script>
-import Artwork from './Artwork';
+import Artwork from './Artwork.vue';
 
 export default {
   name: 'Albums',
   props: {
-    albums: Array
+    albums: Array,
   },
   components: {
-    Artwork
-  }
+    Artwork,
+  },
 };
 </script>
 

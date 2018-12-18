@@ -9,7 +9,7 @@
 </template>
 
 <style lang="scss">
-@import "./styles/variables";
+@import './styles/variables';
 
 *,
 *::before,
@@ -50,6 +50,10 @@ body {
 figure {
   margin: 0;
   padding: 0;
+}
+
+object {
+  display: none;
 }
 
 p {

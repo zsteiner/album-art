@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <h1>{{ title }}</h1>
+    <h1 class="heading">{{ title }}</h1>
     <input
       :value="searchTerm"
       @input="updateSearch"
@@ -10,37 +10,41 @@
       placeholder="Search for album"
     >
     <button @click="submitSearch" class="button">search</button>
+    <TypeSelector></TypeSelector>
   </header>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
 
+import TypeSelector from '@/components/TypeSelector.vue';
+
 export default {
   name: 'SearchHeader',
   computed: {
     ...mapState({
-      searchTerm: state => state.searchTerm
-    })
+      searchTerm: state => state.searchTerm,
+    }),
   },
   methods: {
     ...mapActions(['getAppleAlbums']),
-    submitSearch(event) {
-      this.getAppleAlbums({ type: 'album' });
+    submitSearch() {
+      this.getAppleAlbums();
     },
     updateSearch(event) {
       this.$store.commit('search', event.target.value);
-    }
+    },
   },
   props: {
     title: String,
-    searchType: String
-  }
+    searchType: String,
+  },
+  components: {
+    TypeSelector,
+  },
 };
 </script>
 
 <style scoped lang="scss">
-@import "./SearchHeader";
-</style>
-
+@import './SearchHeader';
 </style>

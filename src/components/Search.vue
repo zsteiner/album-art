@@ -15,15 +15,15 @@ export default {
   name: 'Search',
   computed: {
     ...mapState({
-      albums: state => state.albums
-    })
+      albums: state => state.albums,
+    }),
   },
   props: {
-    title: String
+    title: String,
   },
   components: {
     Albums,
-    SearchHeader
-  }
+    SearchHeader,
+  },
 };
 </script>

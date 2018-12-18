@@ -1,37 +1,40 @@
 <template>
   <div>
     <figure class="artwork">
-      <div :ref="album.id" contenteditable>
-        <img :src="album.coverMedRes" :alt="album.title">
-      </div>
-      <p v-if="showSuccess" v-bind:class="{ active: showSuccess}" class="success">✅ image copied</p>
-      <button class="copy" @click="copyLink">copy image</button>
+      <img :src="album.coverMedRes" :alt="album.title" :ref="album.id">
+      <ArtworkControls :showSuccess="showSuccess" :onClick="copyImage"></ArtworkControls>
     </figure>
+    <time class="album-date">{{formatDate(album.releaseDate)}}</time>
     <h3 class="album-title">{{ album.title }}</h3>
     <p class="artist">{{ album.artist }}</p>
   </div>
 </template>
 
 <script>
+import ArtworkControls from './ArtworkControls.vue';
+
 export default {
   name: 'Artwork',
   props: {
-    album: Object
+    album: Object,
   },
   data() {
     return { showSuccess: false };
   },
+  components: {
+    ArtworkControls,
+  },
   methods: {
-    copyLink() {
-      const id = this.album.id;
-      const copy_text = this.$refs[id];
+    copyImage() {
+      const { id } = this.album;
+      const copyTarget = this.$refs[id];
       const range = document.createRange();
-      range.selectNode(copy_text);
+      range.selectNode(copyTarget);
       window.getSelection().addRange(range);
 
       try {
         const successful = document.execCommand('copy');
-        this.showSuccess = successful ? true : false;
+        this.showSuccess = !!successful;
 
         window.getSelection().removeAllRanges();
 
@@ -39,13 +42,21 @@ export default {
           this.showSuccess = false;
         }, 4000);
       } catch (err) {
-        console.log('Oops, unable to copy');
+        console.log("Can't copy"); // eslint-disable-line
       }
-    }
-  }
+    },
+    formatDate(releaseDate) {
+      const date = new Date(releaseDate);
+      const dateOptions = {
+        year: 'numeric',
+      };
+      const formattedDate = date.toLocaleDateString('en-us', dateOptions);
+      return formattedDate;
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-@import "./Artwork";
+@import './Artwork';
 </style>
