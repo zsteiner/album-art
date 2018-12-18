@@ -1,12 +1,30 @@
 {
   "root": true,
   "extends": [
+    "prettier",
     "plugin:prettier/recommended",
     "plugin:vue/essential",
     "@vue/airbnb"
   ],
   "rules": {
     "prettier/prettier": "error",
-    "arrow-parens": 0
+    "arrow-parens": 0,
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": [
+          "state",
+          "acc",
+          "e",
+          "ctx",
+          "req",
+          "request",
+          "res",
+          "response",
+          "$scope"
+        ]
+      }
+    ]
   }
 }

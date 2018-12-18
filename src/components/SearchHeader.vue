@@ -17,7 +17,7 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 
-import TypeSelector from '@/components/TypeSelector';
+import TypeSelector from '@/components/TypeSelector.vue';
 
 export default {
   name: 'SearchHeader',
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     ...mapActions(['getAppleAlbums']),
-    submitSearch(event) {
+    submitSearch() {
       this.getAppleAlbums();
     },
     updateSearch(event) {

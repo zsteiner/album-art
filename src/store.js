@@ -13,10 +13,10 @@ export default new Vuex.Store({
     type: 'album',
   },
   getters: {
-    getAppleAlbums: state => state.albums,
+    formatAppleAlbums: state => state.albums,
   },
   mutations: {
-    getAppleAlbums(state, data) {
+    formatAppleAlbums(state, data) {
       state.albums = data.map(album => ({
         id: album.collectionId,
         artist: album.artistName,
@@ -35,15 +35,13 @@ export default new Vuex.Store({
   },
   actions: {
     getAppleAlbums({ commit, state }) {
+      const { country, media, type } = state;
       const encodedQuery = encodeURI(state.searchTerm);
-      const api = `https://itunes.apple.com/search?term=${encodedQuery}&country=${
-        state.country
-      }&media=${state.media}&entity=${state.type}`;
-
+      const api = `https://itunes.apple.com/search?term=${encodedQuery}&country=${country}&media=${media}&entity=${type}`;
       axios
         .get(api)
         .then(response => {
-          commit('getAppleAlbums', response.data.results);
+          commit('formatAppleAlbums', response.data.results);
         })
         .catch(event => {
           console.error(event); //eslint-disable-line

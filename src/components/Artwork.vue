@@ -2,8 +2,8 @@
   <div>
     <figure class="artwork">
       <img :src="album.coverMedRes" :alt="album.title" :ref="album.id">
-      <p v-if="showSuccess" v-bind:class="{ active: showSuccess }" class="success">✅ image copied</p>
-      <button class="copy" @click="copyImage">✂️ copy image</button>
+      <!-- <p v-if="showSuccess" v-bind:class="{ active: showSuccess }" class="success">✅ image copied</p>
+      <button class="copy" @click="copyImage">✂️ copy image</button>-->
     </figure>
     <h3 class="album-title">{{ album.title }}</h3>
     <p class="artist">{{ album.artist }}</p>
