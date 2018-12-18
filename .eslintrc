@@ -1,12 +1,7 @@
 {
   "root": true,
-  "extends": [
-    "plugin:prettier/recommended",
-    "plugin:vue/essential",
-    "@vue/airbnb"
-  ],
+  "extends": ["plugin:vue/essential", "@vue/airbnb"],
   "rules": {
-    "prettier/prettier": "error",
     "arrow-parens": 0,
     "no-param-reassign": [
       "error",

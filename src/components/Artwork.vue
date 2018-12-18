@@ -4,6 +4,7 @@
       <img :src="album.coverMedRes" :alt="album.title" :ref="album.id">
       <ArtworkControls :showSuccess="showSuccess" :onClick="copyImage"></ArtworkControls>
     </figure>
+    <time class="album-date">{{formatDate(album.releaseDate)}}</time>
     <h3 class="album-title">{{ album.title }}</h3>
     <p class="artist">{{ album.artist }}</p>
   </div>
@@ -43,6 +44,14 @@ export default {
       } catch (err) {
         console.log("Can't copy"); // eslint-disable-line
       }
+    },
+    formatDate(releaseDate) {
+      const date = new Date(releaseDate);
+      const dateOptions = {
+        year: 'numeric',
+      };
+      const formattedDate = date.toLocaleDateString('en-us', dateOptions);
+      return formattedDate;
     },
   },
 };
