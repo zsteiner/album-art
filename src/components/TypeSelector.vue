@@ -13,7 +13,12 @@
         :id="selector.value"
         v-model="media"
       >
-      <span>{{ selector.label }}</span>
+      <span :title="selector.label">
+        <svg class="icon" viewBox="0 0 24 24">
+          <use v-bind:xlink:href="'symbol-defs.svg#icon-' + selector.value"></use>
+        </svg>
+        <small class="icon-label">{{selector.label}}</small>
+      </span>
     </label>
   </div>
 </template>
@@ -29,11 +34,7 @@ export default {
         { value: 'music', label: 'Music' },
         { value: 'movie', label: 'Movies' },
         { value: 'podcast', label: 'Podcast' },
-        { value: 'musicVideo', label: 'Music Video' },
-        { value: 'audiobook', label: 'Audiobook' },
-        { value: 'shortFilm', label: 'Short Film' },
         { value: 'tvShow', label: 'TV Shows' },
-        { value: 'software', label: 'Software' },
         { value: 'ebook', label: 'Ebook' },
         { value: 'all', label: 'All' },
       ],

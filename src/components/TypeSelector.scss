@@ -4,7 +4,7 @@
   display: grid;
   align-self: center;
   grid-template-columns: repeat(10, max-content);
-  grid-gap: 1rem;
+  grid-gap: 1.5rem;
   grid-column: 1 /3;
   grid-row: 3 / 3;
 
@@ -16,6 +16,8 @@
 
 .selector {
   position: relative;
+  font-size: 1.5rem;
+  text-align: center;
   cursor: pointer;
 
   input {
@@ -27,5 +29,16 @@
         color: $green;
       }
     }
+  }
+}
+
+.icon {
+  height: auto;
+  width: 1em;
+  fill: currentColor;
+
+  &-label {
+    display: block;
+    font-size: 0.75rem;
   }
 }

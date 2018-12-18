@@ -52,6 +52,10 @@ figure {
   padding: 0;
 }
 
+object {
+  display: none;
+}
+
 p {
   margin: 0;
 }
