@@ -2,8 +2,7 @@
   <div>
     <figure class="artwork">
       <img :src="album.coverMedRes" :alt="album.title" :ref="album.id">
-      <!-- <p v-if="showSuccess" v-bind:class="{ active: showSuccess }" class="success">✅ image copied</p>
-      <button class="copy" @click="copyImage">✂️ copy image</button>-->
+      <ArtworkControls :showSuccess="showSuccess" :onClick="copyImage"></ArtworkControls>
     </figure>
     <h3 class="album-title">{{ album.title }}</h3>
     <p class="artist">{{ album.artist }}</p>
@@ -11,6 +10,8 @@
 </template>
 
 <script>
+import ArtworkControls from './ArtworkControls.vue';
+
 export default {
   name: 'Artwork',
   props: {
@@ -18,6 +19,9 @@ export default {
   },
   data() {
     return { showSuccess: false };
+  },
+  components: {
+    ArtworkControls,
   },
   methods: {
     copyImage() {
@@ -37,7 +41,7 @@ export default {
           this.showSuccess = false;
         }, 4000);
       } catch (err) {
-        console.log("Can't copy");
+        console.log("Can't copy"); // eslint-disable-line
       }
     },
   },

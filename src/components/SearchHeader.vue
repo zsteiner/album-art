@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <h1>{{ title }}</h1>
+    <h1 class="heading">{{ title }}</h1>
     <input
       :value="searchTerm"
       @input="updateSearch"

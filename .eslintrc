@@ -1,7 +1,6 @@
 {
   "root": true,
   "extends": [
-    "prettier",
     "plugin:prettier/recommended",
     "plugin:vue/essential",
     "@vue/airbnb"
