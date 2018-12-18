@@ -1,4 +1,6 @@
 {
+  "root": true,
+  "extends": ["plugin:vue/essential", "@vue/airbnb"],
   "rules": {
     "quotes": [2, "single"]
   }
