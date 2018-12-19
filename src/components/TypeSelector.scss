@@ -2,7 +2,6 @@
 
 .type-selector {
   display: grid;
-  align-self: center;
   grid-template-columns: repeat(10, max-content);
   grid-gap: 1.5rem;
   grid-column: 1 /3;

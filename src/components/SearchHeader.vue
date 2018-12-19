@@ -1,14 +1,18 @@
 <template>
   <header class="header">
     <h1 class="heading">{{ title }}</h1>
-    <input
-      :value="searchTerm"
-      @input="this.updateSearch"
-      v-on:keyup.enter="submitSearch"
-      type="text"
-      class="input"
-      placeholder="Search for album"
-    >
+    <section class="input">
+      <label for="search" class="input-label">Search</label>
+      <input
+        id="search"
+        class="input-input"
+        :value="searchTerm"
+        @input="this.updateSearch"
+        v-on:keyup.enter="submitSearch"
+        type="text"
+        placeholder="Search for album"
+      >
+    </section>
     <button @click="submitSearch" class="button">search</button>
     <TypeSelector :onChange="submitSearch"></TypeSelector>
   </header>

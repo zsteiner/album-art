@@ -1,6 +1,6 @@
 <template>
   <ul class="albums">
-    <li v-for="album in albums" :key="album.id" class="album-item">
+    <li v-for="(album, index) in albums" :key="`${index}-${album.id}`" class="album-item">
       <Artwork :album="album"></Artwork>
     </li>
   </ul>
