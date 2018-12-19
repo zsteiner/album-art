@@ -51,7 +51,6 @@ export default new Vuex.Store({
       }
     },
     queryStringToState(state, { q, media }) {
-      console.log('queryStringToState', q, media); //eslint-disable-line
       state.searchTerm = q;
       state.media = media;
     },
