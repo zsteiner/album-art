@@ -5,6 +5,7 @@ import axios from 'axios';
 import router from './router';
 
 import encodeQuery from './utils/encodeQuery';
+import decodeQuery from './utils/decodeQuery';
 
 Vue.use(Vuex);
 
@@ -51,7 +52,7 @@ export default new Vuex.Store({
       }
     },
     queryStringToState(state, { q, media }) {
-      state.searchTerm = q;
+      state.searchTerm = decodeQuery(q);
       state.media = media;
     },
   },
