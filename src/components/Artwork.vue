@@ -5,7 +5,7 @@
       <ArtworkControls :showSuccess="showSuccess" :onClick="copyImage"></ArtworkControls>
     </figure>
     <time class="album-date">{{formatDate(album.releaseDate)}}</time>
-    <h3 class="album-title">{{ album.title }}</h3>
+    <h2 class="album-title">{{ album.title }}</h2>
     <p class="artist">{{ album.artist }}</p>
   </div>
 </template>

@@ -17,9 +17,6 @@ export default new Vuex.Store({
     searchTerm: null,
     entity: 'album',
   },
-  getters: {
-    formatAppleAlbums: state => state.albums,
-  },
   mutations: {
     formatAppleAlbums(state, data) {
       state.albums = data.map(album => ({
@@ -83,11 +80,13 @@ export default new Vuex.Store({
       router.push({ query: { q: query, media } });
     },
     getQueryStrings({ commit }, { q, media }) {
-      commit('queryStringToState', {
-        q,
-        media,
-      });
-      commit('updateMedia', media || 'music');
+      if (q && media) {
+        commit('queryStringToState', {
+          q,
+          media,
+        });
+        commit('updateMedia', media || 'music');
+      }
     },
   },
 });
