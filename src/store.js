@@ -50,6 +50,11 @@ export default new Vuex.Store({
           state.entity = value;
       }
     },
+    queryStringToState(state, { q, media }) {
+      console.log('queryStringToState', q, media); //eslint-disable-line
+      state.searchTerm = q;
+      state.media = media;
+    },
   },
   actions: {
     getAppleAlbums({ dispatch, commit, state }) {
@@ -76,6 +81,13 @@ export default new Vuex.Store({
       const { searchTerm, media } = state;
       const query = encodeQuery(searchTerm);
       router.push({ query: { q: query, media } });
+    },
+    getQueryStrings({ commit }, { q, media }) {
+      commit('queryStringToState', {
+        q,
+        media,
+      });
+      commit('updateMedia', media);
     },
   },
 });

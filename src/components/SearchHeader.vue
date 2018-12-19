@@ -27,13 +27,21 @@ export default {
     }),
   },
   methods: {
-    ...mapActions(['getAppleAlbums']),
+    ...mapActions(['getAppleAlbums', 'getQueryStrings']),
     submitSearch() {
       this.getAppleAlbums();
     },
     updateSearch(event) {
       this.$store.commit('search', event.target.value);
     },
+  },
+  created() {
+    const { q, media } = this.$route.query;
+    this.getQueryStrings({ q, media });
+
+    if (this.$route.query.q) {
+      this.submitSearch();
+    }
   },
   props: {
     title: String,
