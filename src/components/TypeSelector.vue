@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'TypeSelector',
@@ -45,6 +45,9 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      searchTerm: state => state.searchTerm,
+    }),
     media: {
       get() {
         return this.$store.state.media;

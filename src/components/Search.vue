@@ -8,8 +8,8 @@
 <script>
 import { mapState } from 'vuex';
 
-import Albums from '@/components/Albums';
-import SearchHeader from '@/components/SearchHeader';
+import Albums from '@/components/Albums.vue';
+import SearchHeader from '@/components/SearchHeader.vue';
 
 export default {
   name: 'Search',

@@ -2,6 +2,10 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 
+import router from './router';
+
+import encodeQuery from './utils/encodeQuery';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -46,13 +50,20 @@ export default new Vuex.Store({
           state.entity = value;
       }
     },
+    queryStringToState(state, { q, media }) {
+      console.log('queryStringToState', q, media); //eslint-disable-line
+      state.searchTerm = q;
+      state.media = media;
+    },
   },
   actions: {
-    getAppleAlbums({ commit, state }) {
+    getAppleAlbums({ dispatch, commit, state }) {
       const { country, media, entity } = state;
-      const encodedQuery = encodeURI(state.searchTerm);
+      const encodedQuery = encodeQuery(state.searchTerm);
       const api = `https://itunes.apple.com/search?term=${encodedQuery}&country=${country}&media=${media}&entity=${entity}`;
-      console.log('api', api); // eslint-disable-line
+
+      dispatch('updateRoutes');
+
       axios
         .get(api)
         .then(response => {
@@ -65,6 +76,18 @@ export default new Vuex.Store({
     setMedia({ dispatch, commit }, value) {
       commit('updateMedia', value);
       dispatch('getAppleAlbums');
+    },
+    updateRoutes({ state }) {
+      const { searchTerm, media } = state;
+      const query = encodeQuery(searchTerm);
+      router.push({ query: { q: query, media } });
+    },
+    getQueryStrings({ commit }, { q, media }) {
+      commit('queryStringToState', {
+        q,
+        media,
+      });
+      commit('updateMedia', media);
     },
   },
 });
