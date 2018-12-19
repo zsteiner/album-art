@@ -17,9 +17,6 @@ export default new Vuex.Store({
     searchTerm: null,
     entity: 'album',
   },
-  getters: {
-    formatAppleAlbums: state => state.albums,
-  },
   mutations: {
     formatAppleAlbums(state, data) {
       state.albums = data.map(album => ({

@@ -1,5 +1,7 @@
 <template>
-  <article><Search v-bind:title="title"></Search></article>
+  <article>
+    <Search v-bind:title="title"></Search>
+  </article>
 </template>
 
 <script>
@@ -10,11 +12,11 @@ export default {
   name: 'spotify',
   data() {
     return {
-      title: 'Spotify Search'
+      title: 'Spotify Search',
     };
   },
   components: {
-    Search
-  }
+    Search,
+  },
 };
 </script>
