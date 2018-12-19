@@ -80,11 +80,13 @@ export default new Vuex.Store({
       router.push({ query: { q: query, media } });
     },
     getQueryStrings({ commit }, { q, media }) {
-      commit('queryStringToState', {
-        q,
-        media,
-      });
-      commit('updateMedia', media || 'music');
+      if (q && media) {
+        commit('queryStringToState', {
+          q,
+          media,
+        });
+        commit('updateMedia', media || 'music');
+      }
     },
   },
 });

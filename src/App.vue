@@ -1,12 +1,12 @@
 <template>
-  <div id="app">
-    <div id="nav">
+  <main class="app">
+    <nav class="nav">
       <router-link to="/">Home</router-link>
       <router-link to="/itunes">iTunes</router-link>
       <router-link to="/spotify">Spotify</router-link>
-    </div>
+    </nav>
     <router-view/>
-  </div>
+  </main>
 </template>
 
 <style lang="scss">
@@ -22,8 +22,7 @@ body {
   box-sizing: border-box;
 }
 
-#app {
-  width: 100%;
+.app {
   padding: 1rem;
   color: $blue;
   font-family: $font-family;
@@ -31,7 +30,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nav {
+.nav {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;

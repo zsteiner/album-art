@@ -2,7 +2,7 @@
   <header class="header">
     <h1 class="heading">{{ title }}</h1>
     <section class="input">
-      <label for="search" class="input-label">Search</label>
+      <label for="search" class="input-label" aria-label="search">Search</label>
       <input
         id="search"
         class="input-input"
@@ -11,6 +11,7 @@
         v-on:keyup.enter="submitSearch"
         type="text"
         placeholder="Search for album"
+        aria-labelledby="search"
       >
     </section>
     <button @click="submitSearch" class="button">search</button>
