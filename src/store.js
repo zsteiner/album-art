@@ -15,6 +15,7 @@ export default new Vuex.Store({
     country: 'us',
     media: 'music',
     searchTerm: null,
+    spotifyAuth: false,
     entity: 'album',
   },
   mutations: {
@@ -48,6 +49,11 @@ export default new Vuex.Store({
           state.entity = value;
       }
     },
+    updateAuth(state, data) {
+      if (data) {
+        state.spotifyAuth = true;
+      }
+    },
     queryStringToState(state, { q, media }) {
       state.searchTerm = decodeQuery(q);
       state.media = media;
@@ -69,6 +75,14 @@ export default new Vuex.Store({
         .catch(event => {
           console.error(event); //eslint-disable-line
         });
+    },
+    getSpotifyAuth() {
+      const clientID = process.env.VUE_APP_SPOTIFY_CLIENT_ID;
+      const redirect = encodeURIComponent(process.env.VUE_APP_SPOTIFY_REDIRECT);
+
+      const api = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirect}&response_type=token&state=123`;
+      window.location = api;
+      console.log('api', api); //eslint-disable-line
     },
     setMedia({ dispatch, commit }, value) {
       commit('updateMedia', value);
