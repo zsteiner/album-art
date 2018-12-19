@@ -2,6 +2,7 @@
   <section>
     <SearchHeader :title="title"></SearchHeader>
     <Albums v-if="albums.length > 0" :albums="albums"></Albums>
+    <NoResults v-else></NoResults>
   </section>
 </template>
 
@@ -9,6 +10,7 @@
 import { mapState } from 'vuex';
 
 import Albums from '@/components/Albums.vue';
+import NoResults from '@/components/NoResults.vue';
 import SearchHeader from '@/components/SearchHeader.vue';
 
 export default {
@@ -23,6 +25,7 @@ export default {
   },
   components: {
     Albums,
+    NoResults,
     SearchHeader,
   },
 };
