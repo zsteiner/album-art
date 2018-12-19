@@ -87,7 +87,7 @@ export default new Vuex.Store({
         q,
         media,
       });
-      commit('updateMedia', media);
+      commit('updateMedia', media || 'music');
     },
   },
 });
