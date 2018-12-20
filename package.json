@@ -11,6 +11,8 @@
   "dependencies": {
     "@vue/eslint-config-airbnb": "^4.0.0",
     "axios": "^0.18.0",
+    "axios-jsonp-pro": "^1.1.4",
+    "spotify-web-api-js": "^1.1.1",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

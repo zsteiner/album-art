@@ -15,7 +15,7 @@
       >
     </section>
     <button @click="submitSearch" class="button">search</button>
-    <TypeSelector :onChange="submitSearch"></TypeSelector>
+    <TypeSelector v-if="service === 'itunes'" :onChange="submitSearch"></TypeSelector>
   </header>
 </template>
 
@@ -29,12 +29,17 @@ export default {
     ...mapState({
       searchTerm: state => state.searchTerm,
       media: state => state.media,
+      service: state => state.service,
     }),
   },
   methods: {
-    ...mapActions(['getAppleAlbums', 'getQueryStrings']),
+    ...mapActions(['getAppleAlbums', 'getSpotifyAlbums', 'getQueryStrings']),
     submitSearch() {
-      this.getAppleAlbums();
+      if (this.service === 'spotify') {
+        this.getSpotifyAlbums();
+      } else {
+        this.getAppleAlbums();
+      }
     },
     updateSearch(event) {
       this.$store.commit('search', event.target.value);

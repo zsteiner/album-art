@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 import Search from '@/components/Search.vue';
 
 export default {
@@ -13,6 +15,12 @@ export default {
     return {
       title: 'iTunes Search',
     };
+  },
+  methods: {
+    ...mapActions(['setService']),
+  },
+  mounted() {
+    this.setService('itunes');
   },
   components: {
     Search,
