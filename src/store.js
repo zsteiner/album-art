@@ -15,6 +15,7 @@ export default new Vuex.Store({
     country: 'us',
     media: 'music',
     searchTerm: null,
+    madeSearch: false,
     spotifyAuth: false,
     entity: 'album',
   },
@@ -58,6 +59,9 @@ export default new Vuex.Store({
       state.searchTerm = decodeQuery(q);
       state.media = media;
     },
+    updateSearch(state) {
+      state.madeSearch = true;
+    },
   },
   actions: {
     getAppleAlbums({ dispatch, commit, state }) {
@@ -71,6 +75,7 @@ export default new Vuex.Store({
         .get(api)
         .then(response => {
           commit('formatAppleAlbums', response.data.results);
+          commit('updateSearch');
         })
         .catch(event => {
           console.error(event); //eslint-disable-line
@@ -82,6 +87,7 @@ export default new Vuex.Store({
 
       const api = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirect}&response_type=token&state=123`;
       window.location = api;
+      console.log('redirect', redirect); //eslint-disable-line
       console.log('api', api); //eslint-disable-line
     },
     setMedia({ dispatch, commit }, value) {

@@ -8,6 +8,7 @@ import spotify from './views/spotify.vue';
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -25,8 +26,13 @@ export default new Router({
       component: spotify,
     },
     {
-      path: '/callback/(:auth)?',
+      path: '/callback',
       name: 'spotifyCallback',
+      component: callback,
+    },
+    {
+      path: '/callback/:auth',
+      name: 'spotifyCallbackSuccess',
       component: callback,
     },
   ],
