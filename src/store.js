@@ -42,7 +42,6 @@ export default new Vuex.Store({
         coverMedRes: album.images[1].url,
         coverHighRes: album.images[0].url,
       }));
-      console.log('ALBUMS', data, state.albums);
     },
     search(state, query) {
       state.searchTerm = query;
@@ -112,11 +111,9 @@ export default new Vuex.Store({
       const api = `https://api.spotify.com/v1/search?access_token=${spotifyAuth}&q=${encodedQuery}&market=${country}&type=${entity}&limit=20`;
 
       dispatch('updateRoutes');
-      console.log('api', api); //eslint-disable-line
       axios
         .get(api)
         .then(response => {
-          console.log(response); //eslint-disable-line
           commit('formatSpotifyAlbums', response.data.albums.items);
           commit('updateSearch');
         })
@@ -130,8 +127,6 @@ export default new Vuex.Store({
 
       const api = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirect}&response_type=token&state=123`;
       window.location = api;
-      console.log('redirect', redirect); //eslint-disable-line
-      console.log('api', api); //eslint-disable-line
     },
     setSpotifyAuth({ commit }, code) {
       commit('updateSpotifyAuth', code);
