@@ -30,10 +30,5 @@ export default new Router({
       name: 'spotifyCallback',
       component: callback,
     },
-    {
-      path: '/callback/:auth',
-      name: 'spotifyCallbackSuccess',
-      component: callback,
-    },
   ],
 });

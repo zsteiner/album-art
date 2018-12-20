@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 import Search from '@/components/Search.vue';
 import SpotifyAuth from '@/components/SpotifyAuth.vue';
@@ -22,6 +22,12 @@ export default {
     return {
       title: 'Spotify Search',
     };
+  },
+  methods: {
+    ...mapActions(['setService']),
+  },
+  mounted() {
+    this.setService('spotify');
   },
   components: {
     Search,

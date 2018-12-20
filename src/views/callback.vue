@@ -5,14 +5,19 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   data() {
     return {
-      accessToken: this.$route,
+      accessToken: this.$route.hash,
     };
   },
+  methods: {
+    ...mapActions(['setSpotifyAuth']),
+  },
   mounted() {
-    console.log('accessToken', this.accessToken);
+    this.setSpotifyAuth(this.accessToken);
   },
 };
 </script>
