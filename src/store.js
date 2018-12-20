@@ -38,7 +38,7 @@ export default new Vuex.Store({
         artist: album.artists[0].name,
         title: album.name,
         releaseDate: album.release_date,
-        cover: album.images[2].url,
+        cover: album.images.length > 2 ? album.images[2].url : album.images[0].url,
         coverMedRes: album.images[1].url,
         coverHighRes: album.images[0].url,
       }));

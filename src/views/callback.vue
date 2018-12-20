@@ -1,6 +1,9 @@
 <template>
-  <article>
-    <h1>Spotify is go.</h1>
+  <article class="spotify-success">
+    <h1 class="spotify-success__heading">Now logged in to Spotify.</h1>
+    <h2>Getting to those sweet, sweet pictures ...</h2>
+    <p>Still sitting here?</p>
+    <router-link to="/spotify">Search Spotify</router-link>
   </article>
 </template>
 
@@ -18,6 +21,24 @@ export default {
   },
   mounted() {
     this.setSpotifyAuth(this.accessToken);
+
+    setTimeout(() => {
+      this.$router.push({ name: 'spotify' });
+    }, 2000);
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.spotify-success {
+  text-align: center;
+
+  &__heading {
+    font-size: 2.5rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+}
+</style>
