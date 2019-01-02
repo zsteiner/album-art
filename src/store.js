@@ -134,7 +134,6 @@ export default new Vuex.Store({
 
       const api = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirect}&response_type=token&state=123`;
 
-      console.info('state.searchTerm', state.searchTerm);
       if (state.searchTerm) {
         localStorage.setItem('searchTerm', state.searchTerm);
       }

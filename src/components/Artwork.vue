@@ -1,7 +1,6 @@
 <template>
   <div>
-    <figure class="artwork">
-      <img :src="album.coverMedRes" :alt="album.title" :ref="album.id">
+    <figure class="artwork" v-bind:style="{ backgroundImage: `url(${album.coverMedRes})` }">
       <ArtworkControls :showSuccess="showSuccess" :onClick="copyImage"></ArtworkControls>
     </figure>
     <time class="album-date">{{formatDate(album.releaseDate)}}</time>
