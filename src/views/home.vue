@@ -27,14 +27,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/variables';
+
 .home {
-  display: flex;
-  margin: 6rem 0;
+  margin: 3rem 0;
   text-align: center;
   justify-content: space-around;
+
+  @include respond-to(medium) {
+    display: flex;
+  }
 }
 
 .home-icon {
+  display: block;
+  margin: 3rem 0;
   padding: 0 2rem;
   color: grey;
   font-size: 8rem;
