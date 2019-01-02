@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 import Albums from '@/components/Albums.vue';
 import NoResults from '@/components/NoResults.vue';
@@ -20,8 +20,15 @@ export default {
       albums: state => state.albums,
     }),
   },
+  methods: {
+    ...mapActions(['getQueryStrings']),
+  },
   props: {
     title: String,
+  },
+  mounted() {
+    const { q, media } = this.$route.query;
+    this.getQueryStrings({ q, media });
   },
   components: {
     Albums,

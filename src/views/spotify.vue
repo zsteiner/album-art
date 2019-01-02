@@ -14,9 +14,7 @@ import SpotifyAuth from '@/components/SpotifyAuth.vue';
 export default {
   name: 'spotify',
   computed: {
-    ...mapState({
-      spotifyAuth: state => state.spotifyAuth,
-    }),
+    ...mapState(['spotifyAuth']),
   },
   data() {
     return {
@@ -24,10 +22,12 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['setService']),
+    ...mapActions(['setService', 'getQueryStrings']),
   },
   mounted() {
     this.setService('spotify');
+    const { q, media } = this.$route.query;
+    this.getQueryStrings({ q, media });
   },
   components: {
     Search,

@@ -62,11 +62,6 @@ export default new Vuex.Store({
           state.entity = value;
       }
     },
-    updateAuth(state, data) {
-      if (data) {
-        state.spotifyAuth = true;
-      }
-    },
     queryStringToState(state, { q, media }) {
       state.searchTerm = decodeQuery(q);
       state.media = media;
