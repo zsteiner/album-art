@@ -24,7 +24,7 @@ export default {
   methods: {
     ...mapActions(['checkLocalStorageAuth', 'setService', 'getQueryStrings']),
   },
-  mounted() {
+  created() {
     this.setService('spotify');
     this.checkLocalStorageAuth();
     const { q, media } = this.$route.query;

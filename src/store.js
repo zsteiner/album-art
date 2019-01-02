@@ -46,6 +46,7 @@ export default new Vuex.Store({
     },
     search(state, query) {
       state.searchTerm = query;
+      state.madeSearch = true;
     },
     updateMedia(state, value) {
       state.media = value;
@@ -68,7 +69,7 @@ export default new Vuex.Store({
       state.media = media;
     },
     updateSearch(state) {
-      state.madeSearch = true;
+      state.madeSearch = false;
     },
     updateSpotifyAuth(state, code) {
       const updateDate = new Date();
@@ -79,9 +80,11 @@ export default new Vuex.Store({
       localStorage.setItem('spotifyAuth', auth);
       localStorage.setItem('updateDate', updateDate);
     },
-    useLocalAuth(state, { spotifyAuth, updateDate }) {
+    useLocalAuth(state, { spotifyAuth, searchTerm }) {
       state.spotifyAuth = spotifyAuth;
-      state.code = updateDate;
+      if (searchTerm) {
+        state.searchTerm = searchTerm;
+      }
     },
     updateService(state, service) {
       state.service = service;
@@ -125,11 +128,17 @@ export default new Vuex.Store({
           console.error(event); //eslint-disable-line
         });
     },
-    getSpotifyAuth() {
+    getSpotifyAuth({ state }) {
       const clientID = process.env.VUE_APP_SPOTIFY_CLIENT_ID;
       const redirect = encodeURIComponent(process.env.VUE_APP_SPOTIFY_REDIRECT);
 
       const api = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirect}&response_type=token&state=123`;
+
+      console.info('state.searchTerm', state.searchTerm);
+      if (state.searchTerm) {
+        localStorage.setItem('searchTerm', state.searchTerm);
+      }
+
       window.location = api;
     },
     setSpotifyAuth({ commit }, code) {
@@ -159,13 +168,17 @@ export default new Vuex.Store({
     checkLocalStorageAuth({ commit }) {
       const spotifyAuth = localStorage.getItem('spotifyAuth');
       const updateDate = localStorage.getItem('updateDate');
+      const searchTerm = localStorage.getItem('searchTerm');
 
       const currentDate = moment();
       const updateDateFormat = moment(new Date(updateDate).toISOString());
       const sinceUpdate = currentDate.diff(updateDateFormat, 'seconds');
 
       if (spotifyAuth && sinceUpdate < 3600) {
-        commit('useLocalAuth', { spotifyAuth, updateDate });
+        commit('useLocalAuth', {
+          spotifyAuth,
+          searchTerm,
+        });
       }
     },
   },

@@ -39,8 +39,8 @@ export default {
       this.$store.commit('search', event.target.value);
     },
   },
-  created() {
-    if (this.searchTerm && !this.madeSearch) {
+  mounted() {
+    if (this.searchTerm) {
       this.submitSearch();
     }
   },

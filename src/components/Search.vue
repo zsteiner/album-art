@@ -16,19 +16,22 @@ import SearchHeader from '@/components/SearchHeader.vue';
 export default {
   name: 'Search',
   computed: {
-    ...mapState({
-      albums: state => state.albums,
-    }),
+    ...mapState(['albums', 'searchTerm', 'media']),
   },
   methods: {
-    ...mapActions(['getQueryStrings']),
+    ...mapActions(['getQueryStrings', 'updateRoutes']),
   },
   props: {
     title: String,
   },
   mounted() {
-    const { q, media } = this.$route.query;
-    this.getQueryStrings({ q, media });
+    if (this.searchTerm) {
+      const { searchTerm, media } = this;
+      this.updateRoutes({ searchTerm, media });
+    } else {
+      const { q, media } = this.$route.query;
+      this.getQueryStrings({ q, media });
+    }
   },
   components: {
     Albums,
