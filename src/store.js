@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import moment from 'moment';
 
 import router from './router';
 
@@ -45,6 +46,7 @@ export default new Vuex.Store({
     },
     search(state, query) {
       state.searchTerm = query;
+      state.madeSearch = true;
     },
     updateMedia(state, value) {
       state.media = value;
@@ -62,22 +64,27 @@ export default new Vuex.Store({
           state.entity = value;
       }
     },
-    updateAuth(state, data) {
-      if (data) {
-        state.spotifyAuth = true;
-      }
-    },
     queryStringToState(state, { q, media }) {
       state.searchTerm = decodeQuery(q);
       state.media = media;
     },
     updateSearch(state) {
-      state.madeSearch = true;
+      state.madeSearch = false;
     },
     updateSpotifyAuth(state, code) {
+      const updateDate = new Date();
       const regex = /access_token=(.*?)&/;
       const auth = code.match(regex)[1];
       state.spotifyAuth = auth;
+
+      localStorage.setItem('spotifyAuth', auth);
+      localStorage.setItem('updateDate', updateDate);
+    },
+    useLocalAuth(state, { spotifyAuth, searchTerm }) {
+      state.spotifyAuth = spotifyAuth;
+      if (searchTerm) {
+        state.searchTerm = searchTerm;
+      }
     },
     updateService(state, service) {
       state.service = service;
@@ -121,11 +128,16 @@ export default new Vuex.Store({
           console.error(event); //eslint-disable-line
         });
     },
-    getSpotifyAuth() {
+    getSpotifyAuth({ state }) {
       const clientID = process.env.VUE_APP_SPOTIFY_CLIENT_ID;
       const redirect = encodeURIComponent(process.env.VUE_APP_SPOTIFY_REDIRECT);
 
       const api = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirect}&response_type=token&state=123`;
+
+      if (state.searchTerm) {
+        localStorage.setItem('searchTerm', state.searchTerm);
+      }
+
       window.location = api;
     },
     setSpotifyAuth({ commit }, code) {
@@ -151,6 +163,22 @@ export default new Vuex.Store({
     },
     setService({ commit }, service) {
       commit('updateService', service);
+    },
+    checkLocalStorageAuth({ commit }) {
+      const spotifyAuth = localStorage.getItem('spotifyAuth');
+      const updateDate = localStorage.getItem('updateDate');
+      const searchTerm = localStorage.getItem('searchTerm');
+
+      const currentDate = moment();
+      const updateDateFormat = moment(new Date(updateDate).toISOString());
+      const sinceUpdate = currentDate.diff(updateDateFormat, 'seconds');
+
+      if (spotifyAuth && sinceUpdate < 3600) {
+        commit('useLocalAuth', {
+          spotifyAuth,
+          searchTerm,
+        });
+      }
     },
   },
 });

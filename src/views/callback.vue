@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   data() {
@@ -16,11 +16,18 @@ export default {
       accessToken: this.$route.hash,
     };
   },
+  computed: {
+    ...mapState({
+      searchTerm: state => state.searchTerm,
+      media: state => state.media,
+    }),
+  },
   methods: {
-    ...mapActions(['setSpotifyAuth']),
+    ...mapActions(['setSpotifyAuth', 'setService']),
   },
   mounted() {
     this.setSpotifyAuth(this.accessToken);
+    this.setService('spotify');
 
     setTimeout(() => {
       this.$router.push({ name: 'spotify' });

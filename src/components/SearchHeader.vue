@@ -25,15 +25,9 @@ import TypeSelector from '@/components/TypeSelector.vue';
 
 export default {
   name: 'SearchHeader',
-  computed: {
-    ...mapState({
-      searchTerm: state => state.searchTerm,
-      media: state => state.media,
-      service: state => state.service,
-    }),
-  },
+  computed: { ...mapState(['searchTerm', 'madeSearch', 'media', 'service']) },
   methods: {
-    ...mapActions(['getAppleAlbums', 'getSpotifyAlbums', 'getQueryStrings']),
+    ...mapActions(['getAppleAlbums', 'getSpotifyAlbums']),
     submitSearch() {
       if (this.service === 'spotify') {
         this.getSpotifyAlbums();
@@ -45,17 +39,13 @@ export default {
       this.$store.commit('search', event.target.value);
     },
   },
-  created() {
-    const { q, media } = this.$route.query;
-    this.getQueryStrings({ q, media });
-
-    if (this.$route.query.q) {
+  mounted() {
+    if (this.searchTerm) {
       this.submitSearch();
     }
   },
   props: {
     title: String,
-    searchType: String,
   },
   components: {
     TypeSelector,

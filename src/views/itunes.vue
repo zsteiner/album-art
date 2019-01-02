@@ -19,7 +19,7 @@ export default {
   methods: {
     ...mapActions(['setService']),
   },
-  mounted() {
+  created() {
     this.setService('itunes');
   },
   components: {

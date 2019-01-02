@@ -24,13 +24,10 @@
 .artwork {
   position: relative;
   margin-bottom: 0.5rem;
+  padding-top: 100%;
+  background-color: silver;
+  background-size: cover;
   border: 0.0625rem solid silver;
-
-  img {
-    display: block;
-    height: auto;
-    width: 100%;
-  }
 
   &:hover {
     .copy {
