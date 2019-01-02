@@ -1,7 +1,7 @@
 <template>
   <main class="app">
     <nav class="nav">
-      <router-link to="/">Home</router-link>
+      <router-link to="/" exact>Home</router-link>
       <router-link to="/itunes">iTunes</router-link>
       <router-link to="/spotify">Spotify</router-link>
     </nav>
@@ -41,6 +41,7 @@ body {
     color: $blue;
     text-decoration: none;
 
+    &.router-link-active,
     &.router-link-exact-active {
       color: $green;
     }
