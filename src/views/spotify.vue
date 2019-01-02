@@ -22,10 +22,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['setService', 'getQueryStrings']),
+    ...mapActions(['checkLocalStorageAuth', 'setService', 'getQueryStrings']),
   },
   mounted() {
     this.setService('spotify');
+    this.checkLocalStorageAuth();
     const { q, media } = this.$route.query;
     this.getQueryStrings({ q, media });
   },

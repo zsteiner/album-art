@@ -31,7 +31,7 @@ export default {
 
     setTimeout(() => {
       this.$router.push({ name: 'spotify' });
-    }, 2000000);
+    }, 2000);
   },
 };
 </script>

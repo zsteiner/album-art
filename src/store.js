@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import moment from 'moment';
 
 import router from './router';
 
@@ -70,9 +71,17 @@ export default new Vuex.Store({
       state.madeSearch = true;
     },
     updateSpotifyAuth(state, code) {
+      const updateDate = new Date();
       const regex = /access_token=(.*?)&/;
       const auth = code.match(regex)[1];
       state.spotifyAuth = auth;
+
+      localStorage.setItem('spotifyAuth', auth);
+      localStorage.setItem('updateDate', updateDate);
+    },
+    useLocalAuth(state, { spotifyAuth, updateDate }) {
+      state.spotifyAuth = spotifyAuth;
+      state.code = updateDate;
     },
     updateService(state, service) {
       state.service = service;
@@ -146,6 +155,18 @@ export default new Vuex.Store({
     },
     setService({ commit }, service) {
       commit('updateService', service);
+    },
+    checkLocalStorageAuth({ commit }) {
+      const spotifyAuth = localStorage.getItem('spotifyAuth');
+      const updateDate = localStorage.getItem('updateDate');
+
+      const currentDate = moment();
+      const updateDateFormat = moment(new Date(updateDate).toISOString());
+      const sinceUpdate = currentDate.diff(updateDateFormat, 'seconds');
+
+      if (spotifyAuth && sinceUpdate < 3600) {
+        commit('useLocalAuth', { spotifyAuth, updateDate });
+      }
     },
   },
 });
