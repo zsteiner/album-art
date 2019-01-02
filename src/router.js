@@ -16,7 +16,7 @@ export default new Router({
       component: home,
     },
     {
-      path: '/itunes(q=)?',
+      path: '/itunes',
       name: 'itunes',
       component: itunes,
     },

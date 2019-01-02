@@ -65,7 +65,11 @@ export default new Vuex.Store({
       }
     },
     queryStringToState(state, { q, media }) {
-      state.searchTerm = decodeQuery(q);
+      const query = decodeQuery(q);
+
+      localStorage.setItem('searchTerm', query);
+
+      state.searchTerm = query;
       state.media = media;
     },
     updateSearch(state) {
