@@ -1,6 +1,9 @@
 <template>
   <header class="header">
-    <h1 class="heading">{{ title }}</h1>
+    <h1 class="heading">
+      <Icon :icon="service"/>
+      {{ title }}
+    </h1>
     <section class="input">
       <label for="search" class="input-label" aria-label="search">Search</label>
       <input
@@ -21,6 +24,8 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+
+import Icon from '@/components/Icon.vue';
 import TypeSelector from '@/components/TypeSelector.vue';
 
 export default {
@@ -48,6 +53,7 @@ export default {
     title: String,
   },
   components: {
+    Icon,
     TypeSelector,
   },
 };

@@ -1,27 +1,28 @@
 <template>
   <article class="home">
     <router-link to="/itunes" class="home-icon">
-      <svg class="icon" viewBox="0 0 24 24">
-        <use xlink:href="symbol-defs.svg#icon-applemusic"></use>
-      </svg>
+      <Icon :icon="'itunes'"/>
       <label>Search iTunes</label>
     </router-link>
     <router-link to="/spotify" class="home-icon">
-      <svg class="icon" viewBox="0 0 24 24">
-        <use xlink:href="symbol-defs.svg#icon-spotify"></use>
-      </svg>
+      <Icon :icon="'spotify'"/>
       <label>Search Spotify</label>
     </router-link>
   </article>
 </template>
 
 <script>
+import Icon from '@/components/Icon.vue';
+
 export default {
   created() {
     const query = Object.assign({}, this.$route.query);
     delete query.q;
     delete query.media;
     this.$router.replace({ query });
+  },
+  components: {
+    Icon,
   },
 };
 </script>
