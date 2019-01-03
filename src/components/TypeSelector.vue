@@ -14,9 +14,7 @@
         v-model="media"
       >
       <span :title="selector.label">
-        <svg class="icon" viewBox="0 0 24 24">
-          <use v-bind:xlink:href="'symbol-defs.svg#icon-' + selector.value"></use>
-        </svg>
+        <Icon :icon="selector.value"/>
         <small class="icon-label">{{selector.label}}</small>
       </span>
     </label>
@@ -25,6 +23,8 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+
+import Icon from '@/components/Icon.vue';
 
 export default {
   name: 'TypeSelector',
@@ -56,6 +56,9 @@ export default {
         this.setMedia(value);
       },
     },
+  },
+  components: {
+    Icon,
   },
 };
 </script>
