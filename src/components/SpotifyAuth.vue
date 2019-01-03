@@ -17,6 +17,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/variables';
+
 .spotify {
   margin: 2rem;
   text-align: center;
@@ -28,7 +30,7 @@ export default {
 
 .spotify-button {
   padding: 1rem;
-  background: #1db954;
+  background: $spotify;
   color: white;
   font-size: 1rem;
   border: 0;

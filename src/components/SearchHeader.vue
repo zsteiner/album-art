@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <h1 class="heading">
+    <h1 v-bind:class="'heading ' + service">
       <Icon :icon="service"/>
       {{ title }}
     </h1>
