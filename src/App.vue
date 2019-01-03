@@ -61,7 +61,7 @@ body {
 
   a {
     display: inline-block;
-    margin: 0 0.5rem;
+    margin: 0 1.5rem;
     color: $blue;
     opacity: 0.35;
     text-decoration: none;
