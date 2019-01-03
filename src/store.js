@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
-import moment from 'moment';
 
 import router from './router';
 
+import checkExpiration from './utils/checkExpiration';
 import encodeQuery from './utils/encodeQuery';
 import decodeQuery from './utils/decodeQuery';
 
@@ -93,6 +93,9 @@ export default new Vuex.Store({
     updateService(state, service) {
       state.service = service;
     },
+    clearAuth(state) {
+      state.spotifyAuth = null;
+    },
   },
   actions: {
     getAppleAlbums({ dispatch, commit, state }) {
@@ -130,6 +133,9 @@ export default new Vuex.Store({
         })
         .catch(event => {
           console.error(event); //eslint-disable-line
+          if (event.response.status === 401) {
+            commit('clearAuth');
+          }
         });
     },
     getSpotifyAuth({ state }) {
@@ -173,11 +179,7 @@ export default new Vuex.Store({
       const updateDate = localStorage.getItem('updateDate');
       const searchTerm = localStorage.getItem('searchTerm');
 
-      const currentDate = moment();
-      const updateDateFormat = moment(new Date(updateDate).toISOString());
-      const sinceUpdate = currentDate.diff(updateDateFormat, 'seconds');
-
-      if (spotifyAuth && sinceUpdate < 3600) {
+      if (spotifyAuth && checkExpiration(updateDate)) {
         commit('useLocalAuth', {
           spotifyAuth,
           searchTerm,
