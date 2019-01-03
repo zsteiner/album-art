@@ -45,6 +45,7 @@ export default new Vuex.Store({
       }));
     },
     search(state, query) {
+      localStorage.setItem('searchTerm', query);
       state.searchTerm = query;
       state.madeSearch = true;
     },
