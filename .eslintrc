@@ -9,6 +9,7 @@
         "props": true,
         "ignorePropertyModificationsFor": [
           "state",
+          "rootState",
           "acc",
           "e",
           "ctx",

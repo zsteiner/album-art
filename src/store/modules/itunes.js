@@ -1,23 +1,35 @@
+/* eslint no-shadow: 0 */
+
 import axios from 'axios';
 
 import encodeQuery from '../../utils/encodeQuery';
 
+const state = {
+  country: 'us',
+  media: 'music',
+  entity: 'album',
+};
+
 // actions
 const actions = {
-  getAppleAlbums({ dispatch, commit, state }) {
-    const {
-      country, media, entity, searchTerm,
-    } = state;
+  getAppleAlbums({
+    dispatch, commit, state, rootState,
+  }) {
+    const { country, media, entity } = state;
+
+    const { searchTerm } = rootState;
+    console.log('searchTerm', searchTerm);
+
     const encodedQuery = encodeQuery(searchTerm);
     const api = `https://itunes.apple.com/search?term=${encodedQuery}&country=${country}&media=${media}&entity=${entity}`;
 
-    dispatch('updateRoutes');
+    dispatch('updateRoutes', { root: true });
 
     axios
       .get(api)
       .then(response => {
-        commit('formatAppleAlbums', response.data.results);
-        commit('updateSearch');
+        commit('formatAppleAlbums', response.data.results, { root: true });
+        commit('updateSearch', null, { root: true });
       })
       .catch(event => {
         console.error(event); //eslint-disable-line
@@ -27,8 +39,8 @@ const actions = {
 
 // mutations
 const mutations = {
-  formatAppleAlbums(state, data) {
-    state.albums = data.map(album => ({
+  formatAppleAlbums({ rootState }, data) {
+    rootState.albums = data.map(album => ({
       id: album.collectionId,
       artist: album.artistName,
       title: album.collectionName ? album.collectionName : album.trackName,
@@ -41,6 +53,8 @@ const mutations = {
 };
 
 export default {
+  root: true,
+  state,
   actions,
   mutations,
 };

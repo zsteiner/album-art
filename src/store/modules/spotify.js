@@ -90,6 +90,7 @@ const mutations = {
 };
 
 export default {
+  root: true,
   actions,
   mutations,
 };

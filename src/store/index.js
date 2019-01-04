@@ -10,13 +10,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     albums: {},
-    country: 'us',
-    media: 'music',
-    searchTerm: null,
-    madeSearch: false,
     service: 'itunes',
-    spotifyAuth: false,
-    entity: 'album',
   },
   modules: {
     itunes,
