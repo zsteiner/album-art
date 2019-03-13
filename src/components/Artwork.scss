@@ -26,8 +26,15 @@
   margin-bottom: 0.5rem;
   padding-top: 100%;
   background-color: silver;
-  background-size: cover;
   border: 0.0625rem solid silver;
+
+  img {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
 
   &:hover {
     .copy {
