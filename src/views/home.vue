@@ -16,7 +16,7 @@ import Icon from '@/components/Icon.vue';
 
 export default {
   created() {
-    const query = Object.assign({}, this.$route.query);
+    const query = { ...this.$route.query };
     delete query.q;
     delete query.media;
     this.$router.replace({ query });
