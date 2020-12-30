@@ -2,6 +2,10 @@
   "name": "album-art",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "15.5.0",
+    "npm": "7.3.0"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
