@@ -1,11 +1,11 @@
 <template>
   <article class="home">
     <router-link to="/itunes" class="home-icon itunes">
-      <Icon :icon="'itunes'"/>
+      <Icon :icon="'itunes'" />
       <label>Search iTunes</label>
     </router-link>
     <router-link to="/spotify" class="home-icon spotify">
-      <Icon :icon="'spotify'"/>
+      <Icon :icon="'spotify'" />
       <label>Search Spotify</label>
     </router-link>
   </article>
@@ -28,8 +28,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/variables';
-
 .home {
   margin: 3rem 0;
   text-align: center;

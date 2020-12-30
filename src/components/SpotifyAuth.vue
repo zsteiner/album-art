@@ -17,8 +17,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/variables';
-
 .spotify {
   margin: 2rem;
   text-align: center;

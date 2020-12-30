@@ -21,8 +21,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '../styles/variables';
-
 .albums {
   display: grid;
   width: 100%;

@@ -58,8 +58,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../styles/variables';
-
 .success,
 .copy {
   position: absolute;

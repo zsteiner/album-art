@@ -64,8 +64,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../styles/variables';
-
 .type-selector {
   display: flex;
   grid-area: header-selector;
