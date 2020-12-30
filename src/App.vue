@@ -1,17 +1,11 @@
 <template>
   <main class="app">
     <nav class="nav">
-      <router-link to="/" exact>
-        <Icon :icon="'home'"/>Home
-      </router-link>
-      <router-link to="/itunes" class="itunes">
-        <Icon :icon="'itunes'"/>iTunes
-      </router-link>
-      <router-link to="/spotify" class="spotify">
-        <Icon :icon="'spotify'"/>Spotify
-      </router-link>
+      <router-link to="/" exact> <Icon :icon="'home'" />Home </router-link>
+      <router-link to="/itunes" class="itunes"> <Icon :icon="'itunes'" />iTunes </router-link>
+      <router-link to="/spotify" class="spotify"> <Icon :icon="'spotify'" />Spotify </router-link>
     </nav>
-    <router-view/>
+    <router-view />
   </main>
 </template>
 
@@ -26,8 +20,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import './styles/variables';
-
 *,
 *::before,
 *::after {
@@ -36,6 +28,7 @@ export default {
 
 body {
   box-sizing: border-box;
+  margin: 0;
 }
 
 .app {
@@ -55,16 +48,20 @@ body {
 }
 
 .nav {
+  display: flex;
+  justify-content: center;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1.5rem 0;
   text-align: center;
 
   a {
-    display: inline-block;
-    margin: 0 1.5rem;
     color: $blue;
     opacity: 0.35;
     text-decoration: none;
+
+    &:not(:last-child) {
+      margin-right: 2rem;
+    }
 
     &.router-link-active,
     &.router-link-exact-active {
@@ -74,7 +71,7 @@ body {
 
     .icon {
       bottom: -0.25em;
-      margin-right: 0.3em;
+      margin-right: 0.25em;
       font-size: 1.25em;
     }
   }

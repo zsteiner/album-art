@@ -20,6 +20,15 @@ export default {
 };
 </script>
 
-<style lang="sass">
-@import './Albums'
+<style scoped lang="scss">
+.albums {
+  display: grid;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  grid-row-gap: 3rem;
+  grid-column-gap: 2rem;
+  list-style: none;
+}
 </style>
