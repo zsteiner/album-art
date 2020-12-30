@@ -12,10 +12,10 @@
         :value="selector.value"
         :id="selector.value"
         v-model="media"
-      >
+      />
       <span :title="selector.label">
-        <Icon :icon="selector.value"/>
-        <small class="icon-label">{{selector.label}}</small>
+        <Icon :icon="selector.value" />
+        <small class="icon-label">{{ selector.label }}</small>
       </span>
     </label>
   </div>
@@ -46,7 +46,7 @@ export default {
 
   computed: {
     ...mapState({
-      searchTerm: state => state.searchTerm,
+      searchTerm: (state) => state.searchTerm,
     }),
     media: {
       get() {
@@ -64,5 +64,50 @@ export default {
 </script>
 
 <style lang="scss">
-@import './TypeSelector';
+@import '../styles/variables';
+
+.type-selector {
+  display: flex;
+  justify-content: space-between;
+  grid-column: 1 / 4;
+  grid-row: 3 / 3;
+
+  @include respond-to(medium) {
+    grid-column: 4 /4;
+    grid-row: 2 / 2;
+  }
+}
+
+.selector {
+  position: relative;
+  font-size: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+
+  &:not(:last-child) {
+    margin-right: 1rem;
+  }
+
+  input {
+    position: absolute;
+    visibility: hidden;
+
+    &:checked {
+      & + span {
+        color: $green;
+      }
+    }
+  }
+}
+
+.icon {
+  height: auto;
+  width: 1em;
+  fill: currentColor;
+
+  &-label {
+    display: block;
+    font-size: 0.75rem;
+  }
+}
 </style>

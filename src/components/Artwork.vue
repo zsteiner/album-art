@@ -1,10 +1,10 @@
 <template>
   <div>
     <figure class="artwork">
-      <img v-bind:src="album.coverMedRes" v-bind:alt="album.title">
+      <img v-bind:src="album.coverMedRes" v-bind:alt="album.title" />
       <ArtworkControls :showSuccess="showSuccess" :onClick="copyImage"></ArtworkControls>
     </figure>
-    <time class="album-date">{{formatDate(album.releaseDate)}}</time>
+    <time class="album-date">{{ formatDate(album.releaseDate) }}</time>
     <h2 class="album-title">{{ album.title }}</h2>
     <p class="artist">{{ album.artist }}</p>
   </div>
@@ -58,5 +58,83 @@ export default {
 </script>
 
 <style lang="scss">
-@import './Artwork';
+@import '../styles/variables';
+
+.success,
+.copy {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+  background: transparentize(white, 0.25);
+  font-size: 1.5rem;
+}
+
+.copy {
+  display: none;
+  border: 0;
+}
+
+.active {
+  & + .copy {
+    display: none;
+  }
+}
+
+.artwork {
+  position: relative;
+  margin-bottom: 0.5rem;
+  padding-top: 100%;
+  background-color: silver;
+  border: 0.0625rem solid silver;
+  font-size: 0.875rem;
+
+  img {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  &:hover {
+    .copy {
+      display: block;
+    }
+
+    .active + .copy {
+      display: none;
+    }
+  }
+
+  @include respond-to(large) {
+    font-size: 1.5rem;
+  }
+}
+
+.album-title {
+  margin: 0 0 0.5rem;
+  font-size: 0.875em;
+}
+
+.album-date {
+  display: block;
+  margin: 0 0 0.5rem;
+  font-size: 0.625em;
+  opacity: 0.75;
+}
+
+.artist {
+  margin: 0.5rem 0;
+  font-size: 0.75em;
+}
+
+.success {
+  display: flex;
+  font-weight: 900;
+  justify-content: center;
+  align-items: center;
+}
 </style>
