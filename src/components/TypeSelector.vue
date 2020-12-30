@@ -68,13 +68,12 @@ export default {
 
 .type-selector {
   display: flex;
+  grid-area: header-selector;
   justify-content: space-between;
-  grid-column: 1 / 4;
-  grid-row: 3 / 3;
+  margin-top: 1rem;
 
   @include respond-to(medium) {
-    grid-column: 4 /4;
-    grid-row: 2 / 2;
+    margin: 0;
   }
 }
 

@@ -62,16 +62,21 @@ export default {
 
 .header {
   display: grid;
-  margin-bottom: 2rem;
   align-items: start;
-  grid-template-columns: auto 1fr 5rem;
-  grid-row-gap: 1rem;
+  grid-template:
+    'header-heading header-heading header-heading' auto
+    'header-label . .' auto
+    'header-input header-input header-button' auto
+    'header-selector header-selector header-selector' auto /
+    auto 1fr 5rem;
   grid-column-gap: 1rem;
-  grid-template-rows: auto auto 1fr;
+  margin-bottom: 2rem;
 
   @include respond-to(medium) {
-    grid-template-columns: auto 1fr auto 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template:
+      'header-heading header-heading header-heading header-heading' auto
+      'header-label header-input header-button header-selector' auto /
+      auto 1fr 5rem 1fr;
   }
 }
 
@@ -84,10 +89,10 @@ export default {
 }
 
 .heading {
-  margin: 0;
+  margin: 0 0 1rem;
   font-size: 2rem;
   font-weight: 900;
-  grid-column: 1 / 4;
+  grid-area: header-heading;
 
   .icon {
     bottom: -0.125em;
@@ -96,20 +101,15 @@ export default {
 }
 
 .input {
-  grid-row: 2 / 2;
-  width: 100%;
-  padding: 0.75rem;
   box-shadow: none;
   border: 1px solid lightgrey;
-
-  @include respond-to(medium) {
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    grid-column-gap: 1rem;
-  }
+  grid-area: header-input;
+  grid-column-gap: 1rem;
+  padding: 0.75rem;
+  width: 100%;
 
   &-label {
-    grid-row: 2 / 2;
+    grid-area: header-label;
     margin: 0.625rem 0;
   }
 }
@@ -120,7 +120,7 @@ export default {
   background: $blue;
   color: white;
   font-size: 1rem;
-  grid-row: 2 / 2;
+  grid-area: header-button;
   line-height: 1;
   padding: 0.75rem 1rem;
 }
