@@ -28,9 +28,29 @@ import TypeSelector from '@/components/TypeSelector.vue';
 
 export default {
   name: 'SearchHeader',
-  computed: { ...mapState(['searchTerm', 'madeSearch', 'media', 'service']) },
+
+  components: {
+    Icon,
+    TypeSelector,
+  },
+  props: {
+    hasQueryParam: Boolean,
+    title: String,
+  },
+
+  computed: {
+    ...mapState(['searchTerm', 'madeSearch', 'media', 'service']),
+  },
+
+  mounted() {
+    if (this.shouldUpdate && this.searchTerm) {
+      this.submitSearch();
+    }
+  },
+
   methods: {
     ...mapActions(['getAppleAlbums', 'getSpotifyAlbums']),
+
     submitSearch() {
       if (this.service === 'spotify') {
         this.getSpotifyAlbums();
@@ -38,21 +58,18 @@ export default {
         this.getAppleAlbums();
       }
     },
+
     updateSearch(event) {
       this.$store.commit('search', event.target.value);
     },
   },
-  mounted() {
-    if (this.searchTerm) {
-      this.submitSearch();
-    }
-  },
-  props: {
-    title: String,
-  },
-  components: {
-    Icon,
-    TypeSelector,
+
+  watch: {
+    hasQueryParam: function watch(value) {
+      if (value) {
+        this.submitSearch();
+      }
+    },
   },
 };
 </script>
