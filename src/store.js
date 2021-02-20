@@ -23,7 +23,7 @@ export default new Vuex.Store({
   },
   mutations: {
     formatAppleAlbums(state, data) {
-      state.albums = data.map(album => ({
+      state.albums = data.map((album) => ({
         id: album.collectionId,
         artist: album.artistName,
         title: album.collectionName ? album.collectionName : album.trackName,
@@ -34,7 +34,7 @@ export default new Vuex.Store({
       }));
     },
     formatSpotifyAlbums(state, data) {
-      state.albums = data.map(album => ({
+      state.albums = data.map((album) => ({
         id: album.id,
         artist: album.artists[0].name,
         title: album.name,
@@ -101,7 +101,10 @@ export default new Vuex.Store({
   actions: {
     getAppleAlbums({ dispatch, commit, state }) {
       const {
-        country, media, entity, searchTerm,
+        country,
+        media,
+        entity,
+        searchTerm,
       } = state;
       const encodedQuery = encodeQuery(searchTerm);
       const api = `https://itunes.apple.com/search?term=${encodedQuery}&country=${country}&media=${media}&entity=${entity}`;
@@ -110,17 +113,20 @@ export default new Vuex.Store({
 
       axios
         .get(api)
-        .then(response => {
+        .then((response) => {
           commit('formatAppleAlbums', response.data.results);
           commit('updateSearch');
         })
-        .catch(event => {
+        .catch((event) => {
           console.error(event); //eslint-disable-line
         });
     },
     getSpotifyAlbums({ dispatch, commit, state }) {
       const {
-        country, searchTerm, entity, spotifyAuth,
+        country,
+        searchTerm,
+        entity,
+        spotifyAuth,
       } = state;
       const encodedQuery = encodeQuery(searchTerm);
       const api = `https://api.spotify.com/v1/search?access_token=${spotifyAuth}&q=${encodedQuery}&market=${country}&type=${entity}&limit=20`;
@@ -128,11 +134,11 @@ export default new Vuex.Store({
       dispatch('updateRoutes');
       axios
         .get(api)
-        .then(response => {
+        .then((response) => {
           commit('formatSpotifyAlbums', response.data.albums.items);
           commit('updateSearch');
         })
-        .catch(event => {
+        .catch((event) => {
           console.error(event); //eslint-disable-line
           if (event.response.status === 401) {
             commit('clearAuth');
@@ -161,7 +167,7 @@ export default new Vuex.Store({
     updateRoutes({ state }) {
       const { searchTerm, media } = state;
       const query = encodeQuery(searchTerm);
-      router.push({ query: { q: query, media } });
+      router.push({ query: { q: query, media } }).catch(() => {});
     },
     getQueryStrings({ commit }, { q, media }) {
       if (q && media) {

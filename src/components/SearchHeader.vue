@@ -28,9 +28,29 @@ import TypeSelector from '@/components/TypeSelector.vue';
 
 export default {
   name: 'SearchHeader',
-  computed: { ...mapState(['searchTerm', 'madeSearch', 'media', 'service']) },
+
+  components: {
+    Icon,
+    TypeSelector,
+  },
+  props: {
+    hasQueryParam: Boolean,
+    title: String,
+  },
+
+  computed: {
+    ...mapState(['searchTerm', 'madeSearch', 'media', 'service']),
+  },
+
+  mounted() {
+    if (this.shouldUpdate && this.searchTerm) {
+      this.submitSearch();
+    }
+  },
+
   methods: {
     ...mapActions(['getAppleAlbums', 'getSpotifyAlbums']),
+
     submitSearch() {
       if (this.service === 'spotify') {
         this.getSpotifyAlbums();
@@ -38,21 +58,18 @@ export default {
         this.getAppleAlbums();
       }
     },
+
     updateSearch(event) {
       this.$store.commit('search', event.target.value);
     },
   },
-  mounted() {
-    if (this.searchTerm) {
-      this.submitSearch();
-    }
-  },
-  props: {
-    title: String,
-  },
-  components: {
-    Icon,
-    TypeSelector,
+
+  watch: {
+    hasQueryParam: function watch(value) {
+      if (value) {
+        this.submitSearch();
+      }
+    },
   },
 };
 </script>
@@ -60,6 +77,7 @@ export default {
 <style scoped lang="scss">
 .header {
   display: grid;
+  margin-bottom: 2rem;
   align-items: start;
   grid-template:
     'header-heading header-heading header-heading' auto
@@ -68,13 +86,12 @@ export default {
     'header-selector header-selector header-selector' auto /
     auto 1fr 5rem;
   grid-column-gap: 1rem;
-  margin-bottom: 2rem;
 
   @include respond-to(medium) {
     grid-template:
-      'header-heading header-heading header-heading header-heading' auto
-      'header-label header-input header-button header-selector' auto /
-      auto 1fr 5rem 1fr;
+      'header-heading header-heading header-heading header-heading header-heading' auto
+      'header-label header-input header-button . header-selector' auto /
+      auto minmax(15rem, 1fr) 5rem 1fr auto;
   }
 }
 
@@ -99,27 +116,27 @@ export default {
 }
 
 .input {
-  box-shadow: none;
-  border: 1px solid lightgrey;
-  grid-area: header-input;
-  grid-column-gap: 1rem;
-  padding: 0.75rem;
   width: 100%;
+  padding: 0.75rem;
+  border: 0.0625rem solid lightgrey;
+  grid-column-gap: 1rem;
+  box-shadow: none;
+  grid-area: header-input;
 
   &-label {
-    grid-area: header-label;
     margin: 0.625rem 0;
+    grid-area: header-label;
   }
 }
 
 .button {
-  border: 0;
+  padding: 0.75rem 1rem;
   background: none;
   background: $blue;
   color: white;
   font-size: 1rem;
-  grid-area: header-button;
   line-height: 1;
-  padding: 0.75rem 1rem;
+  border: 0;
+  grid-area: header-button;
 }
 </style>
