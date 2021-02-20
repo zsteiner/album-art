@@ -49,10 +49,10 @@ body {
 
 .nav {
   display: flex;
-  justify-content: center;
   margin: 0 auto;
   padding: 1.5rem 0;
   text-align: center;
+  justify-content: center;
 
   a {
     color: $blue;

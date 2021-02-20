@@ -66,9 +66,9 @@ export default {
 <style lang="scss">
 .type-selector {
   display: flex;
-  grid-area: header-selector;
-  justify-content: space-between;
   margin-top: 1rem;
+  justify-content: space-between;
+  grid-area: header-selector;
 
   @include respond-to(medium) {
     margin: 0;
@@ -82,7 +82,7 @@ export default {
   cursor: pointer;
 
   &:not(:last-child) {
-    margin-right: 1rem;
+    margin-right: 2rem;
   }
 
   input {
