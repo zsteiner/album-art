@@ -16,7 +16,7 @@
     "@vue/eslint-config-airbnb": "^5.3.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "moment": "^2.23.0",
+    "moment": "^2.29.2",
     "sass": "^1.32.4",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
