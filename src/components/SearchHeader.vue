@@ -15,8 +15,8 @@
       placeholder="Search for album"
       aria-labelledby="search"
     />
-    <button @click="submitSearch" class="button">search</button>
-    <TypeSelector v-if="service === 'itunes'" :onChange="submitSearch"></TypeSelector>
+    <button @click="submitSearch" type="button" class="button">search</button>
+    <TypeSelector v-if="service === 'itunes'" :onChange="submitSearch" />
   </header>
 </template>
 
@@ -35,7 +35,7 @@ export default {
   },
   props: {
     hasQueryParam: Boolean,
-    title: String,
+    title: { type: String, default: '' },
   },
 
   computed: {

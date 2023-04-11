@@ -2,23 +2,11 @@
   "root": true,
   "extends": ["plugin:vue/essential", "@vue/airbnb"],
   "rules": {
-    "arrow-parens": 0,
-    "no-param-reassign": [
-      "error",
-      {
-        "props": true,
-        "ignorePropertyModificationsFor": [
-          "state",
-          "acc",
-          "e",
-          "ctx",
-          "req",
-          "request",
-          "res",
-          "response",
-          "$scope"
-        ]
-      }
-    ]
+    "vue/multi-word-component-names": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
   }
 }

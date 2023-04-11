@@ -2,7 +2,7 @@
   <div>
     <figure class="artwork">
       <img v-bind:src="album.coverMedRes" v-bind:alt="album.title" />
-      <ArtworkControls :showSuccess="showSuccess" :onClick="copyImage"></ArtworkControls>
+      <ArtworkControls :showSuccess="showSuccess" :onClick="copyImage" />
     </figure>
     <time class="album-date">{{ formatDate(album.releaseDate) }}</time>
     <h2 class="album-title">{{ album.title }}</h2>
@@ -16,7 +16,7 @@ import ArtworkControls from './ArtworkControls.vue';
 export default {
   name: 'Artwork',
   props: {
-    album: Object,
+    album: { type: Object, default: () => {} },
   },
   data() {
     return { showSuccess: false };

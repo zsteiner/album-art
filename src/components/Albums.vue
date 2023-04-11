@@ -1,7 +1,7 @@
 <template>
   <ul class="albums">
     <li v-for="(album, index) in albums" :key="`${index}-${album.id}`" class="album-item">
-      <Artwork :album="album"></Artwork>
+      <Artwork :album="album" />
     </li>
   </ul>
 </template>
@@ -12,7 +12,7 @@ import Artwork from './Artwork.vue';
 export default {
   name: 'Albums',
   props: {
-    albums: Array,
+    albums: { type: Array, default: () => [] },
   },
   components: {
     Artwork,
