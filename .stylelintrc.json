@@ -1,11 +1,12 @@
 {
-  "extends": "stylelint-config-standard",
-  "plugins": ["stylelint-scss", "stylelint-order"],
+  "extends": ["stylelint-config-standard"],
+  "plugins": ["stylelint-order", "stylelint-use-logical"],
   "rules": {
-    "unit-whitelist": ["em", "rem", "vh", "vw", "deg", "%", "s", "fr", "ch"],
-    "at-rule-no-unknown": null,
+    "csstools/use-logical": "always",
     "order/order": ["custom-properties", "declarations", "rules"],
     "order/properties-alphabetical-order": [true],
-    "scss/at-rule-no-unknown": true
+    "selector-id-pattern": null,
+    "selector-class-pattern": null,
+    "unit-allowed-list": ["ch", "em", "rem", "vh", "vw", "vmin", "deg", "%", "s", "fr"]
   }
 }
