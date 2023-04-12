@@ -1,9 +1,23 @@
 <template>
   <main class="app">
     <nav class="nav">
-      <router-link class="link" to="/" exact> <Icon :icon="'home'" />Home </router-link>
-      <router-link to="/itunes" class="link itunes"> <Icon :icon="'itunes'" />iTunes </router-link>
-      <router-link to="/spotify" class="link spotify">
+      <router-link
+        class="link"
+        to="/"
+        exact
+      >
+        <Icon :icon="'home'" />Home
+      </router-link>
+      <router-link
+        to="/itunes"
+        class="link itunes"
+      >
+        <Icon :icon="'itunes'" />iTunes
+      </router-link>
+      <router-link
+        to="/spotify"
+        class="link spotify"
+      >
         <Icon :icon="'spotify'" />Spotify
       </router-link>
     </nav>
@@ -66,19 +80,19 @@ p {
 
 <style scoped>
 .app {
-  padding: 1rem;
   color: var(--blue);
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 1rem;
 }
 
 .nav {
   display: flex;
+  justify-content: center;
   margin: 0 auto;
   padding: 1.5rem 0;
   text-align: center;
-  justify-content: center;
 }
 
 .link {
@@ -87,7 +101,7 @@ p {
   text-decoration: none;
 }
 .link:not(:last-child) {
-  margin-right: 2rem;
+  margin-inline-end: 2rem;
 }
 
 .link.router-link-active,
@@ -97,8 +111,8 @@ p {
 }
 
 .link .icon {
-  bottom: -0.25em;
-  margin-right: 0.25em;
   font-size: 1.25em;
+  inset-block-end: -0.25em;
+  margin-inline-end: 0.25em;
 }
 </style>

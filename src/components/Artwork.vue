@@ -1,12 +1,23 @@
 <template>
   <div>
     <figure class="artwork">
-      <img class="img" v-bind:src="album.coverMedRes" v-bind:alt="album.title" />
-      <ArtworkControls :showSuccess="showSuccess" :onClick="copyImage" />
+      <img
+        class="img"
+        :src="album.coverMedRes"
+        :alt="album.title"
+      >
+      <ArtworkControls
+        :show-success="showSuccess"
+        :on-click="copyImage"
+      />
     </figure>
     <time class="album-date">{{ formatDate(album.releaseDate) }}</time>
-    <h2 class="album-title">{{ album.title }}</h2>
-    <p class="artist">{{ album.artist }}</p>
+    <h2 class="album-title">
+      {{ album.title }}
+    </h2>
+    <p class="artist">
+      {{ album.artist }}
+    </p>
   </div>
 </template>
 
@@ -15,14 +26,14 @@ import ArtworkControls from './ArtworkControls.vue';
 
 export default {
   name: 'Artwork',
+  components: {
+    ArtworkControls,
+  },
   props: {
     album: { type: Object, default: () => {} },
   },
   data() {
     return { showSuccess: false };
-  },
-  components: {
-    ArtworkControls,
   },
   methods: {
     copyImage() {
@@ -60,19 +71,19 @@ export default {
 <style scoped>
 .success,
 .copy {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  padding: 1rem;
   background: rgb(255 255 255 / 25%);
+  block-size: 100%;
   font-size: 1.5rem;
+  inline-size: 100%;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  padding: 1rem;
+  position: absolute;
 }
 
 .copy {
-  display: none;
   border: 0;
+  display: none;
 }
 
 .active + .copy {
@@ -80,19 +91,19 @@ export default {
 }
 
 .artwork {
-  position: relative;
-  margin-bottom: 0.5rem;
-  padding-top: 100%;
   background-color: silver;
   border: 0.0625rem solid silver;
   font-size: 0.875rem;
+  margin-block-end: 0.5rem;
+  padding-block-start: 100%;
+  position: relative;
 }
 .img {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 100%;
+  block-size: 100%;
+  inline-size: 100%;
+  inset-block-start: 0;
   object-fit: cover;
+  position: absolute;
 }
 
 .img:hover .copy {
@@ -110,26 +121,26 @@ export default {
 }
 
 .album-title {
-  margin: 0 0 0.5rem;
   font-size: 0.875em;
+  margin: 0 0 0.5rem;
 }
 
 .album-date {
   display: block;
-  margin: 0 0 0.5rem;
   font-size: 0.625em;
+  margin: 0 0 0.5rem;
   opacity: 0.75;
 }
 
 .artist {
-  margin: 0.5rem 0;
   font-size: 0.75em;
+  margin: 0.5rem 0;
 }
 
 .success {
+  align-items: center;
   display: flex;
   font-weight: 900;
   justify-content: center;
-  align-items: center;
 }
 </style>

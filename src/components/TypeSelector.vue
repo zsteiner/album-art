@@ -7,13 +7,13 @@
       class="selector"
     >
       <input
+        :id="selector.value"
+        v-model="media"
         class="input"
         type="radio"
         name="entities"
         :value="selector.value"
-        :id="selector.value"
-        v-model="media"
-      />
+      >
       <span :title="selector.label">
         <Icon :icon="selector.value" />
         <small class="icon-label">{{ selector.label }}</small>
@@ -29,6 +29,11 @@ import Icon from '@/components/Icon.vue';
 
 export default {
   name: 'TypeSelector',
+
+  components: {
+    Icon,
+  },
+
   data() {
     return {
       mediaTypes: [
@@ -40,9 +45,6 @@ export default {
         { value: 'all', label: 'All' },
       ],
     };
-  },
-  methods: {
-    ...mapActions(['setMedia']),
   },
 
   computed: {
@@ -58,8 +60,9 @@ export default {
       },
     },
   },
-  components: {
-    Icon,
+
+  methods: {
+    ...mapActions(['setMedia']),
   },
 };
 </script>
@@ -67,9 +70,9 @@ export default {
 <style scoped>
 .type-selector {
   display: flex;
-  margin-top: 1rem;
-  justify-content: space-between;
   grid-area: header-selector;
+  justify-content: space-between;
+  margin-block-start: 1rem;
 }
 
 @media (min-width: 52rem) {
@@ -79,14 +82,14 @@ export default {
 }
 
 .selector {
-  position: relative;
-  font-size: 1.5rem;
-  text-align: center;
   cursor: pointer;
+  font-size: 1.5rem;
+  position: relative;
+  text-align: center;
 }
 
 .selector:not(:last-child) {
-  margin-right: 2rem;
+  margin-inline-end: 2rem;
 }
 
 .input {
@@ -99,9 +102,9 @@ export default {
 }
 
 .icon {
-  height: auto;
-  width: 1em;
+  block-size: auto;
   fill: currentColor;
+  inline-size: 1em;
 }
 .icon-label {
   display: block;

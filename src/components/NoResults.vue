@@ -1,5 +1,10 @@
 <template>
-  <h2 v-if="madeSearch" class="no-results">Sorry Can't Find Anything</h2>
+  <h2
+    v-if="madeSearch"
+    class="no-results"
+  >
+    Sorry Can't Find Anything
+  </h2>
 </template>
 
 <script>

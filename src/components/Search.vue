@@ -1,7 +1,13 @@
 <template>
   <section>
-    <SearchHeader :hasQueryParam="hasQueryParam" :title="title" />
-    <Albums v-if="albums.length > 0" :albums="albums" />
+    <SearchHeader
+      :has-query-param="hasQueryParam"
+      :title="title"
+    />
+    <Albums
+      v-if="albums.length > 0"
+      :albums="albums"
+    />
     <NoResults v-else />
   </section>
 </template>
@@ -16,6 +22,16 @@ import SearchHeader from '@/components/SearchHeader.vue';
 export default {
   name: 'Search',
 
+  components: {
+    Albums,
+    NoResults,
+    SearchHeader,
+  },
+
+  props: {
+    title: { type: String, default: '' },
+  },
+
   data() {
     return {
       hasQueryParam: false,
@@ -24,14 +40,6 @@ export default {
 
   computed: {
     ...mapState(['albums', 'searchTerm', 'media']),
-  },
-
-  methods: {
-    ...mapActions(['getQueryStrings', 'updateRoutes']),
-  },
-
-  props: {
-    title: { type: String, default: '' },
   },
 
   mounted() {
@@ -45,10 +53,8 @@ export default {
     }
   },
 
-  components: {
-    Albums,
-    NoResults,
-    SearchHeader,
+  methods: {
+    ...mapActions(['getQueryStrings', 'updateRoutes']),
   },
 };
 </script>

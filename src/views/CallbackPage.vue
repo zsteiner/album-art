@@ -1,9 +1,15 @@
 <template>
   <article class="spotify-success">
-    <h1 class="heading">Now logged in to Spotify.</h1>
+    <h1 class="heading">
+      Now logged in to Spotify.
+    </h1>
     <h2>Getting to those sweet, sweet pictures ...</h2>
-    <p class="message">Still sitting here?</p>
-    <router-link to="/spotify">Search Spotify</router-link>
+    <p class="message">
+      Still sitting here?
+    </p>
+    <router-link to="/spotify">
+      Search Spotify
+    </router-link>
   </article>
 </template>
 
@@ -16,15 +22,14 @@ export default {
       accessToken: this.$route.hash,
     };
   },
+
   computed: {
     ...mapState({
       searchTerm: (state) => state.searchTerm,
       media: (state) => state.media,
     }),
   },
-  methods: {
-    ...mapActions(['setSpotifyAuth', 'setService']),
-  },
+
   mounted() {
     this.setSpotifyAuth(this.accessToken);
     this.setService('spotify');
@@ -32,6 +37,10 @@ export default {
     setTimeout(() => {
       this.$router.push({ name: 'spotify' });
     }, 2000);
+  },
+
+  methods: {
+    ...mapActions(['setSpotifyAuth', 'setService']),
   },
 };
 </script>
@@ -46,6 +55,6 @@ export default {
 }
 
 .message {
-  margin-bottom: 1rem;
+  margin-block-end: 1rem;
 }
 </style>
