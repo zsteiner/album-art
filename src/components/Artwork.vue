@@ -1,7 +1,7 @@
 <template>
   <div>
     <figure class="artwork">
-      <img v-bind:src="album.coverMedRes" v-bind:alt="album.title" />
+      <img class="img" v-bind:src="album.coverMedRes" v-bind:alt="album.title" />
       <ArtworkControls :showSuccess="showSuccess" :onClick="copyImage" />
     </figure>
     <time class="album-date">{{ formatDate(album.releaseDate) }}</time>
@@ -57,7 +57,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped>
 .success,
 .copy {
   position: absolute;
@@ -66,7 +66,7 @@ export default {
   height: 100%;
   width: 100%;
   padding: 1rem;
-  background: transparentize(white, 0.25);
+  background: rgb(255 255 255 / 25%);
   font-size: 1.5rem;
 }
 
@@ -75,10 +75,8 @@ export default {
   border: 0;
 }
 
-.active {
-  & + .copy {
-    display: none;
-  }
+.active + .copy {
+  display: none;
 }
 
 .artwork {
@@ -88,26 +86,25 @@ export default {
   background-color: silver;
   border: 0.0625rem solid silver;
   font-size: 0.875rem;
+}
+.img {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
 
-  img {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-  }
+.img:hover .copy {
+  display: block;
+}
 
-  &:hover {
-    .copy {
-      display: block;
-    }
+.img:hover .active + .copy {
+  display: none;
+}
 
-    .active + .copy {
-      display: none;
-    }
-  }
-
-  @include respond-to(large) {
+@media (min-width: 70rem) {
+  .artwork {
     font-size: 1.5rem;
   }
 }

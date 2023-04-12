@@ -7,6 +7,7 @@
       class="selector"
     >
       <input
+        class="input"
         type="radio"
         name="entities"
         :value="selector.value"
@@ -63,14 +64,16 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped>
 .type-selector {
   display: flex;
   margin-top: 1rem;
   justify-content: space-between;
   grid-area: header-selector;
+}
 
-  @include respond-to(medium) {
+@media (min-width: 52rem) {
+  .type-selector {
     margin: 0;
   }
 }
@@ -80,31 +83,28 @@ export default {
   font-size: 1.5rem;
   text-align: center;
   cursor: pointer;
+}
 
-  &:not(:last-child) {
-    margin-right: 2rem;
-  }
+.selector:not(:last-child) {
+  margin-right: 2rem;
+}
 
-  input {
-    position: absolute;
-    visibility: hidden;
+.input {
+  position: absolute;
+  visibility: hidden;
+}
 
-    &:checked {
-      & + span {
-        color: $green;
-      }
-    }
-  }
+.input:checked + span {
+  color: var(--green);
 }
 
 .icon {
   height: auto;
   width: 1em;
   fill: currentColor;
-
-  &-label {
-    display: block;
-    font-size: 0.75rem;
-  }
+}
+.icon-label {
+  display: block;
+  font-size: 0.75rem;
 }
 </style>

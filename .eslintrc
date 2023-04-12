@@ -1,12 +1,7 @@
 {
   "root": true,
-  "extends": ["plugin:vue/essential", "@vue/airbnb"],
+  "extends": ["plugin:vue/vue3-recommended"],
   "rules": {
-    "vue/multi-word-component-names": "off"
-  },
-  "settings": {
-    "import/resolver": {
-      "typescript": {}
-    }
+    "vue/attributes-order": "error"
   }
 }

@@ -27,13 +27,15 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .home {
   margin: 3rem 0;
   text-align: center;
   justify-content: space-around;
+}
 
-  @include respond-to(medium) {
+@media (min-width: 52rem) {
+  .home {
     display: flex;
   }
 }

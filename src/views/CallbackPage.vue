@@ -1,8 +1,8 @@
 <template>
   <article class="spotify-success">
-    <h1 class="spotify-success__heading">Now logged in to Spotify.</h1>
+    <h1 class="heading">Now logged in to Spotify.</h1>
     <h2>Getting to those sweet, sweet pictures ...</h2>
-    <p>Still sitting here?</p>
+    <p class="message">Still sitting here?</p>
     <router-link to="/spotify">Search Spotify</router-link>
   </article>
 </template>
@@ -36,16 +36,16 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .spotify-success {
   text-align: center;
+}
 
-  &__heading {
-    font-size: 2.5rem;
-  }
+.heading {
+  font-size: 2.5rem;
+}
 
-  p {
-    margin-bottom: 1rem;
-  }
+.message {
+  margin-bottom: 1rem;
 }
 </style>

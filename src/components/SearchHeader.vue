@@ -74,7 +74,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .header {
   display: grid;
   margin-bottom: 2rem;
@@ -86,8 +86,10 @@ export default {
     'header-selector header-selector header-selector' auto /
     auto 1fr 5rem;
   grid-column-gap: 1rem;
+}
 
-  @include respond-to(medium) {
+@media (min-width: 52rem) {
+  .header {
     grid-template:
       'header-heading header-heading header-heading header-heading header-heading' auto
       'header-label header-input header-button . header-selector' auto /
@@ -96,11 +98,11 @@ export default {
 }
 
 .itunes .icon {
-  color: $itunes;
+  color: var(--itunes);
 }
 
 .spotify .icon {
-  color: $spotify;
+  color: var(--spotify);
 }
 
 .heading {
@@ -122,17 +124,16 @@ export default {
   grid-column-gap: 1rem;
   box-shadow: none;
   grid-area: header-input;
-
-  &-label {
-    margin: 0.625rem 0;
-    grid-area: header-label;
-  }
+}
+.input-label {
+  margin: 0.625rem 0;
+  grid-area: header-label;
 }
 
 .button {
   padding: 0.75rem 1rem;
   background: none;
-  background: $blue;
+  background: var(--blue);
   color: white;
   font-size: 1rem;
   line-height: 1;
