@@ -91,8 +91,10 @@ export default {
 }
 
 .artwork {
-  background-color: silver;
-  border: 0.0625rem solid silver;
+  --artwork-color: silver;
+
+  background-color: var(--artwork-color);
+  border: 0.0625rem solid var(--artwork-color);
   font-size: 0.875rem;
   margin-block-end: 0.5rem;
   padding-block-start: 100%;
