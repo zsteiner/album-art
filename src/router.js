@@ -1,34 +1,36 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import home from './views/home.vue';
-import itunes from './views/itunes.vue';
-import callback from './views/callback.vue';
-import spotify from './views/spotify.vue';
+import { createWebHistory, createRouter } from 'vue-router';
 
-Vue.use(Router);
+import HomePage from './views/HomePage.vue';
+import ItunesPage from './views/ItunesPage.vue';
+import CallbackPage from './views/CallbackPage.vue';
+import SpotifyPage from './views/SpotifyPage.vue';
 
-export default new Router({
-  mode: 'history',
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: home,
-    },
-    {
-      path: '/itunes',
-      name: 'itunes',
-      component: itunes,
-    },
-    {
-      path: '/spotify',
-      name: 'spotify',
-      component: spotify,
-    },
-    {
-      path: '/callback',
-      name: 'spotifyCallback',
-      component: callback,
-    },
-  ],
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: HomePage,
+  },
+  {
+    path: '/itunes',
+    name: 'itunes',
+    component: ItunesPage,
+  },
+  {
+    path: '/spotify',
+    name: 'spotify',
+    component: SpotifyPage,
+  },
+  {
+    path: '/callback',
+    name: 'spotifyCallback',
+    component: CallbackPage,
+  },
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
 });
+
+export default router;

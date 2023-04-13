@@ -1,6 +1,6 @@
 <template>
   <article>
-    <Search v-bind:title="title"></Search>
+    <Search :title="title" />
   </article>
 </template>
 
@@ -10,20 +10,24 @@ import { mapActions } from 'vuex';
 import Search from '@/components/Search.vue';
 
 export default {
-  name: 'itunes',
+  name: 'Itunes',
+
+  components: {
+    Search,
+  },
+
   data() {
     return {
       title: 'iTunes Search',
     };
   },
-  methods: {
-    ...mapActions(['setService']),
-  },
+
   created() {
     this.setService('itunes');
   },
-  components: {
-    Search,
+
+  methods: {
+    ...mapActions(['setService']),
   },
 };
 </script>
