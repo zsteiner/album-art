@@ -1,22 +1,25 @@
 <template>
-  <svg class="icon" viewBox="0 0 24 24">
-    <use v-bind:xlink:href="'symbol-defs.svg#icon-' + icon"></use>
+  <svg
+    class="icon"
+    viewBox="0 0 24 24"
+  >
+    <use :xlink:href="'symbol-defs.svg#icon-' + icon" />
   </svg>
 </template>
 
 <script>
 export default {
   props: {
-    icon: String,
+    icon: { type: String, default: '' },
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .icon {
-  position: relative;
-  height: 1em;
-  width: 1em;
+  block-size: 1em;
   fill: currentColor;
+  inline-size: 1em;
+  position: relative;
 }
 </style>

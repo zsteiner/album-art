@@ -4,7 +4,10 @@ node_modules
 
 # local env files
 .env.local
+.env.development
+.env.production
 .env.*.local
+.env.*.development
 
 # Log files
 npm-debug.log*
@@ -19,3 +22,4 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+

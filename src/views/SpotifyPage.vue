@@ -1,7 +1,10 @@
 <template>
   <article>
-    <Search v-bind:title="title" v-if="spotifyAuth"></Search>
-    <SpotifyAuth v-else></SpotifyAuth>
+    <Search
+      v-if="spotifyAuth"
+      :title="title"
+    />
+    <SpotifyAuth v-else />
   </article>
 </template>
 
@@ -12,27 +15,32 @@ import Search from '@/components/Search.vue';
 import SpotifyAuth from '@/components/SpotifyAuth.vue';
 
 export default {
-  name: 'spotify',
-  computed: {
-    ...mapState(['spotifyAuth']),
+  name: 'Spotify',
+
+  components: {
+    Search,
+    SpotifyAuth,
   },
+
   data() {
     return {
       title: 'Spotify Search',
     };
   },
-  methods: {
-    ...mapActions(['checkLocalStorageAuth', 'setService', 'getQueryStrings']),
+
+  computed: {
+    ...mapState(['spotifyAuth']),
   },
+
   created() {
     this.setService('spotify');
     this.checkLocalStorageAuth();
     const { q, media } = this.$route.query;
     this.getQueryStrings({ q, media });
   },
-  components: {
-    Search,
-    SpotifyAuth,
+
+  methods: {
+    ...mapActions(['checkLocalStorageAuth', 'setService', 'getQueryStrings']),
   },
 };
 </script>

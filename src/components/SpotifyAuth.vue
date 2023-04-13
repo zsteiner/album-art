@@ -1,7 +1,15 @@
 <template>
   <section class="spotify">
-    <p class="auth-help">To search Spotify you need to login.</p>
-    <button @click="getSpotifyAuth" class="spotify-button">Login to Spotify</button>
+    <p class="auth-help">
+      To search Spotify you need to login.
+    </p>
+    <button
+      type="button"
+      class="spotify-button"
+      @click="getSpotifyAuth"
+    >
+      Login to Spotify
+    </button>
   </section>
 </template>
 
@@ -16,7 +24,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .spotify {
   margin: 2rem;
   text-align: center;
@@ -27,10 +35,10 @@ export default {
 }
 
 .spotify-button {
-  padding: 1rem;
-  background: $spotify;
+  background: var(--spotify);
+  border: 0;
   color: white;
   font-size: 1rem;
-  border: 0;
+  padding: 1rem;
 }
 </style>

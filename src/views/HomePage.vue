@@ -1,12 +1,18 @@
 <template>
   <article class="home">
-    <router-link to="/itunes" class="home-icon itunes">
+    <router-link
+      to="/itunes"
+      class="home-icon itunes"
+    >
       <Icon :icon="'itunes'" />
-      <label>Search iTunes</label>
+      <span class="label">Search iTunes</span>
     </router-link>
-    <router-link to="/spotify" class="home-icon spotify">
+    <router-link
+      to="/spotify"
+      class="home-icon spotify"
+    >
       <Icon :icon="'spotify'" />
-      <label>Search Spotify</label>
+      <span class="label">Search Spotify</span>
     </router-link>
   </article>
 </template>
@@ -15,42 +21,44 @@
 import Icon from '@/components/Icon.vue';
 
 export default {
+  components: {
+    Icon,
+  },
   created() {
     const query = { ...this.$route.query };
     delete query.q;
     delete query.media;
     this.$router.replace({ query });
   },
-  components: {
-    Icon,
-  },
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .home {
+  justify-content: space-around;
   margin: 3rem 0;
   text-align: center;
-  justify-content: space-around;
+}
 
-  @include respond-to(medium) {
+@media (min-width: 52rem) {
+  .home {
     display: flex;
   }
 }
 
 .home-icon {
+  border: 0;
+  color: grey;
   display: block;
+  font-size: 8rem;
   margin: 3rem 0;
   padding: 0 2rem;
-  color: grey;
-  font-size: 8rem;
-  border: 0;
   text-decoration: none;
+}
 
-  label {
-    display: block;
-    font-size: 1.25rem;
-    cursor: pointer;
-  }
+.label {
+  cursor: pointer;
+  display: block;
+  font-size: 1.25rem;
 }
 </style>

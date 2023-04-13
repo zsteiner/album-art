@@ -7,12 +7,13 @@
       class="selector"
     >
       <input
+        :id="selector.value"
+        v-model="media"
+        class="input"
         type="radio"
         name="entities"
         :value="selector.value"
-        :id="selector.value"
-        v-model="media"
-      />
+      >
       <span :title="selector.label">
         <Icon :icon="selector.value" />
         <small class="icon-label">{{ selector.label }}</small>
@@ -28,6 +29,11 @@ import Icon from '@/components/Icon.vue';
 
 export default {
   name: 'TypeSelector',
+
+  components: {
+    Icon,
+  },
+
   data() {
     return {
       mediaTypes: [
@@ -39,9 +45,6 @@ export default {
         { value: 'all', label: 'All' },
       ],
     };
-  },
-  methods: {
-    ...mapActions(['setMedia']),
   },
 
   computed: {
@@ -57,54 +60,55 @@ export default {
       },
     },
   },
-  components: {
-    Icon,
+
+  methods: {
+    ...mapActions(['setMedia']),
   },
 };
 </script>
 
-<style lang="scss">
+<style scoped>
 .type-selector {
   display: flex;
-  margin-top: 1rem;
-  justify-content: space-between;
   grid-area: header-selector;
+  justify-content: space-between;
+  margin-block-start: 1rem;
+}
 
-  @include respond-to(medium) {
+@media (min-width: 52rem) {
+  .type-selector {
     margin: 0;
   }
 }
 
 .selector {
-  position: relative;
-  font-size: 1.5rem;
-  text-align: center;
   cursor: pointer;
+  font-size: 1.5rem;
+  position: relative;
+  text-align: center;
+}
 
-  &:not(:last-child) {
-    margin-right: 2rem;
-  }
+.selector:not(:last-child) {
+  margin-inline-end: 2rem;
+}
 
-  input {
-    position: absolute;
-    visibility: hidden;
+.input {
+  position: absolute;
+  visibility: hidden;
+}
 
-    &:checked {
-      & + span {
-        color: $green;
-      }
-    }
-  }
+.input:checked + span {
+  color: var(--green);
 }
 
 .icon {
-  height: auto;
-  width: 1em;
+  block-size: auto;
   fill: currentColor;
+  inline-size: 1em;
+}
 
-  &-label {
-    display: block;
-    font-size: 0.75rem;
-  }
+.icon-label {
+  display: block;
+  font-size: 0.75rem;
 }
 </style>
