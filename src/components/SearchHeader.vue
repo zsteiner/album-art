@@ -123,11 +123,11 @@ export default {
   font-weight: 900;
   grid-area: header-heading;
   margin: 0 0 1rem;
+}
 
-  .icon {
-    inset-block-end: -0.125em;
-    margin-inline-end: 0.25em;
-  }
+.heading .icon {
+  inset-block-end: -0.125em;
+  margin-inline-end: 0.25em;
 }
 
 .input {

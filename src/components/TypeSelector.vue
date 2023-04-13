@@ -106,6 +106,7 @@ export default {
   fill: currentColor;
   inline-size: 1em;
 }
+
 .icon-label {
   display: block;
   font-size: 0.75rem;
