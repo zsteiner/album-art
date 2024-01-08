@@ -10,7 +10,7 @@ export default {
   name: 'ArtworkControls',
   props: {
     showSuccess: Boolean,
-    onClick: Function,
+    onClick: { type: Function, required: true },
     show: Boolean,
   },
 };

@@ -35,7 +35,7 @@ export default {
   },
   props: {
     hasQueryParam: Boolean,
-    title: String,
+    title: { type: String, required: true },
   },
 
   computed: {

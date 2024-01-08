@@ -12,7 +12,7 @@ import Artwork from './Artwork.vue';
 export default {
   name: 'Albums',
   props: {
-    albums: Array,
+    albums: { type: Array, default: () => [] },
   },
   components: {
     Artwork,

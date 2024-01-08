@@ -16,7 +16,7 @@ import ArtworkControls from './ArtworkControls.vue';
 export default {
   name: 'Artwork',
   props: {
-    album: Object,
+    album: { type: Object, default: () => {} },
   },
   data() {
     return { showSuccess: false };
