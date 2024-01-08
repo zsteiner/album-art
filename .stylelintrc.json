@@ -7,17 +7,6 @@
     "stylelint-order"
   ],
   "rules": {
-    "unit-whitelist": [
-      "em",
-      "rem",
-      "vh",
-      "vw",
-      "deg",
-      "%",
-      "s",
-      "fr",
-      "ch"
-    ],
     "order/order": [
       "custom-properties",
       "declarations",
@@ -25,6 +14,28 @@
     ],
     "order/properties-alphabetical-order": [
       true
+    ],
+    "property-no-vendor-prefix": [
+      true,
+      {
+        "ignoreProperties": [
+          "appearance"
+        ]
+      }
+    ],
+    "selector-id-pattern": null,
+    "selector-class-pattern": null,
+    "unit-allowed-list": [
+      "ch",
+      "em",
+      "rem",
+      "vh",
+      "vw",
+      "vmin",
+      "deg",
+      "%",
+      "s",
+      "fr"
     ]
   }
 }
