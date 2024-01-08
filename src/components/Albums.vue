@@ -1,10 +1,6 @@
 <template>
   <ul class="albums">
-    <li
-      v-for="(album, index) in albums"
-      :key="`${index}-${album.id}`"
-      class="album-item"
-    >
+    <li v-for="(album, index) in albums" :key="`${index}-${album.id}`" class="album-item">
       <Artwork :album="album" />
     </li>
   </ul>
@@ -15,11 +11,11 @@ import Artwork from './Artwork.vue';
 
 export default {
   name: 'Albums',
-  components: {
-    Artwork,
-  },
   props: {
     albums: { type: Array, default: () => [] },
+  },
+  components: {
+    Artwork,
   },
 };
 </script>
@@ -27,12 +23,11 @@ export default {
 <style scoped>
 .albums {
   display: grid;
-  grid-column-gap: 2rem;
-  grid-row-gap: 3rem;
+  grid-gap: 3rem 2rem;
   grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
-  inline-size: 100%;
   list-style: none;
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 </style>

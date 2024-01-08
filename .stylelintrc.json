@@ -1,12 +1,41 @@
 {
-  "extends": ["stylelint-config-recommended-vue"],
-  "plugins": ["stylelint-order", "stylelint-use-logical"],
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-recommended-vue"
+  ],
+  "plugins": [
+    "stylelint-order"
+  ],
   "rules": {
-    "csstools/use-logical": "always",
-    "order/order": ["custom-properties", "declarations", "rules"],
-    "order/properties-alphabetical-order": [true],
+    "order/order": [
+      "custom-properties",
+      "declarations",
+      "rules"
+    ],
+    "order/properties-alphabetical-order": [
+      true
+    ],
+    "property-no-vendor-prefix": [
+      true,
+      {
+        "ignoreProperties": [
+          "appearance"
+        ]
+      }
+    ],
     "selector-id-pattern": null,
     "selector-class-pattern": null,
-    "unit-allowed-list": ["ch", "em", "rem", "vh", "vw", "vmin", "deg", "%", "s", "fr"]
+    "unit-allowed-list": [
+      "ch",
+      "em",
+      "rem",
+      "vh",
+      "vw",
+      "vmin",
+      "deg",
+      "%",
+      "s",
+      "fr"
+    ]
   }
 }

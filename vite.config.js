@@ -1,10 +1,17 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import path from 'path';
+import svgLoader from 'vite-svg-loader';
+import { fileURLToPath, URL } from 'node:url';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    svgLoader({
+      svgoConfig: {
+        multipass: true,
+      },
+    }),
+  ],
   server: {
     port: 8080,
   },
@@ -12,22 +19,8 @@ export default defineConfig({
     port: 8080,
   },
   resolve: {
-    alias: [
-      {
-        find: '@',
-        replacement: path.resolve(__dirname, 'src'),
-      },
-    ],
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `
-          @use "sass:color";
-          @use "sass:math";
-          @import "@/styles/_variables.scss";
-        `,
-      },
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
 });

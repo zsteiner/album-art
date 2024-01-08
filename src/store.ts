@@ -1,5 +1,4 @@
 import { createStore } from 'vuex';
-
 import axios from 'axios';
 
 import router from './router';
@@ -81,7 +80,7 @@ export default createStore({
       state.spotifyAuth = auth;
 
       localStorage.setItem('spotifyAuth', auth);
-      localStorage.setItem('updateDate', updateDate);
+      localStorage.setItem('updateDate', updateDate.toDateString());
     },
     useLocalAuth(state, { spotifyAuth, searchTerm }) {
       state.spotifyAuth = spotifyAuth;
@@ -142,8 +141,8 @@ export default createStore({
       if (state.searchTerm) {
         localStorage.setItem('searchTerm', state.searchTerm);
       }
-
-      window.location = api;
+      // @ts-ignore
+      window.location = api as string;
     },
     setSpotifyAuth({ commit }, code) {
       commit('updateSpotifyAuth', code);
