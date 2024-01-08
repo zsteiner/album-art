@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 import axios from 'axios';
 
 import router from './router';
@@ -8,9 +7,7 @@ import checkExpiration from './utils/checkExpiration';
 import encodeQuery from './utils/encodeQuery';
 import decodeQuery from './utils/decodeQuery';
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
+export default createStore({
   state: {
     albums: {},
     country: 'us',
@@ -83,7 +80,7 @@ export default new Vuex.Store({
       state.spotifyAuth = auth;
 
       localStorage.setItem('spotifyAuth', auth);
-      localStorage.setItem('updateDate', updateDate);
+      localStorage.setItem('updateDate', updateDate.toDateString());
     },
     useLocalAuth(state, { spotifyAuth, searchTerm }) {
       state.spotifyAuth = spotifyAuth;
@@ -144,8 +141,8 @@ export default new Vuex.Store({
       if (state.searchTerm) {
         localStorage.setItem('searchTerm', state.searchTerm);
       }
-
-      window.location = api;
+      // @ts-ignore
+      window.location = api as string;
     },
     setSpotifyAuth({ commit }, code) {
       commit('updateSpotifyAuth', code);
@@ -157,7 +154,7 @@ export default new Vuex.Store({
     updateRoutes({ state }) {
       const { searchTerm, media } = state;
       const query = encodeQuery(searchTerm);
-      router.push({ query: { q: query, media } }).catch(() => {});
+      router.push({ query: { q: query, media } }).catch(() => { });
     },
     getQueryStrings({ commit }, { q, media }) {
       if (q && media) {
