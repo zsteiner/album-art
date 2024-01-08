@@ -66,23 +66,24 @@ export default {
 <style>
 .type-selector {
   display: flex;
-  margin-top: 1rem;
-  justify-content: space-between;
   grid-area: header-selector;
+  justify-content: space-between;
+  margin-top: 1rem;
 }
 
-@media (min-width: 52rem) {
+@media (width >= 52rem) {
   .type-selector {
     margin: 0;
   }
 }
 
 .selector {
-  position: relative;
-  font-size: 1.5rem;
-  text-align: center;
   cursor: pointer;
+  font-size: 1.5rem;
+  position: relative;
+  text-align: center;
 }
+
 .selector:not(:last-child) {
   margin-right: 2rem;
 }
@@ -91,6 +92,7 @@ export default {
   position: absolute;
   visibility: hidden;
 }
+
 .selector input:checked {
   & + span {
     color: var(--green);
@@ -98,10 +100,11 @@ export default {
 }
 
 .icon {
+  fill: currentcolor;
   height: auto;
   width: 1em;
-  fill: currentColor;
 }
+
 .icon-label {
   display: block;
   font-size: 0.75rem;

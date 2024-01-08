@@ -60,79 +60,73 @@ export default {
 <style>
 .success,
 .copy {
+  background: rgb(255 255 255 / 25%);
+  font-size: 1.5rem;
+  height: 100%;
+  left: 0;
+  padding: 1rem;
   position: absolute;
   top: 0;
-  left: 0;
-  height: 100%;
   width: 100%;
-  padding: 1rem;
-  background: transparentize(white, 0.25);
-  font-size: 1.5rem;
 }
 
 .copy {
-  display: none;
   border: 0;
-}
-
-.active {
-  & + .copy {
-    display: none;
-  }
+  display: none;
 }
 
 .artwork {
-  position: relative;
-  margin-bottom: 0.5rem;
-  padding-top: 100%;
   background-color: silver;
   border: 0.0625rem solid silver;
   font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  padding-top: 100%;
+  position: relative;
 }
 
 .artwork img {
+  height: 100%;
+  object-fit: cover;
   position: absolute;
   top: 0;
-  height: 100%;
   width: 100%;
-  object-fit: cover;
-}
-
-.artwork:hover .copy {
-  display: block;
 }
 
 .active + .copy {
   display: none;
 }
 
-@media (min-width: 70rem) {
+.artwork:hover .copy {
+  display: block;
+}
+
+@media (width >= 70rem) {
   .artwork {
     font-size: 1.5rem;
   }
 }
 
 .album-title {
-  margin: 0 0 0.5rem;
   font-size: 0.875em;
+  margin: 0 0 0.5rem;
 }
 
 .album-date {
   display: block;
-  margin: 0 0 0.5rem;
   font-size: 0.625em;
+  margin: 0 0 0.5rem;
   opacity: 0.75;
 }
 
 .artist {
-  margin: 0.5rem 0;
   font-size: 0.75em;
+  margin: 0.5rem 0;
 }
 
 .success {
+  align-items: center;
   display: flex;
   font-weight: 900;
   justify-content: center;
-  align-items: center;
 }
 </style>

@@ -40,6 +40,7 @@ export default {
 .spotify-success {
   text-align: center;
 }
+
 .spotify-success__heading {
   font-size: 2.5rem;
 }

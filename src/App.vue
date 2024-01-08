@@ -23,12 +23,10 @@ export default {
 :root {
   --font-family: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, oxygen, ubuntu, cantarell,
     'Open Sans', 'Helvetica Neue', sans-serif;
-
   --blue: hsl(200deg 60% 30%);
   --green: hsl(120deg 60% 50%);
   --itunes: #f25f77;
   --spotify: #1ed760;
-
   --small: 24rem;
   --medium: 52rem;
   --large: 70rem;
@@ -46,33 +44,27 @@ body {
 }
 
 .app {
-  padding: 1rem;
   color: var(--blue);
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.itunes .icon {
-  color: var(--itunes);
-}
-
-.spotify .icon {
-  color: var(--spotify);
+  padding: 1rem;
 }
 
 .nav {
   display: flex;
+  justify-content: center;
   margin: 0 auto;
   padding: 1.5rem 0;
   text-align: center;
-  justify-content: center;
 }
+
 .nav a {
   color: var(--blue);
   opacity: 0.35;
   text-decoration: none;
 }
+
 .nav a:not(:last-child) {
   margin-right: 2rem;
 }
@@ -85,8 +77,16 @@ body {
 
 nav a .icon {
   bottom: -0.25em;
-  margin-right: 0.25em;
   font-size: 1.25em;
+  margin-right: 0.25em;
+}
+
+.itunes .icon {
+  color: var(--itunes);
+}
+
+.spotify .icon {
+  color: var(--spotify);
 }
 
 figure {

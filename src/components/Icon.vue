@@ -14,9 +14,9 @@ export default {
 
 <style scoped>
 .icon {
-  position: relative;
+  fill: currentcolor;
   height: 1em;
+  position: relative;
   width: 1em;
-  fill: currentColor;
 }
 </style>

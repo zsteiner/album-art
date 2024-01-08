@@ -27,10 +27,10 @@ export default {
 }
 
 .spotify-button {
-  padding: 1rem;
   background: var(--spotify);
+  border: 0;
   color: white;
   font-size: 1rem;
-  border: 0;
+  padding: 1rem;
 }
 </style>

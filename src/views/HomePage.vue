@@ -29,29 +29,30 @@ export default {
 
 <style scoped>
 .home {
+  justify-content: space-around;
   margin: 3rem 0;
   text-align: center;
-  justify-content: space-around;
 }
 
-@media (min-width: 52rem) {
+@media (width >= 52rem) {
   .home {
     display: flex;
   }
 }
 
 .home-icon {
+  border: 0;
+  color: grey;
   display: block;
+  font-size: 8rem;
   margin: 3rem 0;
   padding: 0 2rem;
-  color: grey;
-  font-size: 8rem;
-  border: 0;
   text-decoration: none;
 }
+
 .label {
+  cursor: pointer;
   display: block;
   font-size: 1.25rem;
-  cursor: pointer;
 }
 </style>
