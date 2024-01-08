@@ -57,7 +57,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style>
 .success,
 .copy {
   position: absolute;
@@ -88,26 +88,26 @@ export default {
   background-color: silver;
   border: 0.0625rem solid silver;
   font-size: 0.875rem;
+}
 
-  img {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-  }
+.artwork img {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
 
-  &:hover {
-    .copy {
-      display: block;
-    }
+.artwork:hover .copy {
+  display: block;
+}
 
-    .active + .copy {
-      display: none;
-    }
-  }
+.active + .copy {
+  display: none;
+}
 
-  @include respond-to(large) {
+@media (min-width: 70rem) {
+  .artwork {
     font-size: 1.5rem;
   }
 }

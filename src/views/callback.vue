@@ -36,16 +36,15 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .spotify-success {
   text-align: center;
+}
+.spotify-success__heading {
+  font-size: 2.5rem;
+}
 
-  &__heading {
-    font-size: 2.5rem;
-  }
-
-  p {
-    margin-bottom: 1rem;
-  }
+.spotify-success p {
+  margin-bottom: 1rem;
 }
 </style>

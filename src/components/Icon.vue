@@ -12,7 +12,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .icon {
   position: relative;
   height: 1em;

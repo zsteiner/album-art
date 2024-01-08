@@ -2,11 +2,11 @@
   <article class="home">
     <router-link to="/itunes" class="home-icon itunes">
       <Icon :icon="'itunes'" />
-      <label>Search iTunes</label>
+      <span class="label">Search iTunes</span>
     </router-link>
     <router-link to="/spotify" class="home-icon spotify">
       <Icon :icon="'spotify'" />
-      <label>Search Spotify</label>
+      <span class="label">Search Spotify</span>
     </router-link>
   </article>
 </template>
@@ -27,13 +27,15 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .home {
   margin: 3rem 0;
   text-align: center;
   justify-content: space-around;
+}
 
-  @include respond-to(medium) {
+@media (min-width: 52rem) {
+  .home {
     display: flex;
   }
 }
@@ -46,11 +48,10 @@ export default {
   font-size: 8rem;
   border: 0;
   text-decoration: none;
-
-  label {
-    display: block;
-    font-size: 1.25rem;
-    cursor: pointer;
-  }
+}
+.label {
+  display: block;
+  font-size: 1.25rem;
+  cursor: pointer;
 }
 </style>

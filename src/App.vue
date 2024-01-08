@@ -19,7 +19,21 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style>
+:root {
+  --font-family: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, oxygen, ubuntu, cantarell,
+    'Open Sans', 'Helvetica Neue', sans-serif;
+
+  --blue: hsl(200deg 60% 30%);
+  --green: hsl(120deg 60% 50%);
+  --itunes: #f25f77;
+  --spotify: #1ed760;
+
+  --small: 24rem;
+  --medium: 52rem;
+  --large: 70rem;
+}
+
 *,
 *::before,
 *::after {
@@ -33,18 +47,18 @@ body {
 
 .app {
   padding: 1rem;
-  color: $blue;
-  font-family: $font-family;
+  color: var(--blue);
+  font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .itunes .icon {
-  color: $itunes;
+  color: var(--itunes);
 }
 
 .spotify .icon {
-  color: $spotify;
+  color: var(--spotify);
 }
 
 .nav {
@@ -53,28 +67,26 @@ body {
   padding: 1.5rem 0;
   text-align: center;
   justify-content: center;
+}
+.nav a {
+  color: var(--blue);
+  opacity: 0.35;
+  text-decoration: none;
+}
+.nav a:not(:last-child) {
+  margin-right: 2rem;
+}
 
-  a {
-    color: $blue;
-    opacity: 0.35;
-    text-decoration: none;
+.nav a.router-link-active,
+.nav a.router-link-exact-active {
+  font-weight: 700;
+  opacity: 1;
+}
 
-    &:not(:last-child) {
-      margin-right: 2rem;
-    }
-
-    &.router-link-active,
-    &.router-link-exact-active {
-      font-weight: 700;
-      opacity: 1;
-    }
-
-    .icon {
-      bottom: -0.25em;
-      margin-right: 0.25em;
-      font-size: 1.25em;
-    }
-  }
+nav a .icon {
+  bottom: -0.25em;
+  margin-right: 0.25em;
+  font-size: 1.25em;
 }
 
 figure {

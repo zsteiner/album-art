@@ -15,7 +15,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style>
 .no-results {
   margin: 2rem 0;
   opacity: 0.75;
