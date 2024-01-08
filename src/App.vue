@@ -1,10 +1,5 @@
 <template>
   <main class="app">
-    <nav class="nav">
-      <router-link to="/" exact> <Icon :icon="'home'" />Home </router-link>
-      <router-link to="/itunes" class="itunes"> <Icon :icon="'itunes'" />iTunes </router-link>
-      <router-link to="/spotify" class="spotify"> <Icon :icon="'spotify'" />Spotify </router-link>
-    </nav>
     <router-view />
   </main>
 </template>
