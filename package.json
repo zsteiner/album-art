@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "npm run:js && npm run lint:style",
+    "lint": "npm run lint:js && npm run lint:style",
     "lint:fix": "npm run lint:js:fix && yarn lint:style:fix",
     "lint:js": "eslint 'src/**/*.{js,ts,vue}'",
     "lint:js:fix": "npm run lint:js --fix",
