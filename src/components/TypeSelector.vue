@@ -9,11 +9,10 @@
       <input
         :id="selector.value"
         v-model="media"
-        class="input"
         type="radio"
         name="entities"
         :value="selector.value"
-      >
+      />
       <span :title="selector.label">
         <Icon :icon="selector.value" />
         <small class="icon-label">{{ selector.label }}</small>
@@ -29,11 +28,6 @@ import Icon from '@/components/Icon.vue';
 
 export default {
   name: 'TypeSelector',
-
-  components: {
-    Icon,
-  },
-
   data() {
     return {
       mediaTypes: [
@@ -45,6 +39,9 @@ export default {
         { value: 'all', label: 'All' },
       ],
     };
+  },
+  methods: {
+    ...mapActions(['setMedia']),
   },
 
   computed: {
@@ -60,22 +57,21 @@ export default {
       },
     },
   },
-
-  methods: {
-    ...mapActions(['setMedia']),
+  components: {
+    Icon,
   },
 };
 </script>
 
-<style scoped>
+<style>
 .type-selector {
   display: flex;
   grid-area: header-selector;
   justify-content: space-between;
-  margin-block-start: 1rem;
+  margin-top: 1rem;
 }
 
-@media (min-width: 52rem) {
+@media (width >= 52rem) {
   .type-selector {
     margin: 0;
   }
@@ -89,22 +85,24 @@ export default {
 }
 
 .selector:not(:last-child) {
-  margin-inline-end: 2rem;
+  margin-right: 2rem;
 }
 
-.input {
+.selector input {
   position: absolute;
   visibility: hidden;
 }
 
-.input:checked + span {
-  color: var(--green);
+.selector input:checked {
+  & + span {
+    color: var(--green);
+  }
 }
 
 .icon {
-  block-size: auto;
-  fill: currentColor;
-  inline-size: 1em;
+  fill: currentcolor;
+  height: auto;
+  width: 1em;
 }
 
 .icon-label {

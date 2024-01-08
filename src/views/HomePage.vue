@@ -1,16 +1,10 @@
 <template>
   <article class="home">
-    <router-link
-      to="/itunes"
-      class="home-icon itunes"
-    >
+    <router-link to="/itunes" class="home-icon itunes">
       <Icon :icon="'itunes'" />
       <span class="label">Search iTunes</span>
     </router-link>
-    <router-link
-      to="/spotify"
-      class="home-icon spotify"
-    >
+    <router-link to="/spotify" class="home-icon spotify">
       <Icon :icon="'spotify'" />
       <span class="label">Search Spotify</span>
     </router-link>
@@ -21,14 +15,14 @@
 import Icon from '@/components/Icon.vue';
 
 export default {
-  components: {
-    Icon,
-  },
   created() {
     const query = { ...this.$route.query };
     delete query.q;
     delete query.media;
     this.$router.replace({ query });
+  },
+  components: {
+    Icon,
   },
 };
 </script>
@@ -40,7 +34,7 @@ export default {
   text-align: center;
 }
 
-@media (min-width: 52rem) {
+@media (width >= 52rem) {
   .home {
     display: flex;
   }

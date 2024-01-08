@@ -1,37 +1,12 @@
 <template>
   <main class="app">
-    <nav class="nav">
-      <router-link
-        class="link"
-        to="/"
-        exact
-      >
-        <Icon :icon="'home'" />Home
-      </router-link>
-      <router-link
-        to="/itunes"
-        class="link itunes"
-      >
-        <Icon :icon="'itunes'" />iTunes
-      </router-link>
-      <router-link
-        to="/spotify"
-        class="link spotify"
-      >
-        <Icon :icon="'spotify'" />Spotify
-      </router-link>
-    </nav>
     <router-view />
   </main>
 </template>
 
-<script>
-import Icon from '@/components/Icon.vue';
-
+<script lang="ts">
 export default {
-  components: {
-    Icon,
-  },
+  name: 'App',
 };
 </script>
 
@@ -43,6 +18,9 @@ export default {
   --green: hsl(120deg 60% 50%);
   --itunes: #f25f77;
   --spotify: #1ed760;
+  --small: 24rem;
+  --medium: 52rem;
+  --large: 70rem;
 }
 
 *,
@@ -56,29 +34,6 @@ body {
   margin: 0;
 }
 
-figure {
-  margin: 0;
-  padding: 0;
-}
-
-object {
-  display: none;
-}
-
-p {
-  margin: 0;
-}
-
-.itunes .icon {
-  color: var(--itunes);
-}
-
-.spotify .icon {
-  color: var(--spotify);
-}
-</style>
-
-<style scoped>
 .app {
   color: var(--blue);
   font-family: var(--font-family);
@@ -95,24 +50,46 @@ p {
   text-align: center;
 }
 
-.link {
+.nav a {
   color: var(--blue);
   opacity: 0.35;
   text-decoration: none;
 }
-.link:not(:last-child) {
-  margin-inline-end: 2rem;
+
+.nav a:not(:last-child) {
+  margin-right: 2rem;
 }
 
-.link.router-link-active,
-.link.router-link-exact-active {
+.nav a.router-link-active,
+.nav a.router-link-exact-active {
   font-weight: 700;
   opacity: 1;
 }
 
-.link .icon {
+nav a .icon {
+  bottom: -0.25em;
   font-size: 1.25em;
-  inset-block-end: -0.25em;
-  margin-inline-end: 0.25em;
+  margin-right: 0.25em;
+}
+
+.itunes .icon {
+  color: var(--itunes);
+}
+
+.spotify .icon {
+  color: var(--spotify);
+}
+
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+object {
+  display: none;
+}
+
+p {
+  margin: 0;
 }
 </style>

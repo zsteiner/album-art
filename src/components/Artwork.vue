@@ -1,23 +1,12 @@
 <template>
   <div>
     <figure class="artwork">
-      <img
-        class="img"
-        :src="album.coverMedRes"
-        :alt="album.title"
-      >
-      <ArtworkControls
-        :show-success="showSuccess"
-        :on-click="copyImage"
-      />
+      <img :src="album.coverMedRes" :alt="album.title" />
+      <ArtworkControls :show-success="showSuccess" :on-click="copyImage" />
     </figure>
     <time class="album-date">{{ formatDate(album.releaseDate) }}</time>
-    <h2 class="album-title">
-      {{ album.title }}
-    </h2>
-    <p class="artist">
-      {{ album.artist }}
-    </p>
+    <h2 class="album-title">{{ album.title }}</h2>
+    <p class="artist">{{ album.artist }}</p>
   </div>
 </template>
 
@@ -26,14 +15,14 @@ import ArtworkControls from './ArtworkControls.vue';
 
 export default {
   name: 'Artwork',
-  components: {
-    ArtworkControls,
-  },
   props: {
     album: { type: Object, default: () => {} },
   },
   data() {
     return { showSuccess: false };
+  },
+  components: {
+    ArtworkControls,
   },
   methods: {
     copyImage() {
@@ -68,17 +57,17 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .success,
 .copy {
   background: rgb(255 255 255 / 25%);
-  block-size: 100%;
   font-size: 1.5rem;
-  inline-size: 100%;
-  inset-block-start: 0;
-  inset-inline-start: 0;
+  height: 100%;
+  left: 0;
   padding: 1rem;
   position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 .copy {
@@ -86,37 +75,32 @@ export default {
   display: none;
 }
 
+.artwork {
+  background-color: silver;
+  border: 0.0625rem solid silver;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  padding-top: 100%;
+  position: relative;
+}
+
+.artwork img {
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
 .active + .copy {
   display: none;
 }
 
-.artwork {
-  --artwork-color: silver;
-
-  background-color: var(--artwork-color);
-  border: 0.0625rem solid var(--artwork-color);
-  font-size: 0.875rem;
-  margin-block-end: 0.5rem;
-  padding-block-start: 100%;
-  position: relative;
-}
-.img {
-  block-size: 100%;
-  inline-size: 100%;
-  inset-block-start: 0;
-  object-fit: cover;
-  position: absolute;
-}
-
-.img:hover .copy {
+.artwork:hover .copy {
   display: block;
 }
 
-.img:hover .active + .copy {
-  display: none;
-}
-
-@media (min-width: 70rem) {
+@media (width >= 70rem) {
   .artwork {
     font-size: 1.5rem;
   }

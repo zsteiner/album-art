@@ -1,19 +1,7 @@
 <template>
   <footer v-if="show">
-    <p
-      v-if="showSuccess"
-      :class="{ active: showSuccess }"
-      class="success"
-    >
-      ✅ image copied
-    </p>
-    <button
-      class="copy"
-      type="button"
-      @click="onClick"
-    >
-      ✂️ copy image
-    </button>
+    <p v-if="showSuccess" :class="{ active: showSuccess }" class="success">✅ image copied</p>
+    <button class="copy" @click="onClick">✂️ copy image</button>
   </footer>
 </template>
 
@@ -22,7 +10,7 @@ export default {
   name: 'ArtworkControls',
   props: {
     showSuccess: Boolean,
-    onClick: { type: Function, default: () => {} },
+    onClick: { type: Function, required: true },
     show: Boolean,
   },
 };

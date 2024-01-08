@@ -1,15 +1,7 @@
 <template>
   <section class="spotify">
-    <p class="auth-help">
-      To search Spotify you need to login.
-    </p>
-    <button
-      type="button"
-      class="spotify-button"
-      @click="getSpotifyAuth"
-    >
-      Login to Spotify
-    </button>
+    <p class="auth-help">To search Spotify you need to login.</p>
+    <button class="spotify-button" @click="getSpotifyAuth">Login to Spotify</button>
   </section>
 </template>
 

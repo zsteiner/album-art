@@ -1,14 +1,10 @@
 <template>
   <header class="header">
-    <h1 :class="'heading ' + service">
+    <h1 :class="`heading ${service}`">
       <Icon :icon="service" />
       {{ title }}
     </h1>
-    <label
-      for="search"
-      class="input-label"
-      aria-label="search"
-    >Search</label>
+    <label for="search" class="input-label" aria-label="search">Search</label>
     <input
       id="search"
       class="input"
@@ -16,20 +12,11 @@
       type="text"
       placeholder="Search for album"
       aria-labelledby="search"
-      @input="updateSearch"
+      @input="this.updateSearch"
       @keyup.enter="submitSearch"
-    >
-    <button
-      type="button"
-      class="button"
-      @click="submitSearch"
-    >
-      search
-    </button>
-    <TypeSelector
-      v-if="service === 'itunes'"
-      :on-change="submitSearch"
     />
+    <button class="button" @click="submitSearch">search</button>
+    <TypeSelector v-if="service === 'itunes'" :on-change="submitSearch" />
   </header>
 </template>
 
@@ -48,19 +35,11 @@ export default {
   },
   props: {
     hasQueryParam: Boolean,
-    title: { type: String, default: '' },
+    title: { type: String, required: true },
   },
 
   computed: {
     ...mapState(['searchTerm', 'madeSearch', 'media', 'service']),
-  },
-
-  watch: {
-    hasQueryParam: function watch(value) {
-      if (value) {
-        this.submitSearch();
-      }
-    },
   },
 
   mounted() {
@@ -84,6 +63,14 @@ export default {
       this.$store.commit('search', event.target.value);
     },
   },
+
+  watch: {
+    hasQueryParam: function watch(value) {
+      if (value) {
+        this.submitSearch();
+      }
+    },
+  },
 };
 </script>
 
@@ -98,10 +85,10 @@ export default {
     'header-input header-input header-button' auto
     'header-selector header-selector header-selector' auto /
     auto 1fr 5rem;
-  margin-block-end: 2rem;
+  margin-bottom: 2rem;
 }
 
-@media (min-width: 52rem) {
+@media (width >= 52rem) {
   .header {
     grid-template:
       'header-heading header-heading header-heading header-heading header-heading' auto
@@ -126,8 +113,8 @@ export default {
 }
 
 .heading .icon {
-  inset-block-end: -0.125em;
-  margin-inline-end: 0.25em;
+  bottom: -0.125em;
+  margin-right: 0.25em;
 }
 
 .input {
@@ -135,9 +122,10 @@ export default {
   box-shadow: none;
   grid-area: header-input;
   grid-column-gap: 1rem;
-  inline-size: 100%;
   padding: 0.75rem;
+  width: 100%;
 }
+
 .input-label {
   grid-area: header-label;
   margin: 0.625rem 0;
