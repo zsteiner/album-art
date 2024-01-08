@@ -154,7 +154,7 @@ export default createStore({
     updateRoutes({ state }) {
       const { searchTerm, media } = state;
       const query = encodeQuery(searchTerm);
-      router.push({ query: { q: query, media } }).catch(() => { });
+      router.push({ query: { q: query, media } }).catch(() => {});
     },
     getQueryStrings({ commit }, { q, media }) {
       if (q && media) {
