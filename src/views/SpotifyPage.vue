@@ -1,6 +1,6 @@
 <template>
   <article>
-    <Search v-bind:title="title" v-if="spotifyAuth" />
+    <Search v-if="spotifyAuth" :title="title" />
     <SpotifyAuth v-else />
   </article>
 </template>
@@ -12,7 +12,7 @@ import Search from '@/components/Search.vue';
 import SpotifyAuth from '@/components/SpotifyAuth.vue';
 
 export default {
-  name: 'spotify',
+  name: 'SpotifyPage',
   computed: {
     ...mapState(['spotifyAuth']),
   },

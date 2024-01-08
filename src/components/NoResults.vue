@@ -9,7 +9,7 @@ export default {
   name: 'NoResults',
   computed: {
     ...mapState({
-      madeSearch: state => state.madeSearch,
+      madeSearch: (state) => state.madeSearch,
     }),
   },
 };

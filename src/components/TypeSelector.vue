@@ -7,11 +7,11 @@
       class="selector"
     >
       <input
+        :id="selector.value"
+        v-model="media"
         type="radio"
         name="entities"
         :value="selector.value"
-        :id="selector.value"
-        v-model="media"
       />
       <span :title="selector.label">
         <Icon :icon="selector.value" />

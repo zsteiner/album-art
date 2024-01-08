@@ -1,6 +1,6 @@
 <template>
   <svg class="icon" viewBox="0 0 24 24">
-    <use v-bind:xlink:href="`symbol-defs.svg#icon-${icon}`" />
+    <use :xlink:href="`symbol-defs.svg#icon-${icon}`" />
   </svg>
 </template>
 

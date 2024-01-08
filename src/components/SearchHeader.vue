@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <h1 v-bind:class="`heading ${service}`">
+    <h1 :class="`heading ${service}`">
       <Icon :icon="service" />
       {{ title }}
     </h1>
@@ -9,14 +9,14 @@
       id="search"
       class="input"
       :value="searchTerm"
-      @input="this.updateSearch"
-      v-on:keyup.enter="submitSearch"
       type="text"
       placeholder="Search for album"
       aria-labelledby="search"
+      @input="this.updateSearch"
+      @keyup.enter="submitSearch"
     />
-    <button @click="submitSearch" class="button">search</button>
-    <TypeSelector v-if="service === 'itunes'" :onChange="submitSearch" />
+    <button class="button" @click="submitSearch">search</button>
+    <TypeSelector v-if="service === 'itunes'" :on-change="submitSearch" />
   </header>
 </template>
 

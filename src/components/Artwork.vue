@@ -1,8 +1,8 @@
 <template>
   <div>
     <figure class="artwork">
-      <img v-bind:src="album.coverMedRes" v-bind:alt="album.title" />
-      <ArtworkControls :showSuccess="showSuccess" :onClick="copyImage" />
+      <img :src="album.coverMedRes" :alt="album.title" />
+      <ArtworkControls :show-success="showSuccess" :on-click="copyImage" />
     </figure>
     <time class="album-date">{{ formatDate(album.releaseDate) }}</time>
     <h2 class="album-title">{{ album.title }}</h2>

@@ -18,8 +18,8 @@ export default {
   },
   computed: {
     ...mapState({
-      searchTerm: state => state.searchTerm,
-      media: state => state.media,
+      searchTerm: (state) => state.searchTerm,
+      media: (state) => state.media,
     }),
   },
   methods: {

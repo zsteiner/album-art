@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import home from './views/home.vue';
-import itunes from './views/itunes.vue';
+import HomePage from './views/HomePage.vue';
+import ItunesPage from './views/ItunesPage.vue';
 import callback from './views/callback.vue';
-import spotify from './views/spotify.vue';
+import SpotifyPage from './views/SpotifyPage.vue';
 
 Vue.use(Router);
 
@@ -13,17 +13,17 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: home,
+      component: HomePage,
     },
     {
       path: '/itunes',
       name: 'itunes',
-      component: itunes,
+      component: ItunesPage,
     },
     {
       path: '/spotify',
       name: 'spotify',
-      component: spotify,
+      component: SpotifyPage,
     },
     {
       path: '/callback',

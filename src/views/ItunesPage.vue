@@ -1,6 +1,6 @@
 <template>
   <article>
-    <Search v-bind:title="title" />
+    <Search :title="title" />
   </article>
 </template>
 
@@ -10,7 +10,7 @@ import { mapActions } from 'vuex';
 import Search from '@/components/Search.vue';
 
 export default {
-  name: 'itunes',
+  name: 'ItunesPage',
   data() {
     return {
       title: 'iTunes Search',

@@ -100,12 +100,7 @@ export default new Vuex.Store({
   },
   actions: {
     getAppleAlbums({ dispatch, commit, state }) {
-      const {
-        country,
-        media,
-        entity,
-        searchTerm,
-      } = state;
+      const { country, media, entity, searchTerm } = state;
       const encodedQuery = encodeQuery(searchTerm);
       const api = `https://itunes.apple.com/search?term=${encodedQuery}&country=${country}&media=${media}&entity=${entity}`;
 
@@ -122,12 +117,7 @@ export default new Vuex.Store({
         });
     },
     getSpotifyAlbums({ dispatch, commit, state }) {
-      const {
-        country,
-        searchTerm,
-        entity,
-        spotifyAuth,
-      } = state;
+      const { country, searchTerm, entity, spotifyAuth } = state;
       const encodedQuery = encodeQuery(searchTerm);
       const api = `https://api.spotify.com/v1/search?access_token=${spotifyAuth}&q=${encodedQuery}&market=${country}&type=${entity}&limit=20`;
 
