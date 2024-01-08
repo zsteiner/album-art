@@ -1,8 +1,8 @@
 import { createWebHistory, createRouter } from 'vue-router';
-import HomePage from './views/HomePage.vue';
-import ItunesPage from './views/ItunesPage.vue';
-import CallBackPage from './views/CallBackPage.vue';
-import SpotifyPage from './views/SpotifyPage.vue';
+import HomePage from '@/views/HomePage.vue';
+import ItunesPage from '@/views/ItunesPage.vue';
+import CallBackPage from '@/views/CallBackPage.vue';
+import SpotifyPage from '@/views/SpotifyPage.vue';
 
 export default createRouter({
   history: createWebHistory(),
