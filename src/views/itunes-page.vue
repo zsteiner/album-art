@@ -1,6 +1,6 @@
 <template>
   <article>
-    <Search v-bind:title="title"></Search>
+    <Search v-bind:title="title" />
   </article>
 </template>
 

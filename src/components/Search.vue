@@ -1,8 +1,8 @@
 <template>
   <section>
-    <SearchHeader :hasQueryParam="hasQueryParam" :title="title"></SearchHeader>
-    <Albums v-if="albums.length > 0" :albums="albums"></Albums>
-    <NoResults v-else></NoResults>
+    <SearchHeader :hasQueryParam="hasQueryParam" :title="title" />
+    <Albums v-if="albums.length > 0" :albums="albums" />
+    <NoResults v-else />
   </section>
 </template>
 

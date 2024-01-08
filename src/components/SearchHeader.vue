@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <h1 v-bind:class="'heading ' + service">
+    <h1 v-bind:class="`heading ${service}`">
       <Icon :icon="service" />
       {{ title }}
     </h1>
@@ -16,7 +16,7 @@
       aria-labelledby="search"
     />
     <button @click="submitSearch" class="button">search</button>
-    <TypeSelector v-if="service === 'itunes'" :onChange="submitSearch"></TypeSelector>
+    <TypeSelector v-if="service === 'itunes'" :onChange="submitSearch" />
   </header>
 </template>
 

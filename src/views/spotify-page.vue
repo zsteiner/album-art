@@ -1,7 +1,7 @@
 <template>
   <article>
-    <Search v-bind:title="title" v-if="spotifyAuth"></Search>
-    <SpotifyAuth v-else></SpotifyAuth>
+    <Search v-bind:title="title" v-if="spotifyAuth" />
+    <SpotifyAuth v-else />
   </article>
 </template>
 
