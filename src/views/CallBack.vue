@@ -11,7 +11,7 @@
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  name: 'CallBackPage',
+  name: 'CallBack',
   data() {
     return {
       accessToken: this.$route.hash,
