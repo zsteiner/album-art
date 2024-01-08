@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "yarn lint:js && yarn lint:style",
     "lint:fix": "yarn lint:js:fix && yarn lint:style:fix",
-    "lint:js": "eslint 'src/**/*.{js,vue}'",
+    "lint:js": "eslint 'src/**/*.{js,ts,vue}'",
     "lint:js:fix": "yarn lint:js --fix",
     "lint:style": "stylelint 'src/**/*.{css,vue}'",
     "lint:style:fix": "yarn lint:style --fix"
