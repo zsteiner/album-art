@@ -29,7 +29,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['albums', 'searchTerm', 'media']),
+    ...mapState(['albums', 'madeSearch', 'media', 'searchTerm']),
   },
   mounted() {
     if (this.searchTerm) {
