@@ -15,14 +15,14 @@ import ArtworkControls from './ArtworkControls.vue';
 
 export default {
   name: 'Artwork',
+  components: {
+    ArtworkControls,
+  },
   props: {
     album: { type: Object, default: () => {} },
   },
   data() {
     return { showSuccess: false };
-  },
-  components: {
-    ArtworkControls,
   },
   methods: {
     copyImage() {
@@ -42,7 +42,7 @@ export default {
           this.showSuccess = false;
         }, 4000);
       } catch (err) {
-        console.log("Can't copy"); // eslint-disable-line
+        console.log("Can't copy");
       }
     },
     formatDate(releaseDate) {

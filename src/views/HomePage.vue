@@ -15,14 +15,14 @@
 import Icon from '@/components/Icon.vue';
 
 export default {
+  components: {
+    Icon,
+  },
   created() {
     const query = { ...this.$route.query };
     delete query.q;
     delete query.media;
     this.$router.replace({ query });
-  },
-  components: {
-    Icon,
   },
 };
 </script>

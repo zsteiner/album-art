@@ -23,9 +23,6 @@ export default {
       media: (state) => state.media,
     }),
   },
-  methods: {
-    ...mapActions(['setSpotifyAuth', 'setService']),
-  },
   mounted() {
     this.setSpotifyAuth(this.accessToken);
     this.setService('spotify');
@@ -33,6 +30,9 @@ export default {
     setTimeout(() => {
       this.$router.push({ name: 'spotify' });
     }, 2000);
+  },
+  methods: {
+    ...mapActions(['setSpotifyAuth', 'setService']),
   },
 };
 </script>
