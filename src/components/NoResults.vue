@@ -8,9 +8,7 @@ import { mapState } from 'vuex';
 export default {
   name: 'NoResults',
   computed: {
-    ...mapState({
-      madeSearch: (state) => state.madeSearch,
-    }),
+    ...mapState(['madeSearch']),
   },
 };
 </script>

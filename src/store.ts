@@ -44,7 +44,6 @@ export default createStore({
     search(state, query) {
       localStorage.setItem('searchTerm', query);
       state.searchTerm = query;
-      state.madeSearch = true;
     },
     updateMedia(state, value) {
       state.media = value;
@@ -154,7 +153,7 @@ export default createStore({
     updateRoutes({ state }) {
       const { searchTerm, media } = state;
       const query = encodeQuery(searchTerm);
-      router.push({ query: { q: query, media } }).catch(() => {});
+      router.push({ query: { q: query, media } }).catch(() => { });
     },
     getQueryStrings({ commit }, { q, media }) {
       if (q && media) {
