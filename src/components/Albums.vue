@@ -11,11 +11,11 @@ import Artwork from './Artwork.vue';
 
 export default {
   name: 'Albums',
-  props: {
-    albums: { type: Array, default: () => [] },
-  },
   components: {
     Artwork,
+  },
+  props: {
+    albums: { type: Array, default: () => [] },
   },
 };
 </script>

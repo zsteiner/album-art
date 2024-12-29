@@ -11,19 +11,19 @@ import Search from '@/components/Search.vue';
 
 export default {
   name: 'ItunesPage',
+  components: {
+    Search,
+  },
   data() {
     return {
       title: 'iTunes Search',
     };
   },
-  methods: {
-    ...mapActions(['setService']),
-  },
   created() {
     this.setService('itunes');
   },
-  components: {
-    Search,
+  methods: {
+    ...mapActions(['setService']),
   },
 };
 </script>

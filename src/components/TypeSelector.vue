@@ -28,6 +28,9 @@ import Icon from '@/components/Icon.vue';
 
 export default {
   name: 'TypeSelector',
+  components: {
+    Icon,
+  },
   data() {
     return {
       mediaTypes: [
@@ -40,10 +43,6 @@ export default {
       ],
     };
   },
-  methods: {
-    ...mapActions(['setMedia']),
-  },
-
   computed: {
     ...mapState({
       searchTerm: (state) => state.searchTerm,
@@ -57,8 +56,8 @@ export default {
       },
     },
   },
-  components: {
-    Icon,
+  methods: {
+    ...mapActions(['setMedia']),
   },
 };
 </script>

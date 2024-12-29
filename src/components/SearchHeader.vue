@@ -12,7 +12,7 @@
       type="text"
       placeholder="Search for album"
       aria-labelledby="search"
-      @input="this.updateSearch"
+      @input="updateSearch"
       @keyup.enter="submitSearch"
     />
     <button class="button" @click="submitSearch">search</button>
@@ -41,13 +41,18 @@ export default {
   computed: {
     ...mapState(['searchTerm', 'madeSearch', 'media', 'service']),
   },
-
+  watch: {
+    hasQueryParam: function watch(value) {
+      if (value) {
+        this.submitSearch();
+      }
+    },
+  },
   mounted() {
     if (this.shouldUpdate && this.searchTerm) {
       this.submitSearch();
     }
   },
-
   methods: {
     ...mapActions(['getAppleAlbums', 'getSpotifyAlbums']),
 
@@ -61,14 +66,6 @@ export default {
 
     updateSearch(event) {
       this.$store.commit('search', event.target.value);
-    },
-  },
-
-  watch: {
-    hasQueryParam: function watch(value) {
-      if (value) {
-        this.submitSearch();
-      }
     },
   },
 };
