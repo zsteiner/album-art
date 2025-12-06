@@ -74,8 +74,8 @@ export default {
 <style scoped>
 .header {
   align-items: start;
-  display: grid;
   column-gap: 1rem;
+  display: grid;
   grid-template:
     'header-heading header-heading header-heading' auto
     'header-label . .' auto
@@ -117,8 +117,8 @@ export default {
 .input {
   border: 0.0625rem solid lightgrey;
   box-shadow: none;
-  grid-area: header-input;
   column-gap: 1rem;
+  grid-area: header-input;
   padding: 0.75rem;
   width: 100%;
 }
