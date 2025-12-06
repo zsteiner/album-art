@@ -23,7 +23,7 @@ export default {
 <style scoped>
 .albums {
   display: grid;
-  grid-gap: 3rem 2rem;
+  gap: 3rem 2rem;
   grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
   list-style: none;
   margin: 0;
