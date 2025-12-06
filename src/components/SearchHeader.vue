@@ -75,7 +75,7 @@ export default {
 .header {
   align-items: start;
   display: grid;
-  grid-column-gap: 1rem;
+  column-gap: 1rem;
   grid-template:
     'header-heading header-heading header-heading' auto
     'header-label . .' auto
@@ -118,7 +118,7 @@ export default {
   border: 0.0625rem solid lightgrey;
   box-shadow: none;
   grid-area: header-input;
-  grid-column-gap: 1rem;
+  column-gap: 1rem;
   padding: 0.75rem;
   width: 100%;
 }

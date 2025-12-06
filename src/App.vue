@@ -12,8 +12,9 @@ export default {
 
 <style>
 :root {
-  --font-family: -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, oxygen, ubuntu, cantarell,
-    'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-family:
+    -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, oxygen, ubuntu, cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
   --blue: hsl(200deg 60% 30%);
   --green: hsl(120deg 60% 50%);
   --itunes: #f25f77;
