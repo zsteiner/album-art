@@ -85,9 +85,9 @@ describe('albumStore', () => {
     expect(store.searchTerm).toBeNull();
   });
 
-  it('decodes plus signs in query strings', () => {
+  it('decodes percent-encoded query strings', () => {
     const store = useAlbumStore();
-    store.getQueryStrings('the+national', 'music');
+    store.getQueryStrings('the%20national', 'music');
     expect(store.searchTerm).toBe('the national');
   });
 });

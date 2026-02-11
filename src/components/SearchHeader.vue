@@ -52,7 +52,7 @@ function updateSearch(event: Event) {
     'header-label . .' auto
     'header-input header-input header-button' auto
     'header-selector header-selector header-selector' auto /
-    auto 1fr 5rem;
+    auto 1fr auto;
   margin-bottom: 2rem;
 }
 
@@ -61,7 +61,7 @@ function updateSearch(event: Event) {
     grid-template:
       'header-heading header-heading header-heading header-heading header-heading' auto
       'header-label header-input header-button . header-selector' auto /
-      auto minmax(15rem, 1fr) 5rem 1fr auto;
+      auto minmax(15rem, 1fr) auto 1fr auto;
   }
 }
 

@@ -2,12 +2,12 @@ import { describe, it, expect } from 'vitest';
 import decodeQuery from '../decodeQuery';
 
 describe('decodeQuery', () => {
-  it('replaces plus signs with spaces', () => {
-    expect(decodeQuery('hello+world')).toBe('hello world');
+  it('decodes percent-encoded spaces', () => {
+    expect(decodeQuery('hello%20world')).toBe('hello world');
   });
 
-  it('handles multiple consecutive plus signs', () => {
-    expect(decodeQuery('a+++b')).toBe('a b');
+  it('decodes multiple encoded characters', () => {
+    expect(decodeQuery('a%20b%20c')).toBe('a b c');
   });
 
   it('returns empty string for empty input', () => {

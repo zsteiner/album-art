@@ -49,8 +49,9 @@ const mediaTypes = [
 .type-selector {
   border: 0;
   display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
   grid-area: header-selector;
-  justify-content: space-between;
   margin-top: 1rem;
   padding: 0;
 }
@@ -68,9 +69,6 @@ const mediaTypes = [
   text-align: center;
 }
 
-.selector:not(:last-child) {
-  margin-right: 2rem;
-}
 
 .sr-only {
   clip-path: inset(50%);
