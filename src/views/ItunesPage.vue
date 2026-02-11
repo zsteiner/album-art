@@ -1,6 +1,6 @@
 <template>
   <article>
-    <Search title="iTunes Search" />
+    <Search title="Artwork Finder" />
   </article>
 </template>
 
