@@ -1,6 +1,5 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
-import axios, { type CancelTokenSource } from 'axios';
 import { useRouter } from 'vue-router';
 
 import encodeQuery from '@/utils/encodeQuery';
@@ -9,7 +8,7 @@ import decodeQuery from '@/utils/decodeQuery';
 import type { Album, AppleAlbum, MediaType, EntityType } from '@/types/album';
 
 const MEDIA_TYPES: MediaType[] = ['music', 'movie', 'podcast', 'tvShow', 'ebook', 'all'];
-const AXIOS_TIMEOUT = 15_000;
+const FETCH_TIMEOUT = 15_000;
 
 function isValidMediaType(value: string): value is MediaType {
   return MEDIA_TYPES.includes(value as MediaType);
@@ -27,7 +26,7 @@ export const useAlbumStore = defineStore('album', () => {
   const loading = ref(false);
   const entity = ref<EntityType>('album');
 
-  let cancelTokenSource: CancelTokenSource | null = null;
+  let abortController: AbortController | null = null;
 
   function formatAlbums(data: AppleAlbum[]) {
     albums.value = data.map((album) => ({
@@ -73,9 +72,9 @@ export const useAlbumStore = defineStore('album', () => {
   }
 
   function cancelPendingRequest() {
-    if (cancelTokenSource) {
-      cancelTokenSource.cancel('New search initiated');
-      cancelTokenSource = null;
+    if (abortController) {
+      abortController.abort();
+      abortController = null;
     }
   }
 
@@ -85,16 +84,16 @@ export const useAlbumStore = defineStore('album', () => {
 
     updateRoutes();
     cancelPendingRequest();
-    cancelTokenSource = axios.CancelToken.source();
+    abortController = new AbortController();
     error.value = null;
     loading.value = true;
 
     try {
-      const response = await axios.get(api, {
-        timeout: AXIOS_TIMEOUT,
-        cancelToken: cancelTokenSource.token,
+      const response = await fetch(api, {
+        signal: AbortSignal.any([abortController.signal, AbortSignal.timeout(FETCH_TIMEOUT)]),
       });
-      const results = response.data?.results;
+      const data = await response.json();
+      const results = data?.results;
       if (Array.isArray(results)) {
         formatAlbums(results);
       } else {
@@ -102,11 +101,12 @@ export const useAlbumStore = defineStore('album', () => {
       }
       madeSearch.value = true;
     } catch (err) {
-      if (!axios.isCancel(err)) {
-        console.error(err);
-        error.value = 'Search failed. Please try again.';
-        madeSearch.value = true;
+      if (err instanceof DOMException && err.name === 'AbortError') {
+        return;
       }
+      console.error(err);
+      error.value = 'Search failed. Please try again.';
+      madeSearch.value = true;
     } finally {
       loading.value = false;
     }
