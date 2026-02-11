@@ -1,13 +1,15 @@
 <template>
   <section>
-    <SearchHeader :has-query-param="hasQueryParam" :title="title" />
+    <SearchHeader :title="title" />
+    <p v-if="error" class="error" role="alert">{{ error }}</p>
+    <p v-if="loading" class="loading" aria-live="polite">Searching...</p>
     <Albums v-if="albums.length > 0" :albums="albums" />
     <NoResults v-else />
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useAlbumStore } from '@/stores/albumStore';
@@ -21,16 +23,31 @@ defineProps<{
 
 const store = useAlbumStore();
 const route = useRoute();
-const { albums, searchTerm } = storeToRefs(store);
-const hasQueryParam = ref(false);
+const { albums, searchTerm, error, loading } = storeToRefs(store);
 
 onMounted(() => {
-  if (searchTerm.value) {
-    store.updateRoutes();
-  } else {
-    const { q, media } = route.query as { q?: string; media?: string };
+  const q = typeof route.query.q === 'string' ? route.query.q : undefined;
+  const media = typeof route.query.media === 'string' ? route.query.media : undefined;
+
+  if (q) {
     store.getQueryStrings(q, media);
-    if (q) hasQueryParam.value = true;
+    store.getAlbums();
+  } else if (searchTerm.value) {
+    store.updateRoutes();
+    store.getAlbums();
   }
 });
 </script>
+
+<style scoped>
+.error {
+  color: #c00;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+
+.loading {
+  margin: 1rem 0;
+  opacity: 0.75;
+}
+</style>

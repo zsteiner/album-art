@@ -1,5 +1,5 @@
 <template>
-  <div class="type-selector">
+  <fieldset class="type-selector" aria-label="Media type">
     <label
       v-for="selector in mediaTypes"
       :key="selector.value"
@@ -9,6 +9,7 @@
       <input
         :id="selector.value"
         v-model="media"
+        class="sr-only"
         type="radio"
         name="entities"
         :value="selector.value"
@@ -18,7 +19,7 @@
         <small class="icon-label">{{ selector.label }}</small>
       </span>
     </label>
-  </div>
+  </fieldset>
 </template>
 
 <script setup lang="ts">
@@ -46,10 +47,12 @@ const mediaTypes = [
 
 <style>
 .type-selector {
+  border: 0;
   display: flex;
   grid-area: header-selector;
   justify-content: space-between;
   margin-top: 1rem;
+  padding: 0;
 }
 
 @media (width >= 52rem) {
@@ -69,15 +72,22 @@ const mediaTypes = [
   margin-right: 2rem;
 }
 
-.selector input {
+.sr-only {
+  clip-path: inset(50%);
+  height: 0.0625rem;
+  overflow: hidden;
   position: absolute;
-  visibility: hidden;
+  white-space: nowrap;
+  width: 0.0625rem;
 }
 
-.selector input:checked {
-  & + span {
-    color: var(--green);
-  }
+.sr-only:checked + span {
+  color: var(--green);
+}
+
+.sr-only:focus-visible + span {
+  outline: 0.125rem solid var(--blue);
+  outline-offset: 0.25rem;
 }
 
 .icon {

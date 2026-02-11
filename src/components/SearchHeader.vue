@@ -1,67 +1,45 @@
 <template>
   <header class="header">
-    <h1 :class="`heading ${service}`">
-      <Icon :icon="service" />
+    <h1 class="heading itunes">
+      <Icon icon="itunes" aria-hidden="true" />
       {{ title }}
     </h1>
-    <label for="search" class="input-label" aria-label="search">Search</label>
+    <label for="search" class="input-label">Search</label>
     <input
       id="search"
       class="input"
       :value="searchTerm"
       type="text"
       placeholder="Search for album"
-      aria-labelledby="search"
       @input="updateSearch"
       @keyup.enter="submitSearch"
     />
     <button class="button" @click="submitSearch">search</button>
-    <TypeSelector v-if="service === 'itunes'" />
+    <TypeSelector />
   </header>
 </template>
 
 <script setup lang="ts">
-import { watch, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useAlbumStore } from '@/stores/albumStore';
 import Icon from '@/components/Icon.vue';
 import TypeSelector from '@/components/TypeSelector.vue';
 
-const props = defineProps<{
-  hasQueryParam: boolean;
+defineProps<{
   title: string;
 }>();
 
 const store = useAlbumStore();
-const { searchTerm, service } = storeToRefs(store);
+const { searchTerm } = storeToRefs(store);
 
 function submitSearch() {
-  if (service.value === 'spotify') {
-    store.getSpotifyAlbums();
-  } else {
-    store.getAppleAlbums();
-  }
+  store.getAlbums();
 }
 
 function updateSearch(event: Event) {
   const target = event.target as HTMLInputElement;
   store.setSearchTerm(target.value);
 }
-
-watch(
-  () => props.hasQueryParam,
-  (value) => {
-    if (value) {
-      submitSearch();
-    }
-  },
-);
-
-onMounted(() => {
-  if (searchTerm.value) {
-    submitSearch();
-  }
-});
 </script>
 
 <style scoped>
@@ -91,10 +69,6 @@ onMounted(() => {
   color: var(--itunes);
 }
 
-.spotify .icon {
-  color: var(--spotify);
-}
-
 .heading {
   font-size: 2rem;
   font-weight: 900;
@@ -108,8 +82,10 @@ onMounted(() => {
 }
 
 .input {
-  border: 0.0625rem solid lightgrey;
+  background-color: var(--input-bg);
+  border: 0.0625rem solid var(--input-border);
   box-shadow: none;
+  color: var(--text);
   column-gap: 1rem;
   grid-area: header-input;
   padding: 0.75rem;
@@ -122,10 +98,9 @@ onMounted(() => {
 }
 
 .button {
-  background: none;
   background: var(--blue);
   border: 0;
-  color: white;
+  color: var(--button-text);
   font-size: 1rem;
   grid-area: header-button;
   line-height: 1;
