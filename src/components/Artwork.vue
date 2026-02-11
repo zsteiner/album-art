@@ -78,7 +78,7 @@ async function copyImage() {
 }
 
 .copy-button {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgb(0 0 0 / 60%);
   border: none;
   border-radius: 0.375rem;
   bottom: 0.5rem;
@@ -93,8 +93,8 @@ async function copyImage() {
   z-index: 1;
 }
 
-.artwork:hover .copy-button,
-.copy-button:focus-visible {
+.copy-button:focus-visible,
+.artwork:hover .copy-button {
   opacity: 1;
 }
 
