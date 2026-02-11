@@ -81,9 +81,11 @@ export const useAlbumStore = defineStore('album', () => {
     loading.value = true;
 
     try {
+      const timeoutId = setTimeout(() => abortController?.abort(), FETCH_TIMEOUT);
       const response = await fetch(api, {
-        signal: AbortSignal.any([abortController.signal, AbortSignal.timeout(FETCH_TIMEOUT)]),
+        signal: abortController.signal,
       });
+      clearTimeout(timeoutId);
       const data = await response.json();
       const results = data?.results;
       if (Array.isArray(results)) {
