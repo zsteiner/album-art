@@ -72,7 +72,7 @@ export const useAlbumStore = defineStore('album', () => {
 
   async function getAlbums() {
     const encodedQuery = encodeQuery(searchTerm.value ?? '');
-    const api = `https://itunes.apple.com/search?term=${encodedQuery}&country=${COUNTRY}&media=${media.value}&entity=${entity.value}`;
+    const api = `/api/search?term=${encodedQuery}&country=${COUNTRY}&media=${media.value}&entity=${entity.value}`;
 
     updateRoutes();
     cancelPendingRequest();
@@ -86,6 +86,11 @@ export const useAlbumStore = defineStore('album', () => {
         signal: abortController.signal,
       });
       clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
       const data = await response.json();
       const results = data?.results;
       if (Array.isArray(results)) {

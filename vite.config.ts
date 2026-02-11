@@ -1,5 +1,4 @@
-/// <reference types="vitest" />
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import vue from '@vitejs/plugin-vue';
 import svgLoader from 'vite-svg-loader';
 import { fileURLToPath, URL } from 'node:url';
@@ -15,6 +14,13 @@ export default defineConfig({
   ],
   server: {
     port: 8080,
+    proxy: {
+      '/api/search': {
+        target: 'https://itunes.apple.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/search/, '/search'),
+      },
+    },
   },
   preview: {
     port: 8080,
