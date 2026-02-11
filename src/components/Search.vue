@@ -26,14 +26,13 @@ const route = useRoute();
 const { albums, searchTerm, error, loading } = storeToRefs(store);
 
 onMounted(() => {
-  const q = typeof route.query.q === 'string' ? route.query.q : undefined;
+  const q = typeof route.query.search === 'string' ? route.query.search : undefined;
   const media = typeof route.query.media === 'string' ? route.query.media : undefined;
 
   if (q) {
     store.getQueryStrings(q, media);
     store.getAlbums();
   } else if (searchTerm.value) {
-    store.updateRoutes();
     store.getAlbums();
   }
 });

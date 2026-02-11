@@ -6,10 +6,7 @@ import { useAlbumStore } from '../albumStore';
 function createTestRouter() {
   return createRouter({
     history: createMemoryHistory(),
-    routes: [
-      { path: '/', name: 'home', component: { template: '<div />' } },
-      { path: '/itunes', name: 'itunes', component: { template: '<div />' } },
-    ],
+    routes: [{ path: '/', name: 'itunes', component: { template: '<div />' } }],
   });
 }
 
@@ -27,7 +24,7 @@ vi.mock('vue-router', async () => {
 describe('albumStore', () => {
   beforeEach(async () => {
     testRouter = createTestRouter();
-    await testRouter.push('/itunes');
+    await testRouter.push('/');
     setActivePinia(createPinia());
   });
 
@@ -49,22 +46,22 @@ describe('albumStore', () => {
     expect(localStorage.getItem('searchTerm')).toBe('radiohead');
   });
 
-  it('updates media and entity correctly', () => {
+  it('derives entity from media correctly', () => {
     const store = useAlbumStore();
 
-    store.updateMedia('music');
+    store.media = 'music';
     expect(store.entity).toBe('album');
 
-    store.updateMedia('tvShow');
+    store.media = 'tvShow';
     expect(store.entity).toBe('tvSeason');
 
-    store.updateMedia('all');
+    store.media = 'all';
     expect(store.entity).toBe('allTrack');
 
-    store.updateMedia('movie');
+    store.media = 'movie';
     expect(store.entity).toBe('movie');
 
-    store.updateMedia('podcast');
+    store.media = 'podcast';
     expect(store.entity).toBe('podcast');
   });
 

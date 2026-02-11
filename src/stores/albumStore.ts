@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import { useRouter } from 'vue-router';
 
@@ -9,6 +9,16 @@ import type { Album, AppleAlbum, MediaType, EntityType } from '@/types/album';
 
 const MEDIA_TYPES: MediaType[] = ['music', 'movie', 'podcast', 'tvShow', 'ebook', 'all'];
 const FETCH_TIMEOUT = 15_000;
+const COUNTRY = 'us';
+
+const ENTITY_MAP: Record<MediaType, EntityType> = {
+  music: 'album',
+  tvShow: 'tvSeason',
+  all: 'allTrack',
+  movie: 'movie',
+  podcast: 'podcast',
+  ebook: 'ebook',
+};
 
 function isValidMediaType(value: string): value is MediaType {
   return MEDIA_TYPES.includes(value as MediaType);
@@ -18,13 +28,12 @@ export const useAlbumStore = defineStore('album', () => {
   const router = useRouter();
 
   const albums = ref<Album[]>([]);
-  const country = ref('us');
   const media = ref<MediaType>('music');
   const searchTerm = ref<string | null>(null);
   const madeSearch = ref(false);
   const error = ref<string | null>(null);
   const loading = ref(false);
-  const entity = ref<EntityType>('album');
+  const entity = computed(() => ENTITY_MAP[media.value]);
 
   let abortController: AbortController | null = null;
 
@@ -45,26 +54,9 @@ export const useAlbumStore = defineStore('album', () => {
     searchTerm.value = query;
   }
 
-  function updateMedia(value: MediaType) {
-    media.value = value;
-    switch (value) {
-      case 'music':
-        entity.value = 'album';
-        break;
-      case 'tvShow':
-        entity.value = 'tvSeason';
-        break;
-      case 'all':
-        entity.value = 'allTrack';
-        break;
-      default:
-        entity.value = value as EntityType;
-    }
-  }
-
   function updateRoutes() {
     const query = encodeQuery(searchTerm.value ?? '');
-    router.push({ query: { q: query, media: media.value } }).catch((err) => {
+    router.push({ query: { search: query, media: media.value } }).catch((err) => {
       if (err.name !== 'NavigationDuplicated') {
         console.warn('Navigation failed:', err);
       }
@@ -80,7 +72,7 @@ export const useAlbumStore = defineStore('album', () => {
 
   async function getAlbums() {
     const encodedQuery = encodeQuery(searchTerm.value ?? '');
-    const api = `https://itunes.apple.com/search?term=${encodedQuery}&country=${country.value}&media=${media.value}&entity=${entity.value}`;
+    const api = `https://itunes.apple.com/search?term=${encodedQuery}&country=${COUNTRY}&media=${media.value}&entity=${entity.value}`;
 
     updateRoutes();
     cancelPendingRequest();
@@ -113,25 +105,19 @@ export const useAlbumStore = defineStore('album', () => {
   }
 
   function setMedia(value: MediaType) {
-    updateMedia(value);
+    media.value = value;
     getAlbums();
   }
 
   function getQueryStrings(q: string | undefined, mediaParam: string | undefined) {
     if (q && mediaParam) {
-      const query = decodeQuery(q);
-      setSearchTerm(query);
-      if (isValidMediaType(mediaParam)) {
-        updateMedia(mediaParam);
-      } else {
-        updateMedia('music');
-      }
+      setSearchTerm(decodeQuery(q));
+      media.value = isValidMediaType(mediaParam) ? mediaParam : 'music';
     }
   }
 
   return {
     albums,
-    country,
     media,
     searchTerm,
     madeSearch,
@@ -139,8 +125,6 @@ export const useAlbumStore = defineStore('album', () => {
     loading,
     entity,
     setSearchTerm,
-    updateMedia,
-    updateRoutes,
     getAlbums,
     setMedia,
     getQueryStrings,

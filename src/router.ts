@@ -6,12 +6,12 @@ export default createRouter({
   routes: [
     {
       path: '/',
-      redirect: { name: 'itunes' },
-    },
-    {
-      path: '/itunes',
       name: 'itunes',
       component: ItunesPage,
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/',
     },
   ],
 });
