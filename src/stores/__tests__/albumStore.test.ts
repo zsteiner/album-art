@@ -87,7 +87,7 @@ describe('albumStore', () => {
 
   it('decodes percent-encoded query strings', () => {
     const store = useAlbumStore();
-    store.getQueryStrings('the%20national', 'music');
-    expect(store.searchTerm).toBe('the national');
+    store.getQueryStrings('miles%20davis', 'music');
+    expect(store.searchTerm).toBe('miles davis');
   });
 });
