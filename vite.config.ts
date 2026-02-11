@@ -1,7 +1,24 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig, type Plugin } from 'vitest/config';
 import vue from '@vitejs/plugin-vue';
 import svgLoader from 'vite-svg-loader';
 import { fileURLToPath, URL } from 'node:url';
+
+function itunesProxy(): Plugin {
+  return {
+    name: 'itunes-proxy',
+    configureServer(server) {
+      server.middlewares.use('/api/search', async (req, res) => {
+        const url = new URL(req.url ?? '', 'http://localhost');
+        const response = await fetch(
+          `https://itunes.apple.com/search${url.search}`,
+        );
+        const data = await response.text();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(data);
+      });
+    },
+  };
+}
 
 export default defineConfig({
   plugins: [
@@ -11,16 +28,10 @@ export default defineConfig({
         multipass: true,
       },
     }),
+    itunesProxy(),
   ],
   server: {
     port: 8080,
-    proxy: {
-      '/api/search': {
-        target: 'https://itunes.apple.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/search/, '/search'),
-      },
-    },
   },
   preview: {
     port: 8080,
