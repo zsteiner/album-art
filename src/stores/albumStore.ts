@@ -45,7 +45,7 @@ export const useAlbumStore = defineStore('album', () => {
       releaseDate: album.releaseDate,
       cover: album.artworkUrl100,
       coverMedRes: album.artworkUrl100.replace('100x100b', '600x600b'),
-      coverHighRes: album.artworkUrl100.replace('100x100b', '100000x100000-999b'),
+      coverHighRes: album.artworkUrl100.replace('100x100bb', '3000x3000bb'),
     }));
   }
 

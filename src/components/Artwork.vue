@@ -1,7 +1,7 @@
 <template>
   <div>
     <figure class="artwork">
-      <img ref="imgRef" :src="album.coverMedRes" :alt="album.title" crossorigin="anonymous" loading="lazy" />
+      <img :src="album.coverMedRes" :alt="album.title" loading="lazy" />
       <button
         class="copy-button"
         :aria-label="`Copy ${album.title} artwork to clipboard`"
@@ -20,16 +20,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue';
 import type { Album } from '@/types/album';
 import copyImageToClipboard from '@/utils/copyImageToClipboard';
 import formatDate from '@/utils/formatDate';
 
-defineProps<{
+const props = defineProps<{
   album: Album;
 }>();
 
-const imgRef = ref<HTMLImageElement | null>(null);
 const copyState = ref<'idle' | 'copying' | 'copied' | 'error'>('idle');
 
 const copyEmoji = computed(() => {
@@ -46,12 +45,9 @@ const copyEmoji = computed(() => {
 });
 
 async function copyImage() {
-  const img = imgRef.value;
-  if (!img) return;
-
   copyState.value = 'copying';
   try {
-    await copyImageToClipboard(img);
+    await copyImageToClipboard(props.album.coverHighRes);
     copyState.value = 'copied';
   } catch {
     copyState.value = 'error';
