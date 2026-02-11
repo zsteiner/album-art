@@ -2,7 +2,6 @@
   <div>
     <figure class="artwork">
       <img :src="album.coverMedRes" :alt="album.title" />
-      <ArtworkControls :show-success="showSuccess" @copy="copyImage" />
     </figure>
     <time class="album-date">{{ formatDate(album.releaseDate) }}</time>
     <h2 class="album-title">{{ album.title }}</h2>
@@ -11,27 +10,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import type { Album } from '@/types/album';
-import ArtworkControls from './ArtworkControls.vue';
 
-const props = defineProps<{
+defineProps<{
   album: Album;
 }>();
-
-const showSuccess = ref(false);
-
-async function copyImage() {
-  try {
-    await navigator.clipboard.writeText(props.album.coverHighRes);
-    showSuccess.value = true;
-    setTimeout(() => {
-      showSuccess.value = false;
-    }, 4000);
-  } catch {
-    console.error('Copy failed');
-  }
-}
 
 function formatDate(releaseDate: string): string {
   return new Date(releaseDate).toLocaleDateString('en-us', { year: 'numeric' });
@@ -39,23 +22,6 @@ function formatDate(releaseDate: string): string {
 </script>
 
 <style>
-.success,
-.copy {
-  background: rgb(255 255 255 / 25%);
-  font-size: 1.5rem;
-  height: 100%;
-  left: 0;
-  padding: 1rem;
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-
-.copy {
-  border: 0;
-  display: none;
-}
-
 .artwork {
   background-color: silver;
   border: 0.0625rem solid silver;
@@ -71,14 +37,6 @@ function formatDate(releaseDate: string): string {
   position: absolute;
   top: 0;
   width: 100%;
-}
-
-.active + .copy {
-  display: none;
-}
-
-.artwork:hover .copy {
-  display: block;
 }
 
 @media (width >= 70rem) {
@@ -104,10 +62,4 @@ function formatDate(releaseDate: string): string {
   margin: 0.5rem 0;
 }
 
-.success {
-  align-items: center;
-  display: flex;
-  font-weight: 900;
-  justify-content: center;
-}
 </style>
