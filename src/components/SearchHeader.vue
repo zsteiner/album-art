@@ -16,59 +16,52 @@
       @keyup.enter="submitSearch"
     />
     <button class="button" @click="submitSearch">search</button>
-    <TypeSelector v-if="service === 'itunes'" :on-change="submitSearch" />
+    <TypeSelector v-if="service === 'itunes'" />
   </header>
 </template>
 
-<script>
-import { mapState, mapActions } from 'vuex';
-
+<script setup lang="ts">
+import { watch, onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useAlbumStore } from '@/stores/albumStore';
 import Icon from '@/components/Icon.vue';
 import TypeSelector from '@/components/TypeSelector.vue';
 
-export default {
-  name: 'SearchHeader',
+const props = defineProps<{
+  hasQueryParam: boolean;
+  title: string;
+}>();
 
-  components: {
-    Icon,
-    TypeSelector,
-  },
-  props: {
-    hasQueryParam: Boolean,
-    title: { type: String, required: true },
-  },
+const store = useAlbumStore();
+const { searchTerm, service } = storeToRefs(store);
 
-  computed: {
-    ...mapState(['searchTerm', 'madeSearch', 'media', 'service']),
-  },
-  watch: {
-    hasQueryParam: function watch(value) {
-      if (value) {
-        this.submitSearch();
-      }
-    },
-  },
-  mounted() {
-    if (this.shouldUpdate && this.searchTerm) {
-      this.submitSearch();
+function submitSearch() {
+  if (service.value === 'spotify') {
+    store.getSpotifyAlbums();
+  } else {
+    store.getAppleAlbums();
+  }
+}
+
+function updateSearch(event: Event) {
+  const target = event.target as HTMLInputElement;
+  store.setSearchTerm(target.value);
+}
+
+watch(
+  () => props.hasQueryParam,
+  (value) => {
+    if (value) {
+      submitSearch();
     }
   },
-  methods: {
-    ...mapActions(['getAppleAlbums', 'getSpotifyAlbums']),
+);
 
-    submitSearch() {
-      if (this.service === 'spotify') {
-        this.getSpotifyAlbums();
-      } else {
-        this.getAppleAlbums();
-      }
-    },
-
-    updateSearch(event) {
-      this.$store.commit('search', event.target.value);
-    },
-  },
-};
+onMounted(() => {
+  if (searchTerm.value) {
+    submitSearch();
+  }
+});
 </script>
 
 <style scoped>

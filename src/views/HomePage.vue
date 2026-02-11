@@ -11,20 +11,17 @@
   </article>
 </template>
 
-<script>
+<script setup lang="ts">
+import { useRoute, useRouter } from 'vue-router';
 import Icon from '@/components/Icon.vue';
 
-export default {
-  components: {
-    Icon,
-  },
-  created() {
-    const query = { ...this.$route.query };
-    delete query.q;
-    delete query.media;
-    this.$router.replace({ query });
-  },
-};
+const route = useRoute();
+const router = useRouter();
+
+const query = { ...route.query };
+delete query.q;
+delete query.media;
+router.replace({ query });
 </script>
 
 <style scoped>

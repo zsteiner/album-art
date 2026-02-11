@@ -7,34 +7,24 @@
   </article>
 </template>
 
-<script>
-import { mapActions, mapState } from 'vuex';
+<script setup lang="ts">
+import { onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useAlbumStore } from '@/stores/albumStore';
 
-export default {
-  name: 'CallBack',
-  data() {
-    return {
-      accessToken: this.$route.hash,
-    };
-  },
-  computed: {
-    ...mapState({
-      searchTerm: (state) => state.searchTerm,
-      media: (state) => state.media,
-    }),
-  },
-  mounted() {
-    this.setSpotifyAuth(this.accessToken);
-    this.setService('spotify');
+const route = useRoute();
+const router = useRouter();
+const store = useAlbumStore();
+const accessToken = route.hash;
 
-    setTimeout(() => {
-      this.$router.push({ name: 'spotify' });
-    }, 2000);
-  },
-  methods: {
-    ...mapActions(['setSpotifyAuth', 'setService']),
-  },
-};
+onMounted(() => {
+  store.setSpotifyAuth(accessToken);
+  store.setService('spotify');
+
+  setTimeout(() => {
+    router.push({ name: 'spotify' });
+  }, 2000);
+});
 </script>
 
 <style scoped>

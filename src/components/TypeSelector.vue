@@ -21,45 +21,27 @@
   </div>
 </template>
 
-<script>
-import { mapState, mapActions } from 'vuex';
-
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useAlbumStore } from '@/stores/albumStore';
+import type { MediaType } from '@/types/album';
 import Icon from '@/components/Icon.vue';
 
-export default {
-  name: 'TypeSelector',
-  components: {
-    Icon,
-  },
-  data() {
-    return {
-      mediaTypes: [
-        { value: 'music', label: 'Music' },
-        { value: 'movie', label: 'Movies' },
-        { value: 'podcast', label: 'Podcast' },
-        { value: 'tvShow', label: 'TV Shows' },
-        { value: 'ebook', label: 'Ebook' },
-        { value: 'all', label: 'All' },
-      ],
-    };
-  },
-  computed: {
-    ...mapState({
-      searchTerm: (state) => state.searchTerm,
-    }),
-    media: {
-      get() {
-        return this.$store.state.media;
-      },
-      set(value) {
-        this.setMedia(value);
-      },
-    },
-  },
-  methods: {
-    ...mapActions(['setMedia']),
-  },
-};
+const store = useAlbumStore();
+
+const media = computed({
+  get: () => store.media,
+  set: (value: MediaType) => store.setMedia(value),
+});
+
+const mediaTypes = [
+  { value: 'music', label: 'Music' },
+  { value: 'movie', label: 'Movies' },
+  { value: 'podcast', label: 'Podcast' },
+  { value: 'tvShow', label: 'TV Shows' },
+  { value: 'ebook', label: 'Ebook' },
+  { value: 'all', label: 'All' },
+];
 </script>
 
 <style>

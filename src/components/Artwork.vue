@@ -2,7 +2,7 @@
   <div>
     <figure class="artwork">
       <img :src="album.coverMedRes" :alt="album.title" />
-      <ArtworkControls :show-success="showSuccess" :on-click="copyImage" />
+      <ArtworkControls :show-success="showSuccess" @copy="copyImage" />
     </figure>
     <time class="album-date">{{ formatDate(album.releaseDate) }}</time>
     <h2 class="album-title">{{ album.title }}</h2>
@@ -10,51 +10,32 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { ref } from 'vue';
+import type { Album } from '@/types/album';
 import ArtworkControls from './ArtworkControls.vue';
 
-export default {
-  name: 'Artwork',
-  components: {
-    ArtworkControls,
-  },
-  props: {
-    album: { type: Object, default: () => {} },
-  },
-  data() {
-    return { showSuccess: false };
-  },
-  methods: {
-    copyImage() {
-      const { id } = this.album;
-      const copyTarget = this.$refs[id];
-      const range = document.createRange();
-      range.selectNode(copyTarget);
-      window.getSelection().addRange(range);
+const props = defineProps<{
+  album: Album;
+}>();
 
-      try {
-        const successful = document.execCommand('copy');
-        this.showSuccess = !!successful;
+const showSuccess = ref(false);
 
-        window.getSelection().removeAllRanges();
+async function copyImage() {
+  try {
+    await navigator.clipboard.writeText(props.album.coverHighRes);
+    showSuccess.value = true;
+    setTimeout(() => {
+      showSuccess.value = false;
+    }, 4000);
+  } catch {
+    console.error('Copy failed');
+  }
+}
 
-        setTimeout(() => {
-          this.showSuccess = false;
-        }, 4000);
-      } catch (err) {
-        console.log("Can't copy");
-      }
-    },
-    formatDate(releaseDate) {
-      const date = new Date(releaseDate);
-      const dateOptions = {
-        year: 'numeric',
-      };
-      const formattedDate = date.toLocaleDateString('en-us', dateOptions);
-      return formattedDate;
-    },
-  },
-};
+function formatDate(releaseDate: string): string {
+  return new Date(releaseDate).toLocaleDateString('en-us', { year: 'numeric' });
+}
 </script>
 
 <style>

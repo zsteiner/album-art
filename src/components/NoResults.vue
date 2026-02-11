@@ -2,15 +2,11 @@
   <h2 v-if="madeSearch" class="no-results">Sorry Can't Find Anything</h2>
 </template>
 
-<script>
-import { mapState } from 'vuex';
+<script setup lang="ts">
+import { storeToRefs } from 'pinia';
+import { useAlbumStore } from '@/stores/albumStore';
 
-export default {
-  name: 'NoResults',
-  computed: {
-    ...mapState(['madeSearch']),
-  },
-};
+const { madeSearch } = storeToRefs(useAlbumStore());
 </script>
 
 <style>

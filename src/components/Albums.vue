@@ -6,18 +6,13 @@
   </ul>
 </template>
 
-<script>
+<script setup lang="ts">
+import type { Album } from '@/types/album';
 import Artwork from './Artwork.vue';
 
-export default {
-  name: 'Albums',
-  components: {
-    Artwork,
-  },
-  props: {
-    albums: { type: Array, default: () => [] },
-  },
-};
+defineProps<{
+  albums: Album[];
+}>();
 </script>
 
 <style scoped>

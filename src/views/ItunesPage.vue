@@ -4,26 +4,12 @@
   </article>
 </template>
 
-<script>
-import { mapActions } from 'vuex';
-
+<script setup lang="ts">
+import { useAlbumStore } from '@/stores/albumStore';
 import Search from '@/components/Search.vue';
 
-export default {
-  name: 'ItunesPage',
-  components: {
-    Search,
-  },
-  data() {
-    return {
-      title: 'iTunes Search',
-    };
-  },
-  created() {
-    this.setService('itunes');
-  },
-  methods: {
-    ...mapActions(['setService']),
-  },
-};
+const store = useAlbumStore();
+const title = 'iTunes Search';
+
+store.setService('itunes');
 </script>
