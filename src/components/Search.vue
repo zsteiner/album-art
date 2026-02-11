@@ -4,7 +4,7 @@
     <p v-if="error" class="error" role="alert">{{ error }}</p>
     <p v-if="loading" class="loading" aria-live="polite">Searching...</p>
     <Albums v-if="albums.length > 0" :albums="albums" />
-    <NoResults v-else />
+    <NoResults v-else-if="!error" />
   </section>
 </template>
 
