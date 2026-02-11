@@ -1,27 +1,14 @@
 <template>
   <article class="home">
     <router-link to="/itunes" class="home-icon itunes">
-      <Icon :icon="'itunes'" />
+      <Icon icon="itunes" />
       <span class="label">Search iTunes</span>
-    </router-link>
-    <router-link to="/spotify" class="home-icon spotify">
-      <Icon :icon="'spotify'" />
-      <span class="label">Search Spotify</span>
     </router-link>
   </article>
 </template>
 
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router';
 import Icon from '@/components/Icon.vue';
-
-const route = useRoute();
-const router = useRouter();
-
-const query = { ...route.query };
-delete query.q;
-delete query.media;
-router.replace({ query });
 </script>
 
 <style scoped>

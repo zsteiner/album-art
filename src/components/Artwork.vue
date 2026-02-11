@@ -1,9 +1,11 @@
 <template>
   <div>
     <figure class="artwork">
-      <img :src="album.coverMedRes" :alt="album.title" />
+      <img :src="album.coverMedRes" :alt="album.title" loading="lazy" />
     </figure>
-    <time class="album-date">{{ formatDate(album.releaseDate) }}</time>
+    <time class="album-date" :datetime="album.releaseDate">
+      {{ formatDate(album.releaseDate) }}
+    </time>
     <h2 class="album-title">{{ album.title }}</h2>
     <p class="artist">{{ album.artist }}</p>
   </div>
@@ -61,5 +63,4 @@ function formatDate(releaseDate: string): string {
   font-size: 0.75em;
   margin: 0.5rem 0;
 }
-
 </style>

@@ -1,20 +1,19 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
-import axios from 'axios';
+import axios, { type CancelTokenSource } from 'axios';
 import { useRouter } from 'vue-router';
 
-import checkExpiration from '@/utils/checkExpiration';
 import encodeQuery from '@/utils/encodeQuery';
 import decodeQuery from '@/utils/decodeQuery';
 
-import type {
-  Album,
-  AppleAlbum,
-  SpotifyAlbum,
-  MediaType,
-  EntityType,
-  ServiceType,
-} from '@/types/album';
+import type { Album, AppleAlbum, MediaType, EntityType } from '@/types/album';
+
+const MEDIA_TYPES: MediaType[] = ['music', 'movie', 'podcast', 'tvShow', 'ebook', 'all'];
+const AXIOS_TIMEOUT = 15_000;
+
+function isValidMediaType(value: string): value is MediaType {
+  return MEDIA_TYPES.includes(value as MediaType);
+}
 
 export const useAlbumStore = defineStore('album', () => {
   const router = useRouter();
@@ -24,11 +23,13 @@ export const useAlbumStore = defineStore('album', () => {
   const media = ref<MediaType>('music');
   const searchTerm = ref<string | null>(null);
   const madeSearch = ref(false);
-  const service = ref<ServiceType>('itunes');
-  const spotifyAuth = ref<string | null>(null);
+  const error = ref<string | null>(null);
+  const loading = ref(false);
   const entity = ref<EntityType>('album');
 
-  function formatAppleAlbums(data: AppleAlbum[]) {
+  let cancelTokenSource: CancelTokenSource | null = null;
+
+  function formatAlbums(data: AppleAlbum[]) {
     albums.value = data.map((album) => ({
       id: album.collectionId,
       artist: album.artistName,
@@ -37,18 +38,6 @@ export const useAlbumStore = defineStore('album', () => {
       cover: album.artworkUrl100,
       coverMedRes: album.artworkUrl100.replace('100x100b', '600x600b'),
       coverHighRes: album.artworkUrl100.replace('100x100b', '100000x100000-999b'),
-    }));
-  }
-
-  function formatSpotifyAlbums(data: SpotifyAlbum[]) {
-    albums.value = data.map((album) => ({
-      id: album.id,
-      artist: album.artists[0].name,
-      title: album.name,
-      releaseDate: album.release_date,
-      cover: album.images.length > 2 ? album.images[2].url : album.images[0].url,
-      coverMedRes: album.images[1].url,
-      coverHighRes: album.images[0].url,
     }));
   }
 
@@ -74,105 +63,68 @@ export const useAlbumStore = defineStore('album', () => {
     }
   }
 
-  function queryStringToState(q: string, mediaParam: MediaType) {
-    const query = decodeQuery(q);
-    localStorage.setItem('searchTerm', query);
-    searchTerm.value = query;
-    media.value = mediaParam;
-  }
-
-  function clearAuth() {
-    spotifyAuth.value = null;
-  }
-
   function updateRoutes() {
     const query = encodeQuery(searchTerm.value ?? '');
-    router.push({ query: { q: query, media: media.value } }).catch(() => {});
+    router.push({ query: { q: query, media: media.value } }).catch((err) => {
+      if (err.name !== 'NavigationDuplicated') {
+        console.warn('Navigation failed:', err);
+      }
+    });
   }
 
-  async function getAppleAlbums() {
+  function cancelPendingRequest() {
+    if (cancelTokenSource) {
+      cancelTokenSource.cancel('New search initiated');
+      cancelTokenSource = null;
+    }
+  }
+
+  async function getAlbums() {
     const encodedQuery = encodeQuery(searchTerm.value ?? '');
     const api = `https://itunes.apple.com/search?term=${encodedQuery}&country=${country.value}&media=${media.value}&entity=${entity.value}`;
 
     updateRoutes();
+    cancelPendingRequest();
+    cancelTokenSource = axios.CancelToken.source();
+    error.value = null;
+    loading.value = true;
 
     try {
-      const response = await axios.get(api);
-      formatAppleAlbums(response.data.results);
-      madeSearch.value = false;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  async function getSpotifyAlbums() {
-    const encodedQuery = encodeQuery(searchTerm.value ?? '');
-    const api = `https://api.spotify.com/v1/search?access_token=${spotifyAuth.value}&q=${encodedQuery}&market=${country.value}&type=${entity.value}&limit=20`;
-
-    updateRoutes();
-
-    try {
-      const response = await axios.get(api);
-      formatSpotifyAlbums(response.data.albums.items);
-      madeSearch.value = false;
-    } catch (error: unknown) {
-      console.error(error);
-      if (axios.isAxiosError(error) && error.response?.status === 401) {
-        clearAuth();
+      const response = await axios.get(api, {
+        timeout: AXIOS_TIMEOUT,
+        cancelToken: cancelTokenSource.token,
+      });
+      const results = response.data?.results;
+      if (Array.isArray(results)) {
+        formatAlbums(results);
+      } else {
+        albums.value = [];
       }
-    }
-  }
-
-  function getSpotifyAuth() {
-    const clientID = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-    const redirect = encodeURIComponent(import.meta.env.VITE_SPOTIFY_REDIRECT);
-    const api = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirect}&response_type=token&state=123`;
-
-    if (searchTerm.value) {
-      localStorage.setItem('searchTerm', searchTerm.value);
-    }
-
-    window.location.href = api;
-  }
-
-  function setSpotifyAuth(code: string) {
-    const updateDate = new Date();
-    const regex = /access_token=(.*?)&/;
-    const match = code.match(regex);
-
-    if (match) {
-      const auth = match[1];
-      spotifyAuth.value = auth;
-      localStorage.setItem('spotifyAuth', auth);
-      localStorage.setItem('updateDate', updateDate.toDateString());
+      madeSearch.value = true;
+    } catch (err) {
+      if (!axios.isCancel(err)) {
+        console.error(err);
+        error.value = 'Search failed. Please try again.';
+        madeSearch.value = true;
+      }
+    } finally {
+      loading.value = false;
     }
   }
 
   function setMedia(value: MediaType) {
     updateMedia(value);
-    getAppleAlbums();
+    getAlbums();
   }
 
   function getQueryStrings(q: string | undefined, mediaParam: string | undefined) {
     if (q && mediaParam) {
-      queryStringToState(q, mediaParam as MediaType);
-      updateMedia((mediaParam as MediaType) || 'music');
-    }
-  }
-
-  function setService(svc: ServiceType) {
-    service.value = svc;
-  }
-
-  function checkLocalStorageAuth() {
-    const storedAuth = localStorage.getItem('spotifyAuth');
-    const updateDate = localStorage.getItem('updateDate');
-    const storedSearchTerm = localStorage.getItem('searchTerm');
-
-    if (storedAuth && checkExpiration(updateDate)) {
-      spotifyAuth.value = storedAuth;
-      if (storedSearchTerm) {
-        searchTerm.value = storedSearchTerm;
+      const query = decodeQuery(q);
+      setSearchTerm(query);
+      if (isValidMediaType(mediaParam)) {
+        updateMedia(mediaParam);
+      } else {
+        updateMedia('music');
       }
     }
   }
@@ -183,20 +135,14 @@ export const useAlbumStore = defineStore('album', () => {
     media,
     searchTerm,
     madeSearch,
-    service,
-    spotifyAuth,
+    error,
+    loading,
     entity,
     setSearchTerm,
     updateMedia,
-    clearAuth,
     updateRoutes,
-    getAppleAlbums,
-    getSpotifyAlbums,
-    getSpotifyAuth,
-    setSpotifyAuth,
+    getAlbums,
     setMedia,
     getQueryStrings,
-    setService,
-    checkLocalStorageAuth,
   };
 });

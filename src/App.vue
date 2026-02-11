@@ -14,10 +14,27 @@
   --blue: hsl(200deg 60% 30%);
   --green: hsl(120deg 60% 50%);
   --itunes: #f25f77;
-  --spotify: #1ed760;
+  --bg: #fff;
+  --input-bg: #fff;
+  --input-border: lightgrey;
+  --button-text: #fff;
+  --text: var(--blue);
   --small: 24rem;
   --medium: 52rem;
   --large: 70rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1a2e;
+    --blue: hsl(200deg 60% 70%);
+    --green: hsl(120deg 60% 50%);
+    --itunes: #f78a9a;
+    --input-bg: hsl(200deg 20% 15%);
+    --input-border: hsl(200deg 20% 30%);
+    --button-text: hsl(200deg 20% 10%);
+    --text: hsl(200deg 20% 85%);
+  }
 }
 
 *,
@@ -27,54 +44,21 @@
 }
 
 body {
+  background-color: var(--bg);
   box-sizing: border-box;
   margin: 0;
 }
 
 .app {
-  color: var(--blue);
+  color: var(--text);
   font-family: var(--font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding: 1rem;
 }
 
-.nav {
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-  padding: 1.5rem 0;
-  text-align: center;
-}
-
-.nav a {
-  color: var(--blue);
-  opacity: 0.35;
-  text-decoration: none;
-}
-
-.nav a:not(:last-child) {
-  margin-right: 2rem;
-}
-
-.nav a.router-link-active,
-.nav a.router-link-exact-active {
-  font-weight: 700;
-  opacity: 1;
-}
-
-nav a .icon {
-  bottom: -0.25em;
-  font-size: 1.25em;
-  margin-right: 0.25em;
-}
-
 .itunes .icon {
   color: var(--itunes);
-}
-
-.spotify .icon {
-  color: var(--spotify);
 }
 
 figure {
