@@ -1,5 +1,6 @@
 import { createWebHistory, createRouter } from 'vue-router';
 import ItunesPage from '@/views/ItunesPage.vue';
+import SpotifyPage from '@/views/SpotifyPage.vue';
 import CallBack from '@/views/CallBack.vue';
 
 export default createRouter({
@@ -13,6 +14,11 @@ export default createRouter({
       path: '/itunes',
       name: 'itunes',
       component: ItunesPage,
+    },
+    {
+      path: '/spotify',
+      name: 'spotify',
+      component: SpotifyPage,
     },
     {
       path: '/callback',

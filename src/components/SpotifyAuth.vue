@@ -1,19 +1,14 @@
 <template>
   <section class="spotify">
     <p class="auth-help">To search Spotify you need to login.</p>
-    <button class="spotify-button" @click="getSpotifyAuth">Login to Spotify</button>
+    <button class="spotify-button" @click="store.getSpotifyAuth">Login to Spotify</button>
   </section>
 </template>
 
-<script>
-import { mapActions } from 'vuex';
+<script setup lang="ts">
+import { useAlbumStore } from '@/stores/albumStore';
 
-export default {
-  name: 'SpotifyAuth',
-  methods: {
-    ...mapActions(['getSpotifyAuth']),
-  },
-};
+const store = useAlbumStore();
 </script>
 
 <style scoped>

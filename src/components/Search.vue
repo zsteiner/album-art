@@ -6,43 +6,31 @@
   </section>
 </template>
 
-<script>
-import { mapActions, mapState } from 'vuex';
-
+<script setup lang="ts">
+import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import { storeToRefs } from 'pinia';
+import { useAlbumStore } from '@/stores/albumStore';
 import Albums from '@/components/Albums.vue';
 import NoResults from '@/components/NoResults.vue';
 import SearchHeader from '@/components/SearchHeader.vue';
 
-export default {
-  name: 'Search',
-  components: {
-    Albums,
-    NoResults,
-    SearchHeader,
-  },
-  props: {
-    title: { type: String, required: true },
-  },
-  data() {
-    return {
-      hasQueryParam: false,
-    };
-  },
-  computed: {
-    ...mapState(['albums', 'madeSearch', 'media', 'searchTerm']),
-  },
-  mounted() {
-    if (this.searchTerm) {
-      const { searchTerm, media } = this;
-      this.updateRoutes({ searchTerm, media });
-    } else {
-      const { q, media } = this.$route.query;
-      this.getQueryStrings({ q, media });
-      if (q) this.hasQueryParam = true;
-    }
-  },
-  methods: {
-    ...mapActions(['getQueryStrings', 'updateRoutes']),
-  },
-};
+defineProps<{
+  title: string;
+}>();
+
+const store = useAlbumStore();
+const route = useRoute();
+const { albums, searchTerm } = storeToRefs(store);
+const hasQueryParam = ref(false);
+
+onMounted(() => {
+  if (searchTerm.value) {
+    store.updateRoutes();
+  } else {
+    const { q, media } = route.query as { q?: string; media?: string };
+    store.getQueryStrings(q, media);
+    if (q) hasQueryParam.value = true;
+  }
+});
 </script>
